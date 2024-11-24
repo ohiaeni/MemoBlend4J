@@ -39,7 +39,7 @@ const router = createRouter({
         {
           path: 'delete',
           name: 'delete',
-          component: () => import('../views/DeleteVIew.vue'),
+          component: () => import('../views/DeleteView.vue'),
         },
       ]
     },
