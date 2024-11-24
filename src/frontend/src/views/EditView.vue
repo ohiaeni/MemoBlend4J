@@ -2,6 +2,6 @@
 </script>
 
 <template>
-  <h2>CREATE</h2>
-  CREATEページです。
+  <h2>EDIT</h2>
+  EDITページです。
 </template>
