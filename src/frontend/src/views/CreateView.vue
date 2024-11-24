@@ -3,7 +3,7 @@
 
 <template>
   <main>
-    <h2>HOME</h2>
-    HOMEページです。
+    <h2>CREATE</h2>
+    CREATEページです。
   </main>
 </template>
