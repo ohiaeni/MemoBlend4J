@@ -16,7 +16,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+# 追記
+from django.conf.urls import include
+from diary.urls import router as diary_router
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    # diary.urlsをincludeする
+    path('api/', include(diary_router.urls)),
 ]
