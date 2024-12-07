@@ -1,101 +1,11 @@
 <mxfile host="65bd71144e">
     <diagram id="PkQNtiSf6ZQ2Y-Qk9JJO" name="ページ1">
-        <mxGraphModel dx="574" dy="623" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+        <mxGraphModel dx="1135" dy="531" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
-                <mxCell id="16" value="インフラストラクチャ層" style="whiteSpace=wrap;html=1;align=right;strokeColor=#FFFFFF;fontColor=#FFFFFF;fillColor=#000000;" parent="1" vertex="1">
-                    <mxGeometry x="80" y="445" width="310" height="80" as="geometry"/>
-                </mxCell>
-                <mxCell id="13" value="アプリケーションコア層" style="whiteSpace=wrap;html=1;align=right;strokeColor=#FFFFFF;fontColor=#FFFFFF;fillColor=#000000;" parent="1" vertex="1">
-                    <mxGeometry x="80" y="345" width="580" height="80" as="geometry"/>
-                </mxCell>
-                <mxCell id="11" value="プレゼンテーション層" style="whiteSpace=wrap;html=1;align=right;strokeColor=#FFFFFF;fontColor=#FFFFFF;fillColor=#000000;" parent="1" vertex="1">
-                    <mxGeometry x="80" y="245" width="580" height="80" as="geometry"/>
-                </mxCell>
-                <mxCell id="2" value="src/&lt;br&gt;├── components/&amp;nbsp; &amp;nbsp; &amp;nbsp; // 再利用可能なUIコンポーネント&lt;br&gt;├── views/&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;// ページ単位のコンポーネント&lt;br&gt;├── services/&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; // API呼び出しロジック (Infrastructure層に相当)&lt;br&gt;├── stores/&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; // 状態管理 (VuexやPinia)&lt;br&gt;├── models/&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; // ドメインモデル (Entity/Value Object)&lt;br&gt;├── utils/&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;// 共通のユーティリティ&lt;br&gt;├── composables/&amp;nbsp; &amp;nbsp; &amp;nbsp;// Composition APIフック&lt;br&gt;├── router/&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; // Vue Router設定&lt;br&gt;├── assets/&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; // 静的アセット&lt;br&gt;└── main.js&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; // アプリのエントリーポイント" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=#FFFFFF;fillColor=#000000;fontColor=#FFFFFF;" parent="1" vertex="1">
-                    <mxGeometry x="20" y="20" width="390" height="170" as="geometry"/>
-                </mxCell>
-                <mxCell id="23" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#FFFFFF;fontColor=#FFFFFF;" parent="1" source="3" target="4" edge="1">
-                    <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
-                <mxCell id="25" style="edgeStyle=none;html=1;entryX=1;entryY=0.75;entryDx=0;entryDy=0;strokeColor=#FFFFFF;fontColor=#FFFFFF;" parent="1" source="3" target="5" edge="1">
-                    <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
-                <mxCell id="3" value="views" style="whiteSpace=wrap;html=1;strokeColor=#FFFFFF;fontColor=#FFFFFF;fillColor=#000000;" parent="1" vertex="1">
-                    <mxGeometry x="230" y="255" width="120" height="60" as="geometry"/>
-                </mxCell>
-                <mxCell id="24" style="edgeStyle=none;html=1;entryX=1;entryY=0.75;entryDx=0;entryDy=0;strokeColor=#FFFFFF;fontColor=#FFFFFF;" parent="1" source="4" target="3" edge="1">
-                    <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
-                <mxCell id="28" style="edgeStyle=none;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#FFFFFF;fontColor=#FFFFFF;" parent="1" source="4" target="7" edge="1">
-                    <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
-                <mxCell id="4" value="components" style="whiteSpace=wrap;html=1;strokeColor=#FFFFFF;fontColor=#FFFFFF;fillColor=#000000;" parent="1" vertex="1">
-                    <mxGeometry x="370" y="255" width="120" height="60" as="geometry"/>
-                </mxCell>
-                <mxCell id="20" value="" style="edgeStyle=none;html=1;strokeColor=#FFFFFF;fontColor=#FFFFFF;" parent="1" edge="1">
-                    <mxGeometry relative="1" as="geometry">
-                        <mxPoint x="130" y="195" as="sourcePoint"/>
-                        <mxPoint x="130" y="255" as="targetPoint"/>
-                    </mxGeometry>
-                </mxCell>
-                <mxCell id="22" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#FFFFFF;fontColor=#FFFFFF;" parent="1" source="5" target="3" edge="1">
-                    <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
-                <mxCell id="26" style="edgeStyle=none;html=1;strokeColor=#FFFFFF;fontColor=#FFFFFF;" parent="1" source="5" edge="1">
-                    <mxGeometry relative="1" as="geometry">
-                        <mxPoint x="150" y="195" as="targetPoint"/>
-                    </mxGeometry>
-                </mxCell>
-                <mxCell id="5" value="router" style="whiteSpace=wrap;html=1;strokeColor=#FFFFFF;fontColor=#FFFFFF;fillColor=#000000;" parent="1" vertex="1">
-                    <mxGeometry x="90" y="255" width="120" height="60" as="geometry"/>
-                </mxCell>
-                <mxCell id="30" value="" style="edgeStyle=none;html=1;strokeColor=#FFFFFF;fontColor=#FFFFFF;" parent="1" source="6" target="8" edge="1">
-                    <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
-                <mxCell id="6" value="stores" style="whiteSpace=wrap;html=1;strokeColor=#FFFFFF;fontColor=#FFFFFF;fillColor=#000000;" parent="1" vertex="1">
-                    <mxGeometry x="230" y="355" width="120" height="60" as="geometry"/>
-                </mxCell>
-                <mxCell id="29" value="" style="edgeStyle=none;html=1;strokeColor=#FFFFFF;fontColor=#FFFFFF;" parent="1" source="7" target="6" edge="1">
-                    <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
-                <mxCell id="31" style="edgeStyle=none;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#FFFFFF;fontColor=#FFFFFF;" parent="1" source="7" target="10" edge="1">
-                    <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
-                <mxCell id="7" value="composables" style="whiteSpace=wrap;html=1;strokeColor=#FFFFFF;fontColor=#FFFFFF;fillColor=#000000;" parent="1" vertex="1">
-                    <mxGeometry x="90" y="355" width="120" height="60" as="geometry"/>
-                </mxCell>
-                <mxCell id="8" value="models" style="whiteSpace=wrap;html=1;strokeColor=#FFFFFF;fontColor=#FFFFFF;fillColor=#000000;" parent="1" vertex="1">
-                    <mxGeometry x="370" y="355" width="120" height="60" as="geometry"/>
-                </mxCell>
-                <mxCell id="18" style="edgeStyle=none;html=1;strokeColor=#FFFFFF;fontColor=#FFFFFF;" parent="1" source="10" edge="1">
-                    <mxGeometry relative="1" as="geometry">
-                        <mxPoint x="150" y="585" as="targetPoint"/>
-                    </mxGeometry>
-                </mxCell>
-                <mxCell id="34" style="edgeStyle=none;html=1;entryX=0.25;entryY=1;entryDx=0;entryDy=0;strokeColor=#FFFFFF;fontColor=#FFFFFF;" parent="1" source="10" target="7" edge="1">
-                    <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
-                <mxCell id="10" value="services" style="whiteSpace=wrap;html=1;strokeColor=#FFFFFF;fontColor=#FFFFFF;fillColor=#000000;" parent="1" vertex="1">
-                    <mxGeometry x="90" y="455" width="120" height="60" as="geometry"/>
-                </mxCell>
-                <mxCell id="19" value="APIの呼び出し" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontColor=#FFFFFF;" parent="1" vertex="1">
-                    <mxGeometry x="160" y="535" width="100" height="30" as="geometry"/>
-                </mxCell>
-                <mxCell id="21" value="Request" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontColor=#FFFFFF;" parent="1" vertex="1">
-                    <mxGeometry x="35" y="205" width="70" height="30" as="geometry"/>
-                </mxCell>
-                <mxCell id="27" value="Response" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontColor=#FFFFFF;" parent="1" vertex="1">
-                    <mxGeometry x="155" y="205" width="80" height="30" as="geometry"/>
-                </mxCell>
-                <mxCell id="32" style="edgeStyle=none;html=1;entryX=0.25;entryY=1;entryDx=0;entryDy=0;strokeColor=#FFFFFF;fontColor=#FFFFFF;" parent="1" target="10" edge="1">
-                    <mxGeometry relative="1" as="geometry">
-                        <mxPoint x="120" y="575" as="sourcePoint"/>
-                    </mxGeometry>
-                </mxCell>
-                <mxCell id="33" value="APIの返却" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontColor=#FFFFFF;" parent="1" vertex="1">
-                    <mxGeometry x="30" y="535" width="80" height="30" as="geometry"/>
+                <mxCell id="2" value="&lt;div&gt;src/&lt;/div&gt;&lt;div&gt;├── assets/&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;# 画像やフォントなどのアセット&lt;/div&gt;&lt;div&gt;├── components/&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;# UI コンポーネント&lt;/div&gt;&lt;div&gt;│&amp;nbsp; &amp;nbsp;├── atoms/&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; # 再利用可能な最小単位のコンポーネント&lt;/div&gt;&lt;div&gt;│&amp;nbsp; &amp;nbsp;├── molecules/&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; # Atoms を組み合わせた小規模なコンポーネント&lt;/div&gt;&lt;div&gt;│&amp;nbsp; &amp;nbsp;├── organisms/&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; # Molecules を組み合わせたより複雑なコンポーネント&lt;/div&gt;&lt;div&gt;│&amp;nbsp; &amp;nbsp;├── templates/&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; # ページのレイアウト構造（UI スケルトン）&lt;/div&gt;&lt;div&gt;│&amp;nbsp; &amp;nbsp;└── pages/&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; # 各ページコンポーネント（ルートと対応）&lt;/div&gt;&lt;div&gt;├── composables/&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; # Vue 3 の Composition API 用のロジック (useXxx)&lt;/div&gt;&lt;div&gt;├── router/&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;# Vue Router 関連&lt;/div&gt;&lt;div&gt;├── stores/&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;# Pinia または Vuex ストア&lt;/div&gt;&lt;div&gt;├── styles/&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;# グローバルなスタイルやテーマ&lt;/div&gt;&lt;div&gt;├── utils/&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; # ユーティリティ関数&lt;/div&gt;&lt;div&gt;├── App.vue&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;# アプリケーションのエントリーポイント&lt;/div&gt;&lt;div&gt;├── main.js&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;# エントリーファイル&lt;/div&gt;&lt;div&gt;└── index.html&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; # HTML テンプレート&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=#FFFFFF;fillColor=#000000;fontColor=#FFFFFF;" parent="1" vertex="1">
+                    <mxGeometry x="10" y="210" width="490" height="260" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>
