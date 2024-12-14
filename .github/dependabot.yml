@@ -1,0 +1,19 @@
+version: 2
+updates:
+  # npm (JavaScript) の依存関係
+  - package-ecosystem: "npm" # 使用するパッケージ管理システム
+    directory: "/"          # package.json が存在するディレクトリ
+    schedule:
+      interval: "weekly"
+
+  # pip (Python) の依存関係
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+
+  # GitHub Actions の依存関係
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "daily"
