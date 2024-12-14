@@ -29,3 +29,34 @@
     参考：
     https://chigusa-web.com/blog/django-secret/
 
+2. Pipfile.lockから環境の再現
+
+    下記コマンドでPipfile.lockからパッケージをインストール。
+    ```
+    $ pipenv sync
+    $ pipenv sync --dev    # --devオプションで通常のパッケージの他に開発用パッケージもインストールされる
+    ```
+
+    補足：
+    - PipfileとPipfile.lockの違い
+        
+        Pipfileにはパッケージのバージョンは指定していない場合が多い。一方、Pipfile.lockはパッケージのバージョンが指定されている。そのため、詳細なバージョンに合わせて環境を作成する場合は、Pipfile.lockを用いる必要がある。
+        
+        なお、Pipfileを用いる場合は下記のコマンドを実行する。
+        ```
+        $ pipenv install
+        $ pipenv install --dev    # --devオプションで通常のパッケージの他に開発用パッケージもインストールされる
+        ```
+    
+    - pipenvでのパッケージのインストール方法
+
+        下記コマンドでパッケージをインストールを行う。
+
+        ```
+        pipenv install "パッケージ名"
+        pipenv install --dev "パッケージ名" # 開発用パッケージの場合
+        ```
+
+        なお、このときPipfile、Pipfile.lockには自動でパッケージが追記される。
+    
+    参考：https://qiita.com/y-tsutsu/items/54c10e0b2c6b565c887a
