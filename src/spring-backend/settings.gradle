@@ -1,2 +1,2 @@
 rootProject.name = 'spring-backend'
-include 'infrastructure', 'application-core', 'web', 'system-common'
+include 'web', 'application-core', 'infrastructure', 'system-common'
