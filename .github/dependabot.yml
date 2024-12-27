@@ -8,7 +8,13 @@ updates:
 
   # pip (Python) の依存関係
   - package-ecosystem: "pip"
-    directory: "/src/backend/"
+    directory: "/src/python-backend/"
+    schedule:
+      interval: "weekly"
+
+  # gradle (Java) の依存関係
+  - package-ecosystem: "gradle"
+    directory: "/src/spring-backend/"
     schedule:
       interval: "weekly"
 
