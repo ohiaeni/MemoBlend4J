@@ -1,7 +1,8 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '3.4.1'
-	id 'io.spring.dependency-management' version '1.1.7'
+	id 'org.springframework.boot' version "${springBootVersion}"
+	id 'io.spring.dependency-management' version "${springDependencyManagementVersion}"
+	id 'org.springdoc.openapi-gradle-plugin' version "${springdocOpenapiGradlePluginVersion}"
 }
 
 group = 'com.memoblend'
@@ -18,11 +19,46 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	implementation supportDependencies.spring_boot_starter_web
+	implementation supportDependencies.spring_boot_starter_validation
+	implementation supportDependencies.springdoc_openapi_starter_webmvc_ui
+	implementation supportDependencies.commons_lang3
+	implementation supportDependencies.h2database
+	implementation supportDependencies.spring_boot_starter_log4j2
+
+	implementation project(':application-core')
+	implementation project(':infrastructure')
+	implementation project(':system-common')
+
+	testImplementation supportDependencies.spring_boot_starter_test
+	compileOnly supportDependencies.servlet_api
+}
+
+configurations {
+	all {
+		exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+	}
+}
+afterEvaluate {
+    tasks.named("forkedSpringBootRun") {
+		workingDir("$rootDir/api-docs/web")
+	}
+}
+openApi {
+    apiDocsUrl.set("http://localhost:8080/api-docs")
+    outputDir.set(file("$rootDir/api-docs/web"))
+    outputFileName.set("api-specification.json")
+}
+tasks.register('bootRunDev', org.springframework.boot.gradle.tasks.run.BootRun){
+	group = 'application'
+	description = 'Runs this project as a Spring Boot Application using local profile.'
+	args = ["--spring.profiles.active=local"]
+	main = 'com.memoblend.web.WebApplication'
+	classpath = sourceSets.main.runtimeClasspath
 }
 
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+build.dependsOn("generateOpenApiDocs")
