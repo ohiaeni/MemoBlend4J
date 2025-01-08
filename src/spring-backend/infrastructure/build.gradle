@@ -1,7 +1,7 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '3.4.1'
-	id 'io.spring.dependency-management' version '1.1.7'
+	id 'org.springframework.boot' version "${springBootVersion}"
+	id 'io.spring.dependency-management' version "${springDependencyManagementVersion}"
 }
 
 group = 'com.memoblend'
@@ -13,16 +13,36 @@ java {
 	}
 }
 
+sourceSets {
+    main {
+        // mybatis SQL map XML ファイルを java 以下でも検知する
+        resources.srcDirs = ["src/main/java", "src/main/resources"]
+    }
+}
+
 repositories {
 	mavenCentral()
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	implementation supportDependencies.mybatis_spring_boot_starter
+	implementation supportDependencies.h2database
+	implementation supportDependencies.postgresql
+	implementation project(':application-core')
+	implementation project(':system-common')
+	testImplementation supportDependencies.spring_boot_starter_test
+	testImplementation supportDependencies.mybatis_spring_boot_starter_test
+}
+
+configurations {
+	all {
+		exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+	}
 }
 
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+bootJar.enabled = false
+jar.enabled = true

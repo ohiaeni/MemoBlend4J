@@ -1,7 +1,7 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '3.4.1'
-	id 'io.spring.dependency-management' version '1.1.7'
+	id 'org.springframework.boot' version "${springBootVersion}"
+	id 'io.spring.dependency-management' version "${springDependencyManagementVersion}"
 }
 
 group = 'com.memoblend'
@@ -18,11 +18,23 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	implementation supportDependencies.spring_boot_starter
+	implementation supportDependencies.mybatis_spring_boot_starter
+	implementation supportDependencies.spring_boot_starter_validation
+	implementation supportDependencies.commons_lang3
+	implementation project(':system-common')
+	testImplementation supportDependencies.spring_boot_starter_test
+}
+
+configurations {
+	all {
+		exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+	}
 }
 
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+bootJar.enabled = false
+jar.enabled = true
