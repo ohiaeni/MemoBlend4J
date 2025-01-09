@@ -10,6 +10,123 @@
       "description": "Generated server url"
     }
   ],
-  "paths": {},
-  "components": {}
+  "tags": [
+    {
+      "description": "日記の情報にアクセスするAPI",
+      "name": "Diary"
+    }
+  ],
+  "paths": {
+    "/api/diary": {
+      "post": {
+        "operationId": "postDiary",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PostDiaryRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {}
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "tags": [
+          "Diary"
+        ]
+      }
+    },
+    "/api/diary/{date}": {
+      "get": {
+        "operationId": "getDiary",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "date",
+            "required": true,
+            "schema": {
+              "type": [
+                "integer"
+              ],
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetDiaryResponse"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "tags": [
+          "Diary"
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "GetDiaryResponse": {
+        "type": [
+          "object"
+        ],
+        "properties": {
+          "content": {
+            "type": [
+              "string"
+            ]
+          },
+          "date": {
+            "type": [
+              "string"
+            ],
+            "format": "date"
+          },
+          "title": {
+            "type": [
+              "string"
+            ]
+          }
+        }
+      },
+      "PostDiaryRequest": {
+        "type": [
+          "object"
+        ],
+        "properties": {
+          "content": {
+            "type": [
+              "string"
+            ]
+          },
+          "date": {
+            "type": [
+              "string"
+            ],
+            "format": "date"
+          },
+          "title": {
+            "type": [
+              "string"
+            ]
+          }
+        }
+      }
+    }
+  }
 }
