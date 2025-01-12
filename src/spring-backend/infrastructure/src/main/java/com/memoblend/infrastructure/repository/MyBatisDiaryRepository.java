@@ -25,7 +25,8 @@ public class MyBatisDiaryRepository implements DiaryRepository {
   }
 
   @Override
-  public void add(Diary diary) {
-    diaryMapper.add(diary);
+  public Diary add(Diary diary) {
+    Diary addedDiary = diaryMapper.add(diary);
+    return addedDiary;
   }
 }

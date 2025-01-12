@@ -21,11 +21,11 @@ public class Diary {
   private long diaryId;
   @NotNull
   @NotBlank
-  @Size(min= 1, max = 4, message = "{0}は1～30文字の範囲で入力してください")
+  @Size(min = 1, max = 4, message = "{0}は1～30文字の範囲で入力してください")
   private String title;
   @NotNull
   @NotBlank
-  @Size(min= 1, message = "{0}は1文字以上入力してください")
+  @Size(min = 1, message = "{0}は1文字以上入力してください")
   private String content;
   @NotNull
   @NotBlank

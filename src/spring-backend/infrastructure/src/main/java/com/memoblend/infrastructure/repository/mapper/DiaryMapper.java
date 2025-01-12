@@ -24,5 +24,5 @@ public interface DiaryMapper {
    * 
    * @param diary 追加する日記。
    */
-  public void add(Diary diary);
+  public Diary add(Diary diary);
 }
