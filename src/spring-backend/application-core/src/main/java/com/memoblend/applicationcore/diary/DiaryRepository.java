@@ -7,19 +7,19 @@ import java.util.Optional;
  * 日記のリポジトリのインターフェースです。
  */
 public interface DiaryRepository {
-    /**
-     * ID を指定して、
-     * {@link Diary} を取得します。
-     * 
-     * @param date 日記を作成した日付。
-     * @return 条件に合う日記。
-     */
-    Optional<Diary> findByDate(LocalDate date);
+  /**
+   * ID を指定して、
+   * {@link Diary} を取得します。
+   * 
+   * @param date 日記を作成した日付。
+   * @return 条件に合う日記。
+   */
+  Optional<Diary> findByDate(LocalDate date);
 
-    /**
-     * 日記を追加します。
-     * 
-     * @param diary 追加する日記。
-     */
-    void add(Diary diary);
+  /**
+   * 日記を追加します。
+   * 
+   * @param diary 追加する日記。
+   */
+  void add(Diary diary);
 }
