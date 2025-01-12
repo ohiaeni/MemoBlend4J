@@ -3,6 +3,11 @@
 <mapper namespace="com.example.memoblend.infrastructure.mapper.DiaryMapper">
 
 	<select id="findById" resultType="com.memoblend.applicationcore.diary.Diary">
-
+		SELECT * FROM diary WHERE id = #{id}
 	</select>
+	<insert id="add" parameterType="com.memoblend.applicationcore.diary.Diary">
+		INSERT INTO diary (user_id, title, content, updated_date)
+		VALUES (#{userId}, #{title}, #{content}, #{updatedDate})
+	</insert>
+	
 </mapper>
