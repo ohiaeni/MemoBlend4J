@@ -11,6 +11,8 @@ import lombok.Data;
 @AllArgsConstructor
 public class GetDiaryResponse {
   private LocalDate date;
+  private long diaryId; 
   private String title;
   private String content;
+  private long userId;
 }

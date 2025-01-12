@@ -1,10 +1,15 @@
 package com.memoblend.web.controller;
 
 import org.springframework.web.bind.annotation.RestController;
+
+import com.memoblend.applicationcore.applicationservice.DiaryApplicationService;
 import com.memoblend.applicationcore.diary.Diary;
+import com.memoblend.applicationcore.diary.DiaryRepository;
 import com.memoblend.systemcommon.util.LocalDateConverter;
 import com.memoblend.web.controller.dto.diary.GetDiaryResponse;
 import com.memoblend.web.controller.dto.diary.PostDiaryRequest;
+import com.memoblend.web.controller.dto.util.DataTransferObjectConverter;
+
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import java.net.URI;
@@ -24,6 +29,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 @Tag(name = "Diary", description = "日記の情報にアクセスするAPI")
 @AllArgsConstructor
 public class DiaryController {
+  DiaryApplicationService diaryApplicationService;
+
   /**
    * 日記情報を取得します。
    * 
@@ -33,10 +40,8 @@ public class DiaryController {
   @GetMapping("{date}")
   public ResponseEntity<GetDiaryResponse> getDiary(@PathVariable("date") long date) {
     LocalDate convertedDate = LocalDateConverter.longToLocalDate(date);
-    GetDiaryResponse response = new GetDiaryResponse(
-        convertedDate,
-        "タイトル",
-        "本文");
+    Diary diary = diaryApplicationService.GetDiary(convertedDate);
+    GetDiaryResponse response = DataTransferObjectConverter.DiaryConverter(diary);
     return ResponseEntity.ok().body(response);
   }
 
@@ -49,6 +54,7 @@ public class DiaryController {
   @PostMapping
   public ResponseEntity<?> postDiary(@RequestBody PostDiaryRequest request) {
     Diary addedDiary = new Diary(request.getDate(), request.getTitle(), request.getContent());
+    diaryRepository.register(addedDiary);
     return ResponseEntity.created(URI.create("/api/diary/" + addedDiary.getDate())).build();
   }
 }
