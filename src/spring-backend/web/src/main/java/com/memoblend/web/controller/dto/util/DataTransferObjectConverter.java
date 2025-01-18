@@ -4,6 +4,9 @@ import com.memoblend.applicationcore.diary.Diary;
 import com.memoblend.web.controller.dto.diary.GetDiaryResponse;
 import com.memoblend.web.controller.dto.diary.PostDiaryRequest;
 
+/**
+ * dto とオブジェクトの変換を行うクラスです。
+ */
 public class DataTransferObjectConverter {
   /**
    * 日記オブジェクトから各属性を取り出し、DTOとして返します。
@@ -13,11 +16,11 @@ public class DataTransferObjectConverter {
    */
   public static GetDiaryResponse diaryConverter(Diary diary) {
     return new GetDiaryResponse(
-      diary.getDate(), 
-      diary.getDiaryId(), 
-      diary.getTitle(), 
-      diary.getContent(), 
-      diary.getUserId());
+        diary.getDate(),
+        diary.getDiaryId(),
+        diary.getTitle(),
+        diary.getContent(),
+        diary.getUserId());
   }
 
   /**
@@ -26,12 +29,12 @@ public class DataTransferObjectConverter {
    * @param request 日記情報
    * @return 日記オブジェクト
    */
-  public static Diary diaryConverter(PostDiaryRequest response) {
+  public static Diary diaryConverter(PostDiaryRequest request) {
     return new Diary(
-      response.getDate(), 
-      response.getDiaryId(), 
-      response.getTitle(), 
-      response.getContent(), 
-      response.getUserId());
-  } 
+        request.getDate(),
+        request.getDiaryId(),
+        request.getTitle(),
+        request.getContent(),
+        request.getUserId());
+  }
 }

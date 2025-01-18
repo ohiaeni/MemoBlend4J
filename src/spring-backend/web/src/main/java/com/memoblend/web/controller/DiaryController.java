@@ -9,7 +9,6 @@ import com.memoblend.web.controller.dto.diary.PostDiaryRequest;
 import com.memoblend.web.controller.dto.util.DataTransferObjectConverter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
-
 import java.net.URI;
 import java.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +39,7 @@ public class DiaryController {
   @GetMapping("{date}")
   public ResponseEntity<GetDiaryResponse> getDiary(@PathVariable("date") long date) {
     LocalDate convertedDate = LocalDateConverter.longToLocalDate(date);
-    Diary diary = diaryApplicationService.GetDiary(convertedDate);
+    Diary diary = diaryApplicationService.getDiary(convertedDate);
     GetDiaryResponse response = DataTransferObjectConverter.diaryConverter(diary);
     return ResponseEntity.ok().body(response);
   }
@@ -54,7 +53,7 @@ public class DiaryController {
   @PostMapping
   public ResponseEntity<?> postDiary(@RequestBody PostDiaryRequest request) {
     Diary diary = DataTransferObjectConverter.diaryConverter(request);
-    Diary addedDiary = diaryApplicationService.AddDiary(diary);
+    Diary addedDiary = diaryApplicationService.addDiary(diary);
     return ResponseEntity.created(URI.create("/api/diary/" + addedDiary.getDate())).build();
   }
 }

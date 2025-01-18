@@ -14,16 +14,16 @@ import lombok.AllArgsConstructor;
 @Service
 @AllArgsConstructor
 public class DiaryApplicationService {
-  
+
   @Autowired
   private DiaryRepository diaryRepository;
-  
-  public Diary GetDiary(LocalDate date) {
+
+  public Diary getDiary(LocalDate date) {
     Optional<Diary> diary = diaryRepository.findByDate(date);
     return diary.get();
   }
 
-  public Diary AddDiary(Diary diary) {
+  public Diary addDiary(Diary diary) {
     Diary addedDiary = diaryRepository.add(diary);
     return addedDiary;
   }

@@ -54,9 +54,7 @@
             "name": "date",
             "required": true,
             "schema": {
-              "type": [
-                "integer"
-              ],
+              "type": "integer",
               "format": "int64"
             }
           }
@@ -97,10 +95,22 @@
             ],
             "format": "date"
           },
+          "diaryId": {
+            "type": [
+              "integer"
+            ],
+            "format": "int64"
+          },
           "title": {
             "type": [
               "string"
             ]
+          },
+          "userId": {
+            "type": [
+              "integer"
+            ],
+            "format": "int64"
           }
         }
       },
@@ -120,10 +130,22 @@
             ],
             "format": "date"
           },
+          "diaryId": {
+            "type": [
+              "integer"
+            ],
+            "format": "int64"
+          },
           "title": {
             "type": [
               "string"
             ]
+          },
+          "userId": {
+            "type": [
+              "integer"
+            ],
+            "format": "int64"
           }
         }
       }
