@@ -10,9 +10,9 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class GetDiaryResponse {
-  private LocalDate date;
-  private long diaryId; 
+  private long diaryId;
+  private long userId;
   private String title;
   private String content;
-  private long userId;
+  private LocalDate date;
 }

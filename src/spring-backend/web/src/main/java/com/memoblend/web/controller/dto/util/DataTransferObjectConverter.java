@@ -15,12 +15,8 @@ public class DataTransferObjectConverter {
    * @return DTOとしての日記情報
    */
   public static GetDiaryResponse diaryConverter(Diary diary) {
-    return new GetDiaryResponse(
-        diary.getDate(),
-        diary.getDiaryId(),
-        diary.getTitle(),
-        diary.getContent(),
-        diary.getUserId());
+    return new GetDiaryResponse(diary.getDiaryId(), diary.getUserId(), diary.getTitle(), diary.getContent(),
+        diary.getDate());
   }
 
   /**
