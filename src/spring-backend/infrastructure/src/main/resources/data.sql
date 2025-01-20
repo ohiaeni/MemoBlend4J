@@ -13,7 +13,7 @@ INSERT INTO users (user_name) VALUES
 
 -- Insert 10 dummy records into `diaries`
 INSERT INTO diaries (user_id, title, content, updated_date) VALUES
-(1, 'Morning Walk', 'Enjoyed a refreshing morning walk in the park.', '2025-01-10 07:00:00'),
+(1, 'Morning Walk', 'Enjoyed a refreshing morning walk in the park.', '2025-01-09'),
 (1, 'Project Update', 'Completed phase 1 of the project successfully.', '2025-01-10 15:30:00'),
 (2, 'Shopping List', 'Bought apples, bananas, and oranges today.', '2025-01-11 10:00:00'),
 (2, 'Lunch Review', 'Had a delicious pasta meal at the new cafe.', '2025-01-11 13:00:00'),

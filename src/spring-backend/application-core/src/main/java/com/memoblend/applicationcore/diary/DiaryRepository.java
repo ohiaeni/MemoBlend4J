@@ -21,5 +21,5 @@ public interface DiaryRepository {
    * 
    * @param diary 追加する日記。
    */
-  void add(Diary diary);
+  Diary add(Diary diary);
 }
