@@ -13,12 +13,13 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class Diary {
-  @NotNull
-  @NotBlank
-  private LocalDate date;
+
   @NotNull
   @NotBlank
   private long diaryId;
+  @NotNull
+  @NotBlank
+  private long userId;
   @NotNull
   @NotBlank
   @Size(min = 1, max = 4, message = "{0}は1～30文字の範囲で入力してください")
@@ -29,5 +30,6 @@ public class Diary {
   private String content;
   @NotNull
   @NotBlank
-  private long userId;
+  private LocalDate date;
+
 }

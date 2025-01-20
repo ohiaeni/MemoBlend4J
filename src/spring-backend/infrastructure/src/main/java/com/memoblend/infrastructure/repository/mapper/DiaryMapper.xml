@@ -3,10 +3,10 @@
 <mapper namespace="com.memoblend.infrastructure.repository.mapper.DiaryMapper">
 
 	<select id="findByDate" resultType="com.memoblend.applicationcore.diary.Diary">
-		SELECT * FROM diary WHERE updated_date = #{date}
+		SELECT * FROM diaries WHERE updated_date = #{date}
 	</select>
 	<insert id="add" parameterType="com.memoblend.applicationcore.diary.Diary">
-		INSERT INTO diary (user_id, title, content, updated_date)
+		INSERT INTO diaries (user_id, title, content, updated_date)
 		VALUES (#{userId}, #{title}, #{content}, #{updatedDate})
 	</insert>
 	

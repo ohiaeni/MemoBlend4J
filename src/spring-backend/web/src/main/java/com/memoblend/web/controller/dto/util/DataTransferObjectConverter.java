@@ -30,11 +30,7 @@ public class DataTransferObjectConverter {
    * @return 日記オブジェクト
    */
   public static Diary diaryConverter(PostDiaryRequest request) {
-    return new Diary(
-        request.getDate(),
-        request.getDiaryId(),
-        request.getTitle(),
-        request.getContent(),
-        request.getUserId());
+    return new Diary(request.getDiaryId(), request.getUserId(), request.getTitle(), request.getContent(),
+        request.getDate());
   }
 }
