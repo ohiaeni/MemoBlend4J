@@ -3,6 +3,7 @@ package com.memoblend.web.controller;
 import org.springframework.web.bind.annotation.RestController;
 import com.memoblend.applicationcore.applicationservice.DiaryApplicationService;
 import com.memoblend.applicationcore.diary.Diary;
+import com.memoblend.applicationcore.diary.DiaryNotFoundException;
 import com.memoblend.systemcommon.util.LocalDateConverter;
 import com.memoblend.web.controller.dto.diary.GetDiaryResponse;
 import com.memoblend.web.controller.dto.diary.PostDiaryRequest;
@@ -39,7 +40,12 @@ public class DiaryController {
   @GetMapping("{date}")
   public ResponseEntity<GetDiaryResponse> getDiary(@PathVariable("date") long date) {
     LocalDate convertedDate = LocalDateConverter.longToLocalDate(date);
-    Diary diary = diaryApplicationService.getDiary(convertedDate);
+    Diary diary = null;
+    try {
+      diary = diaryApplicationService.getDiary(convertedDate);
+    } catch (DiaryNotFoundException e) {
+      return ResponseEntity.notFound().build();
+    }
     GetDiaryResponse response = DataTransferObjectConverter.diaryConverter(diary);
     return ResponseEntity.ok().body(response);
   }
