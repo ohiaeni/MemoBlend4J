@@ -1,7 +1,6 @@
 package com.memoblend.infrastructure.repository;
 
 import java.time.LocalDate;
-import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import com.memoblend.applicationcore.diary.Diary;
@@ -20,8 +19,8 @@ public class MyBatisDiaryRepository implements DiaryRepository {
   private DiaryMapper diaryMapper;
 
   @Override
-  public Optional<Diary> findByDate(LocalDate date) {
-    return Optional.of(diaryMapper.findByDate(date));
+  public Diary findByDate(LocalDate date) {
+    return diaryMapper.findByDate(date);
   }
 
   @Override

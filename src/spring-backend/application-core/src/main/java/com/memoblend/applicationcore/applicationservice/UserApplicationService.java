@@ -1,7 +1,7 @@
 package com.memoblend.applicationcore.applicationservice;
 
 /**
- * ユーザーのサービスです。
+ * ユーザーのアプリケーションサービスです。
  */
 public class UserApplicationService {
 
