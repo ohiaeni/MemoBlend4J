@@ -38,7 +38,7 @@ public class DiaryController {
    * 
    * @return 日記情報。
    */
-  @GetMapping("/")
+  @GetMapping("")
   public ResponseEntity<GetDiariesResponse> getDiaries() {
     List<Diary> diaries = diaryApplicationService.getDiaries();
     GetDiariesResponse response = DataTransferObjectConverter.diariesConverter(diaries);

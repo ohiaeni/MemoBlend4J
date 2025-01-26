@@ -100,40 +100,28 @@
   "components": {
     "schemas": {
       "Diary": {
-        "type": [
-          "object"
-        ],
+        "type": "object",
         "properties": {
           "content": {
-            "type": [
-              "string"
-            ],
+            "type": "string",
             "maxLength": 2147483647,
             "minLength": 1
           },
           "date": {
-            "type": [
-              "string"
-            ],
+            "type": "string",
             "format": "date"
           },
           "diaryId": {
-            "type": [
-              "integer"
-            ],
+            "type": "integer",
             "format": "int64"
           },
           "title": {
-            "type": [
-              "string"
-            ],
+            "type": "string",
             "maxLength": 4,
             "minLength": 1
           },
           "userId": {
-            "type": [
-              "integer"
-            ],
+            "type": "integer",
             "format": "int64"
           }
         },
@@ -146,14 +134,10 @@
         ]
       },
       "GetDiariesResponse": {
-        "type": [
-          "object"
-        ],
+        "type": "object",
         "properties": {
           "diaries": {
-            "type": [
-              "array"
-            ],
+            "type": "array",
             "items": {
               "$ref": "#/components/schemas/Diary"
             }
