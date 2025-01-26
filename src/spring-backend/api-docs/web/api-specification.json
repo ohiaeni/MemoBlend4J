@@ -18,6 +18,24 @@
   ],
   "paths": {
     "/api/diary": {
+      "get": {
+        "operationId": "getDiaries",
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetDiariesResponse"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "tags": [
+          "Diary"
+        ]
+      },
       "post": {
         "operationId": "postDiary",
         "requestBody": {
@@ -34,7 +52,9 @@
           "200": {
             "content": {
               "*/*": {
-                "schema": {}
+                "schema": {
+                  "type": "object"
+                }
               }
             },
             "description": "OK"
@@ -79,7 +99,7 @@
   },
   "components": {
     "schemas": {
-      "GetDiaryResponse": {
+      "Diary": {
         "type": [
           "object"
         ],
@@ -87,7 +107,9 @@
           "content": {
             "type": [
               "string"
-            ]
+            ],
+            "maxLength": 2147483647,
+            "minLength": 1
           },
           "date": {
             "type": [
@@ -104,7 +126,9 @@
           "title": {
             "type": [
               "string"
-            ]
+            ],
+            "maxLength": 4,
+            "minLength": 1
           },
           "userId": {
             "type": [
@@ -112,39 +136,72 @@
             ],
             "format": "int64"
           }
-        }
+        },
+        "required": [
+          "content",
+          "date",
+          "diaryId",
+          "title",
+          "userId"
+        ]
       },
-      "PostDiaryRequest": {
+      "GetDiariesResponse": {
         "type": [
           "object"
         ],
         "properties": {
-          "content": {
+          "diaries": {
             "type": [
-              "string"
-            ]
+              "array"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Diary"
+            }
+          }
+        }
+      },
+      "GetDiaryResponse": {
+        "type": "object",
+        "properties": {
+          "content": {
+            "type": "string"
           },
           "date": {
-            "type": [
-              "string"
-            ],
+            "type": "string",
             "format": "date"
           },
           "diaryId": {
-            "type": [
-              "integer"
-            ],
+            "type": "integer",
             "format": "int64"
           },
           "title": {
-            "type": [
-              "string"
-            ]
+            "type": "string"
           },
           "userId": {
-            "type": [
-              "integer"
-            ],
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "PostDiaryRequest": {
+        "type": "object",
+        "properties": {
+          "content": {
+            "type": "string"
+          },
+          "date": {
+            "type": "string",
+            "format": "date"
+          },
+          "diaryId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "title": {
+            "type": "string"
+          },
+          "userId": {
+            "type": "integer",
             "format": "int64"
           }
         }

@@ -2,9 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.memoblend.infrastructure.repository.mapper.DiaryMapper">
 
+	<select id="findAll" resultType="com.memoblend.applicationcore.diary.Diary">
+		SELECT * FROM diaries
+	</select>
+
 	<select id="findByDate" resultType="com.memoblend.applicationcore.diary.Diary">
 		SELECT * FROM diaries WHERE updated_date = #{date}
 	</select>
+	
 	<insert id="add" parameterType="com.memoblend.applicationcore.diary.Diary">
 		INSERT INTO diaries (user_id, title, content, updated_date)
 		VALUES (#{userId}, #{title}, #{content}, #{updatedDate})

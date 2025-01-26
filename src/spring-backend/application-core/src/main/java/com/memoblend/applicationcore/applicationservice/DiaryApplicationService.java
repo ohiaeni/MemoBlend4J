@@ -2,6 +2,7 @@ package com.memoblend.applicationcore.applicationservice;
 
 import java.time.LocalDate;
 import java.util.logging.Logger;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.memoblend.applicationcore.diary.Diary;
@@ -19,6 +20,15 @@ public class DiaryApplicationService {
 
   @Autowired
   private DiaryRepository diaryRepository;
+
+  /**
+   * 全ての日記を取得します。
+   * 
+   * @return 全ての日記。
+   */
+  public List<Diary> getDiaries() {
+    return diaryRepository.findAll();
+  }
 
   private final Logger apLog = Logger.getLogger(LoggerConstant.APPLICATION_LOGGER);
 
