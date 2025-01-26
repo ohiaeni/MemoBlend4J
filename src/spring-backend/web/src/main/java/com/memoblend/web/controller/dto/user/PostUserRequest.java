@@ -4,11 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 /**
- * ユーザー情報の取得レスポンスクラスです。
+ * ユーザーの登録リクエストクラスです。
  */
 @Data
 @AllArgsConstructor
-public class GetUserResponse {
+public class PostUserRequest {
   private long userId;
   private String userName;
 }

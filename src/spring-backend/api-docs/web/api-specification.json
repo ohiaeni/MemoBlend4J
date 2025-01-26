@@ -14,6 +14,10 @@
     {
       "description": "日記の情報にアクセスするAPI",
       "name": "Diary"
+    },
+    {
+      "description": "ユーザーの情報にアクセスするAPI",
+      "name": "User"
     }
   ],
   "paths": {
@@ -95,6 +99,85 @@
           "Diary"
         ]
       }
+    },
+    "/api/user": {
+      "get": {
+        "operationId": "getUsers",
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetUsersResponse"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "tags": [
+          "User"
+        ]
+      },
+      "post": {
+        "operationId": "postUser",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PostUserRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "tags": [
+          "User"
+        ]
+      }
+    },
+    "/api/user/{userId}": {
+      "get": {
+        "operationId": "getUser",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "userId",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetUserResponse"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "tags": [
+          "User"
+        ]
+      }
     }
   },
   "components": {
@@ -117,7 +200,7 @@
           },
           "title": {
             "type": "string",
-            "maxLength": 4,
+            "maxLength": 30,
             "minLength": 1
           },
           "userId": {
@@ -167,6 +250,29 @@
           }
         }
       },
+      "GetUserResponse": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "userName": {
+            "type": "string"
+          }
+        }
+      },
+      "GetUsersResponse": {
+        "type": "object",
+        "properties": {
+          "users": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/User"
+            }
+          }
+        }
+      },
       "PostDiaryRequest": {
         "type": "object",
         "properties": {
@@ -189,6 +295,36 @@
             "format": "int64"
           }
         }
+      },
+      "PostUserRequest": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "userName": {
+            "type": "string"
+          }
+        }
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "userName": {
+            "type": "string",
+            "maxLength": 15,
+            "minLength": 1
+          }
+        },
+        "required": [
+          "userId",
+          "userName"
+        ]
       }
     }
   }

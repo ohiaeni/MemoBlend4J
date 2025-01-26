@@ -1,7 +1,7 @@
 DROP TABLE IF EXISTS users CASCADE;
 CREATE TABLE users
 (
-  id BIGSERIAL NOT NULL PRIMARY KEY, -- primary key column
+  user_id BIGSERIAL NOT NULL PRIMARY KEY, -- primary key column
   user_name VARCHAR(64) NOT NULL
 );
 
