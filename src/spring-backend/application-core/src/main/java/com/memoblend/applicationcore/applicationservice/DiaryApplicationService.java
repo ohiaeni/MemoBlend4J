@@ -1,11 +1,13 @@
 package com.memoblend.applicationcore.applicationservice;
 
 import java.time.LocalDate;
+import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.memoblend.applicationcore.diary.Diary;
 import com.memoblend.applicationcore.diary.DiaryNotFoundException;
 import com.memoblend.applicationcore.diary.DiaryRepository;
+import com.memoblend.systemcommon.constant.LoggerConstant;
 import lombok.AllArgsConstructor;
 
 /**
@@ -18,6 +20,8 @@ public class DiaryApplicationService {
   @Autowired
   private DiaryRepository diaryRepository;
 
+  private final Logger apLog = Logger.getLogger(LoggerConstant.APPLICATION_LOGGER);
+
   /**
    * 日付を指定して、
    * {@link Diary} を取得します。
@@ -27,8 +31,10 @@ public class DiaryApplicationService {
    * @throws DiaryNotFoundException 日記が見つからない場合。
    */
   public Diary getDiary(LocalDate date) throws DiaryNotFoundException {
+    apLog.info(date.getYear() + "年" + date.getMonthValue() + "月" + date.getDayOfMonth() + "日の日記を取得します。");
     Diary diary = diaryRepository.findByDate(date);
     if (diary == null) {
+      apLog.info(date.getYear() + "年" + date.getMonthValue() + "月" + date.getDayOfMonth() + "日の日記が見つかりませんでした。");
       throw new DiaryNotFoundException(date);
     }
     return diary;
@@ -41,6 +47,8 @@ public class DiaryApplicationService {
    * @return 追加された日記。
    */
   public Diary addDiary(Diary diary) {
+    final LocalDate date = diary.getDate();
+    apLog.info(date.getYear() + "年" + date.getMonthValue() + "月" + date.getDayOfMonth() + "日の日記を追加します。");
     Diary addedDiary = diaryRepository.add(diary);
     return addedDiary;
   }
