@@ -21,16 +21,17 @@ public class DiaryApplicationService {
   @Autowired
   private DiaryRepository diaryRepository;
 
+  private final Logger apLog = Logger.getLogger(LoggerConstant.APPLICATION_LOGGER);
+
   /**
    * 全ての日記を取得します。
    * 
    * @return 全ての日記。
    */
   public List<Diary> getDiaries() {
+    apLog.info("全ての日記を取得します。");
     return diaryRepository.findAll();
   }
-
-  private final Logger apLog = Logger.getLogger(LoggerConstant.APPLICATION_LOGGER);
 
   /**
    * 日付を指定して、
