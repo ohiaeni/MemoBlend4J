@@ -14,5 +14,16 @@
 		INSERT INTO diaries (user_id, title, content, updated_date)
 		VALUES (#{userId}, #{title}, #{content}, #{updatedDate})
 	</insert>
+
+    <delete id="delete" parameterType="com.memoblend.applicationcore.diary.Diary">
+		DELETE FROM diaries WHERE id = #{id}
+	</delete>
+
+	<update id="update" parameterType="com.memoblend.applicationcore.diary.Diary">
+		UPDATE diaries
+		SET title = #{title}, content = #{content}, updated_date = #{updatedDate}
+		WHERE id = #{id}
+		AND user_id = #{userId}
+	</update>
 	
 </mapper>

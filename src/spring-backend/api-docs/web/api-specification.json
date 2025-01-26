@@ -18,24 +18,6 @@
   ],
   "paths": {
     "/api/diary": {
-      "get": {
-        "operationId": "getDiaries",
-        "responses": {
-          "200": {
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/GetDiariesResponse"
-                }
-              }
-            },
-            "description": "OK"
-          }
-        },
-        "tags": [
-          "Diary"
-        ]
-      },
       "post": {
         "operationId": "postDiary",
         "requestBody": {
@@ -54,6 +36,26 @@
               "*/*": {
                 "schema": {
                   "type": "object"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "tags": [
+          "Diary"
+        ]
+      }
+    },
+    "/api/diary/": {
+      "get": {
+        "operationId": "getDiaries",
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetDiariesResponse"
                 }
               }
             },
@@ -100,60 +102,44 @@
   "components": {
     "schemas": {
       "Diary": {
-        "type": [
-          "object"
-        ],
+        "type": "object",
         "properties": {
           "content": {
-            "type": [
-              "string"
-            ],
+            "type": "string",
             "maxLength": 2147483647,
             "minLength": 1
           },
           "date": {
-            "type": [
-              "string"
-            ],
+            "type": "string",
             "format": "date"
           },
-          "diaryId": {
-            "type": [
-              "integer"
-            ],
+          "id": {
+            "type": "integer",
             "format": "int64"
           },
           "title": {
-            "type": [
-              "string"
-            ],
+            "type": "string",
             "maxLength": 4,
             "minLength": 1
           },
           "userId": {
-            "type": [
-              "integer"
-            ],
+            "type": "integer",
             "format": "int64"
           }
         },
         "required": [
           "content",
           "date",
-          "diaryId",
+          "id",
           "title",
           "userId"
         ]
       },
       "GetDiariesResponse": {
-        "type": [
-          "object"
-        ],
+        "type": "object",
         "properties": {
           "diaries": {
-            "type": [
-              "array"
-            ],
+            "type": "array",
             "items": {
               "$ref": "#/components/schemas/Diary"
             }
@@ -170,7 +156,7 @@
             "type": "string",
             "format": "date"
           },
-          "diaryId": {
+          "id": {
             "type": "integer",
             "format": "int64"
           },
@@ -193,7 +179,7 @@
             "type": "string",
             "format": "date"
           },
-          "diaryId": {
+          "id": {
             "type": "integer",
             "format": "int64"
           },

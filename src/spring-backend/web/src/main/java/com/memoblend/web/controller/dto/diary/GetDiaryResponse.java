@@ -10,7 +10,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class GetDiaryResponse {
-  private long diaryId;
+  private long id;
   private long userId;
   private String title;
   private String content;
