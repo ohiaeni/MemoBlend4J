@@ -52,7 +52,9 @@
           "200": {
             "content": {
               "*/*": {
-                "schema": {}
+                "schema": {
+                  "type": "object"
+                }
               }
             },
             "description": "OK"
@@ -159,71 +161,47 @@
         }
       },
       "GetDiaryResponse": {
-        "type": [
-          "object"
-        ],
+        "type": "object",
         "properties": {
           "content": {
-            "type": [
-              "string"
-            ]
+            "type": "string"
           },
           "date": {
-            "type": [
-              "string"
-            ],
+            "type": "string",
             "format": "date"
           },
           "diaryId": {
-            "type": [
-              "integer"
-            ],
+            "type": "integer",
             "format": "int64"
           },
           "title": {
-            "type": [
-              "string"
-            ]
+            "type": "string"
           },
           "userId": {
-            "type": [
-              "integer"
-            ],
+            "type": "integer",
             "format": "int64"
           }
         }
       },
       "PostDiaryRequest": {
-        "type": [
-          "object"
-        ],
+        "type": "object",
         "properties": {
           "content": {
-            "type": [
-              "string"
-            ]
+            "type": "string"
           },
           "date": {
-            "type": [
-              "string"
-            ],
+            "type": "string",
             "format": "date"
           },
           "diaryId": {
-            "type": [
-              "integer"
-            ],
+            "type": "integer",
             "format": "int64"
           },
           "title": {
-            "type": [
-              "string"
-            ]
+            "type": "string"
           },
           "userId": {
-            "type": [
-              "integer"
-            ],
+            "type": "integer",
             "format": "int64"
           }
         }
