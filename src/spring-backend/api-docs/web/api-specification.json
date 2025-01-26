@@ -18,6 +18,24 @@
   ],
   "paths": {
     "/api/diary": {
+      "get": {
+        "operationId": "getDiaries",
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetDiariesResponse"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "tags": [
+          "Diary"
+        ]
+      },
       "post": {
         "operationId": "postDiary",
         "requestBody": {
@@ -36,26 +54,6 @@
               "*/*": {
                 "schema": {
                   "type": "object"
-                }
-              }
-            },
-            "description": "OK"
-          }
-        },
-        "tags": [
-          "Diary"
-        ]
-      }
-    },
-    "/api/diary/": {
-      "get": {
-        "operationId": "getDiaries",
-        "responses": {
-          "200": {
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/GetDiariesResponse"
                 }
               }
             },
