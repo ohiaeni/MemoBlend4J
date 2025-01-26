@@ -5,6 +5,7 @@ import com.memoblend.applicationcore.applicationservice.DiaryApplicationService;
 import com.memoblend.applicationcore.diary.Diary;
 import com.memoblend.applicationcore.diary.DiaryNotFoundException;
 import com.memoblend.systemcommon.util.LocalDateConverter;
+import com.memoblend.web.controller.dto.diary.GetDiariesResponse;
 import com.memoblend.web.controller.dto.diary.GetDiaryResponse;
 import com.memoblend.web.controller.dto.diary.PostDiaryRequest;
 import com.memoblend.web.controller.dto.util.DataTransferObjectConverter;
@@ -12,6 +13,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import java.net.URI;
 import java.time.LocalDate;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,6 +32,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class DiaryController {
   @Autowired
   DiaryApplicationService diaryApplicationService;
+
+  /**
+   * 日記を全件取得します。
+   * 
+   * @return 日記情報。
+   */
+  @GetMapping("/")
+  public ResponseEntity<GetDiariesResponse> getDiaries() {
+    List<Diary> diaries = diaryApplicationService.getDiaries();
+    GetDiariesResponse response = DataTransferObjectConverter.diariesConverter(diaries);
+    return ResponseEntity.ok().body(response);
+  }
 
   /**
    * 日記情報を取得します。
