@@ -18,6 +18,24 @@
   ],
   "paths": {
     "/api/diary": {
+      "get": {
+        "operationId": "getDiaries",
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetDiariesResponse"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "tags": [
+          "Diary"
+        ]
+      },
       "post": {
         "operationId": "postDiary",
         "requestBody": {
@@ -42,25 +60,9 @@
             "description": "OK"
           }
         },
-        "tags": ["Diary"]
-      }
-    },
-    "/api/diary/": {
-      "get": {
-        "operationId": "getDiaries",
-        "responses": {
-          "200": {
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/GetDiariesResponse"
-                }
-              }
-            },
-            "description": "OK"
-          }
-        },
-        "tags": ["Diary"]
+        "tags": [
+          "Diary"
+        ]
       }
     },
     "/api/diary/{date}": {
@@ -89,7 +91,9 @@
             "description": "OK"
           }
         },
-        "tags": ["Diary"]
+        "tags": [
+          "Diary"
+        ]
       }
     }
   },
@@ -107,7 +111,7 @@
             "type": "string",
             "format": "date"
           },
-          "diaryId": {
+          "id": {
             "type": "integer",
             "format": "int64"
           },
@@ -121,7 +125,13 @@
             "format": "int64"
           }
         },
-        "required": ["content", "date", "id", "title", "userId"]
+        "required": [
+          "content",
+          "date",
+          "id",
+          "title",
+          "userId"
+        ]
       },
       "GetDiariesResponse": {
         "type": "object",
