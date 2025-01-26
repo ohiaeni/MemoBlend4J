@@ -29,4 +29,18 @@ public interface DiaryRepository {
    * @param diary 追加する日記。
    */
   Diary add(Diary diary);
+
+  /**
+   * ID を指定して、 {@link Diary} を削除します。
+   * 
+   * @param id 削除する日記の ID。
+   */
+  long delete(long id);
+
+  /**
+   * {@link Diary} を更新します。
+   * 
+   * @param diary 更新する日記。
+   */
+  long update(Diary diary);
 }

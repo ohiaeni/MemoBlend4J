@@ -16,7 +16,7 @@ public class Diary {
 
   @NotNull
   @NotBlank
-  private long diaryId;
+  private long id;
 
   @NotNull
   @NotBlank

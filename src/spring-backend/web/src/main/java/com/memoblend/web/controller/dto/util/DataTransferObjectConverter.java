@@ -23,7 +23,7 @@ public class DataTransferObjectConverter {
    * @return DTOとしての日記情報
    */
   public static GetDiaryResponse diaryConverter(Diary diary) {
-    return new GetDiaryResponse(diary.getDiaryId(), diary.getUserId(), diary.getTitle(), diary.getContent(),
+    return new GetDiaryResponse(diary.getId(), diary.getUserId(), diary.getTitle(), diary.getContent(),
         diary.getDate());
   }
 
@@ -34,7 +34,7 @@ public class DataTransferObjectConverter {
    * @return 日記オブジェクト
    */
   public static Diary diaryConverter(PostDiaryRequest request) {
-    return new Diary(request.getDiaryId(), request.getUserId(), request.getTitle(), request.getContent(),
+    return new Diary(request.getId(), request.getUserId(), request.getTitle(), request.getContent(),
         request.getDate());
   }
 }

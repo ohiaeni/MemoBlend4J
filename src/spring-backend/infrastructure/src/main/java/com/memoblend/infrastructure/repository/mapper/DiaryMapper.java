@@ -32,5 +32,19 @@ public interface DiaryMapper {
    * 
    * @param diary 追加する日記。
    */
-  public Diary add(Diary diary);
+  public long add(Diary diary);
+
+  /**
+   * ID を指定して、 {@link Diary} を削除します。
+   * 
+   * @param id 削除する日記の ID。
+   */
+  public long delete(long id);
+
+  /**
+   * {@link Diary} を更新します。
+   * 
+   * @param diary 更新する日記。
+   */
+  public long update(Diary diary);
 }

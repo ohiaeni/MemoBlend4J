@@ -31,7 +31,19 @@ public class MyBatisDiaryRepository implements DiaryRepository {
 
   @Override
   public Diary add(Diary diary) {
-    Diary addedDiary = diaryMapper.add(diary);
+    Diary addedDiary = new Diary(0, diary.getUserId(), diary.getTitle(), diary.getContent(), diary.getDate());
+    diaryMapper.add(addedDiary);
+    diary.setId(addedDiary.getUserId());
     return addedDiary;
+  }
+
+  @Override
+  public long delete(long id) {
+    return diaryMapper.delete(id);
+  }
+
+  @Override
+  public long update(Diary diary) {
+    return diaryMapper.update(diary);
   }
 }
