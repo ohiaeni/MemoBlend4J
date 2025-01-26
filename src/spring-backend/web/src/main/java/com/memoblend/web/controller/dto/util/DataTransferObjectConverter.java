@@ -1,6 +1,8 @@
 package com.memoblend.web.controller.dto.util;
 
+import java.util.List;
 import com.memoblend.applicationcore.diary.Diary;
+import com.memoblend.web.controller.dto.diary.GetDiariesResponse;
 import com.memoblend.web.controller.dto.diary.GetDiaryResponse;
 import com.memoblend.web.controller.dto.diary.PostDiaryRequest;
 
@@ -8,6 +10,12 @@ import com.memoblend.web.controller.dto.diary.PostDiaryRequest;
  * dto とオブジェクトの変換を行うクラスです。
  */
 public class DataTransferObjectConverter {
+
+  public static GetDiariesResponse diariesConverter(List<Diary> diaries) {
+    GetDiariesResponse response = new GetDiariesResponse(diaries);
+    return response;
+  }
+
   /**
    * 日記オブジェクトから各属性を取り出し、DTOとして返します。
    * 
