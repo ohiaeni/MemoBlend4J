@@ -31,7 +31,7 @@ public interface DiaryRepository {
   Diary add(Diary diary);
 
   /**
-   * ID を指定して、 {@link Diary} を削除します。
+   * 日付 を指定して、 {@link Diary} を削除します。
    * 
    * @param id 削除する日記の ID。
    */

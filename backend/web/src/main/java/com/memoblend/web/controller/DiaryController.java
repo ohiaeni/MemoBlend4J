@@ -18,6 +18,7 @@ import java.time.LocalDate;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -77,5 +78,24 @@ public class DiaryController {
     Diary diary = PostDiaryRequestMapper.convert(request);
     Diary addedDiary = diaryApplicationService.addDiary(diary);
     return ResponseEntity.created(URI.create("/api/diary/" + addedDiary.getDate())).build();
+  }
+
+  /**
+   * 日記情報を削除します。
+   * 
+   * @param date 日記の日付。
+   * @return 削除結果。
+   */
+  @DeleteMapping("{date}")
+  public ResponseEntity<?> deleteDiary(@PathVariable("date") long date) {
+    LocalDate convertedDate = LocalDateConverter.longToLocalDate(date);
+    Diary diary = null;
+    try {
+      diary = diaryApplicationService.getDiary(convertedDate);
+    } catch (DiaryNotFoundException e) {
+      return ResponseEntity.notFound().build();
+    }
+    diaryApplicationService.deleteDiary(diary.getDate(), diary.getId());
+    return ResponseEntity.ok().build();
   }
 }
