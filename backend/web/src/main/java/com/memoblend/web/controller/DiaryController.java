@@ -80,6 +80,12 @@ public class DiaryController {
     return ResponseEntity.created(URI.create("/api/diary/" + addedDiary.getDate())).build();
   }
 
+  /**
+   * 日記情報を更新します。
+   * 
+   * @param request 日記情報。
+   * @return 更新結果。
+   */
   @PutMapping
   public ResponseEntity<?> putDiary(@RequestBody PutDiaryRequest request) {
     Diary diary = PutDiaryRequestMapper.convert(request);

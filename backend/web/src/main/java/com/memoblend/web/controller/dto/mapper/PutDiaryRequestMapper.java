@@ -8,19 +8,19 @@ import com.memoblend.web.controller.dto.diary.PutDiaryRequest;
  */
 public class PutDiaryRequestMapper {
 
-    /**
-     * {@link PutDiaryRequest} から {@link Diary} へ変換します。
-     * 
-     * @param request 日記の更新リクエスト。
-     * @return 日記。
-     */
-    public static Diary convert(PutDiaryRequest request) {
-        Diary diary = new Diary(
-                request.getId(),
-                request.getUserId(),
-                request.getTitle(),
-                request.getContent(),
-                request.getDate());
-        return diary;
-    }
+  /**
+   * {@link PutDiaryRequest} から {@link Diary} へ変換します。
+   * 
+   * @param request 日記の更新リクエスト。
+   * @return 日記。
+   */
+  public static Diary convert(PutDiaryRequest request) {
+    Diary diary = new Diary(
+        request.getId(),
+        request.getUserId(),
+        request.getTitle(),
+        request.getContent(),
+        request.getDate());
+    return diary;
+  }
 }
