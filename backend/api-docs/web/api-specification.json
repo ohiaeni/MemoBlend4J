@@ -141,7 +141,7 @@
             "content": {
               "*/*": {
                 "schema": {
-                  "$ref": "#/components/schemas/GetDiaryResponse"
+                  "type": "object"
                 }
               }
             },
@@ -198,29 +198,6 @@
             "items": {
               "$ref": "#/components/schemas/Diary"
             }
-          }
-        }
-      },
-      "GetDiaryResponse": {
-        "type": "object",
-        "properties": {
-          "content": {
-            "type": "string"
-          },
-          "date": {
-            "type": "string",
-            "format": "date"
-          },
-          "id": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "title": {
-            "type": "string"
-          },
-          "userId": {
-            "type": "integer",
-            "format": "int64"
           }
         }
       },
