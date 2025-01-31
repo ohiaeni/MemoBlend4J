@@ -9,18 +9,9 @@ updates:
       - "npm"
       - "frontend"
 
-  # pip (Python) の依存関係
-  - package-ecosystem: "pip"
-    directory: "/src/python-backend/"
-    schedule:
-      interval: "weekly"
-    labels:
-      - "pip"
-      - "backend"
-
   # gradle (Java) の依存関係
   - package-ecosystem: "gradle"
-    directory: "/src/spring-backend/"
+    directory: "/src/backend/"
     schedule:
       interval: "weekly"
     labels:
