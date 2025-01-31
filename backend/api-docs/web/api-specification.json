@@ -66,6 +66,35 @@
       }
     },
     "/api/diary/{date}": {
+      "delete": {
+        "operationId": "deleteDiary",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "date",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "tags": [
+          "Diary"
+        ]
+      },
       "get": {
         "operationId": "getDiary",
         "parameters": [
