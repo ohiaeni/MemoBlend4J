@@ -8,7 +8,9 @@ import com.memoblend.systemcommon.util.LocalDateConverter;
 import com.memoblend.web.controller.dto.diary.GetDiariesResponse;
 import com.memoblend.web.controller.dto.diary.GetDiaryResponse;
 import com.memoblend.web.controller.dto.diary.PostDiaryRequest;
-import com.memoblend.web.controller.dto.util.DataTransferObjectConverter;
+import com.memoblend.web.controller.dto.mapper.GetDiariesResponseMapper;
+import com.memoblend.web.controller.dto.mapper.GetDiaryReponseMapper;
+import com.memoblend.web.controller.dto.mapper.PostDiaryRequestMapper;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import java.net.URI;
@@ -41,7 +43,7 @@ public class DiaryController {
   @GetMapping("")
   public ResponseEntity<GetDiariesResponse> getDiaries() {
     List<Diary> diaries = diaryApplicationService.getDiaries();
-    GetDiariesResponse response = DataTransferObjectConverter.diariesConverter(diaries);
+    GetDiariesResponse response = GetDiariesResponseMapper.convert(diaries);
     return ResponseEntity.ok().body(response);
   }
 
@@ -60,19 +62,19 @@ public class DiaryController {
     } catch (DiaryNotFoundException e) {
       return ResponseEntity.notFound().build();
     }
-    GetDiaryResponse response = DataTransferObjectConverter.diaryConverter(diary);
+    GetDiaryResponse response = GetDiaryReponseMapper.convert(diary);
     return ResponseEntity.ok().body(response);
   }
 
   /**
    * 日記情報を登録します。
    * 
-   * @param request 日記情報
-   * @return 登録結果
+   * @param request 日記情報。
+   * @return 登録結果。
    */
   @PostMapping
   public ResponseEntity<?> postDiary(@RequestBody PostDiaryRequest request) {
-    Diary diary = DataTransferObjectConverter.diaryConverter(request);
+    Diary diary = PostDiaryRequestMapper.convert(request);
     Diary addedDiary = diaryApplicationService.addDiary(diary);
     return ResponseEntity.created(URI.create("/api/diary/" + addedDiary.getDate())).build();
   }
