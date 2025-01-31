@@ -64,6 +64,23 @@ public class DiaryApplicationService {
     return addedDiary;
   }
 
+  /**
+   * 日記を更新します。
+   * 
+   * @param diary 更新する日記。
+   */
+  public void updateDiary(Diary diary) {
+    final LocalDate date = diary.getDate();
+    apLog.info(date.getYear() + "年" + date.getMonthValue() + "月" + date.getDayOfMonth() + "日の日記を更新します。");
+    diaryRepository.update(diary);
+  }
+
+  /**
+   * 日記を削除します。
+   * 
+   * @param date 日記を作成した日付。
+   * @param id   日記のID。
+   */
   public void deleteDiary(LocalDate date, long id) {
     apLog.info(date.getYear() + "年" + date.getMonthValue() + "月" + date.getDayOfMonth() + "日の日記を削除します。");
     diaryRepository.delete(id);

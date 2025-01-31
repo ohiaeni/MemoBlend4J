@@ -8,6 +8,8 @@ import com.memoblend.systemcommon.util.LocalDateConverter;
 import com.memoblend.web.controller.dto.diary.GetDiariesResponse;
 import com.memoblend.web.controller.dto.diary.GetDiaryResponse;
 import com.memoblend.web.controller.dto.diary.PostDiaryRequest;
+import com.memoblend.web.controller.dto.diary.PutDiaryRequest;
+import com.memoblend.web.controller.dto.mapper.PutDiaryRequestMapper;
 import com.memoblend.web.controller.dto.mapper.GetDiariesResponseMapper;
 import com.memoblend.web.controller.dto.mapper.GetDiaryReponseMapper;
 import com.memoblend.web.controller.dto.mapper.PostDiaryRequestMapper;
@@ -24,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PutMapping;
 
 /**
  * 日記情報の操作を行うコントローラークラスです。
@@ -96,6 +99,19 @@ public class DiaryController {
       return ResponseEntity.notFound().build();
     }
     diaryApplicationService.deleteDiary(diary.getDate(), diary.getId());
+    return ResponseEntity.ok().build();
+  }
+
+  /**
+   * 日記情報を更新します。
+   * 
+   * @param request 日記情報。
+   * @return 更新結果。
+   */
+  @PutMapping
+  public ResponseEntity<?> putDiary(@RequestBody PutDiaryRequest request) {
+    Diary diary = PutDiaryRequestMapper.convert(request);
+    diaryApplicationService.updateDiary(diary);
     return ResponseEntity.ok().build();
   }
 }
