@@ -63,4 +63,9 @@ public class DiaryApplicationService {
     Diary addedDiary = diaryRepository.add(diary);
     return addedDiary;
   }
+
+  public void deleteDiary(LocalDate date, long id) {
+    apLog.info(date.getYear() + "年" + date.getMonthValue() + "月" + date.getDayOfMonth() + "日の日記を削除します。");
+    diaryRepository.delete(id);
+  }
 }
