@@ -12,7 +12,7 @@
 	
 	<insert id="add" parameterType="com.memoblend.applicationcore.diary.Diary">
 		INSERT INTO diaries (user_id, title, content, updated_date)
-		VALUES (#{userId}, #{title}, #{content}, #{updatedDate})
+		VALUES (#{userId}, #{title}, #{content}, #{date})
 	</insert>
 
     <delete id="delete" parameterType="com.memoblend.applicationcore.diary.Diary">
