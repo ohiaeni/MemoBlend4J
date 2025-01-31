@@ -63,4 +63,10 @@ public class DiaryApplicationService {
     Diary addedDiary = diaryRepository.add(diary);
     return addedDiary;
   }
+
+  public void updateDiary(Diary diary) {
+    final LocalDate date = diary.getDate();
+    apLog.info(date.getYear() + "年" + date.getMonthValue() + "月" + date.getDayOfMonth() + "日の日記を更新します。");
+    diaryRepository.update(diary);
+  }
 }

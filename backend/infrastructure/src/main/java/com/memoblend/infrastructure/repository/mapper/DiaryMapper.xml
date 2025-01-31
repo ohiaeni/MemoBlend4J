@@ -21,7 +21,7 @@
 
 	<update id="update" parameterType="com.memoblend.applicationcore.diary.Diary">
 		UPDATE diaries
-		SET title = #{title}, content = #{content}, updated_date = #{updatedDate}
+		SET title = #{title}, content = #{content}, updated_date = #{date}
 		WHERE id = #{id}
 		AND user_id = #{userId}
 	</update>

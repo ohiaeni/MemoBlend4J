@@ -9,6 +9,7 @@ import com.memoblend.web.controller.dto.diary.GetDiariesResponse;
 import com.memoblend.web.controller.dto.diary.GetDiaryResponse;
 import com.memoblend.web.controller.dto.diary.PostDiaryRequest;
 import com.memoblend.web.controller.dto.diary.PutDiaryRequest;
+import com.memoblend.web.controller.dto.mapper.PutDiaryRequestMapper;
 import com.memoblend.web.controller.dto.util.DataTransferObjectConverter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
@@ -81,6 +82,8 @@ public class DiaryController {
 
   @PutMapping
   public ResponseEntity<?> putDiary(@RequestBody PutDiaryRequest request) {
-    return null;
+    Diary diary = PutDiaryRequestMapper.convert(request);
+    diaryApplicationService.updateDiary(diary);
+    return ResponseEntity.ok().build();
   }
 }
