@@ -8,6 +8,7 @@ import com.memoblend.systemcommon.util.LocalDateConverter;
 import com.memoblend.web.controller.dto.diary.GetDiariesResponse;
 import com.memoblend.web.controller.dto.diary.GetDiaryResponse;
 import com.memoblend.web.controller.dto.diary.PostDiaryRequest;
+import com.memoblend.web.controller.dto.diary.PutDiaryRequest;
 import com.memoblend.web.controller.dto.util.DataTransferObjectConverter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PutMapping;
 
 /**
  * 日記情報の操作を行うコントローラークラスです。
@@ -75,5 +77,10 @@ public class DiaryController {
     Diary diary = DataTransferObjectConverter.diaryConverter(request);
     Diary addedDiary = diaryApplicationService.addDiary(diary);
     return ResponseEntity.created(URI.create("/api/diary/" + addedDiary.getDate())).build();
+  }
+
+  @PutMapping
+  public ResponseEntity<?> putDiary(@RequestBody PutDiaryRequest request) {
+    return null;
   }
 }
