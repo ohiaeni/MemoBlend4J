@@ -5,4 +5,5 @@ package com.memoblend.applicationcore.constant;
  */
 public class ExceptionIdConstants {
 
+    public static final String E_DIARY_NOT_FOUND = "diaryNotFound";
 }

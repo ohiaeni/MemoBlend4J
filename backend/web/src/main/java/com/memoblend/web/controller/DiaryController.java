@@ -4,17 +4,26 @@ import org.springframework.web.bind.annotation.RestController;
 import com.memoblend.applicationcore.applicationservice.DiaryApplicationService;
 import com.memoblend.applicationcore.diary.Diary;
 import com.memoblend.applicationcore.diary.DiaryNotFoundException;
+import com.memoblend.systemcommon.constant.CommonExceptionIdConstants;
+import com.memoblend.systemcommon.constant.SystemPropertyConstants;
 import com.memoblend.systemcommon.util.LocalDateConverter;
 import com.memoblend.web.controller.dto.diary.GetDiariesResponse;
 import com.memoblend.web.controller.dto.diary.GetDiaryResponse;
 import com.memoblend.web.controller.dto.diary.PostDiaryRequest;
 import com.memoblend.web.controller.dto.util.DataTransferObjectConverter;
+import com.memoblend.web.log.ErrorMessageBuilder;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import java.net.URI;
 import java.time.LocalDate;
 import java.util.List;
+import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,6 +41,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class DiaryController {
   @Autowired
   DiaryApplicationService diaryApplicationService;
+  @Autowired
+  private ProblemDetailsFactory problemDetailsFactory;
+
+  private static final Logger apLog = LoggerFactory.getLogger(SystemPropertyConstants.APPLICATION_LOGGER);
 
   /**
    * 日記を全件取得します。
@@ -52,13 +65,21 @@ public class DiaryController {
    * @return 日記情報
    */
   @GetMapping("{date}")
-  public ResponseEntity<GetDiaryResponse> getDiary(@PathVariable("date") long date) {
+  public ResponseEntity<?> getDiary(@PathVariable("date") long date) {
     LocalDate convertedDate = LocalDateConverter.longToLocalDate(date);
     Diary diary = null;
     try {
       diary = diaryApplicationService.getDiary(convertedDate);
     } catch (DiaryNotFoundException e) {
-      return ResponseEntity.notFound().build();
+      apLog.info(e.getMessage());
+      apLog.debug(ExceptionUtils.getStackTrace(e));
+      ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e, e.getExceptionId(),
+          e.getLogMessageValue(), e.getFrontMessageValue());
+      ProblemDetail problemDetail = problemDetailsFactory.createProblemDetail(errorBuilder,
+          CommonExceptionIdConstants.E_BUSINESS, HttpStatus.NOT_FOUND);
+      return ResponseEntity.status(HttpStatus.NOT_FOUND)
+          .contentType(MediaType.APPLICATION_PROBLEM_JSON)
+          .body(problemDetail);
     }
     GetDiaryResponse response = DataTransferObjectConverter.diaryConverter(diary);
     return ResponseEntity.ok().body(response);

@@ -3,8 +3,12 @@ package com.memoblend.applicationcore.applicationservice;
 import java.time.LocalDate;
 import java.util.logging.Logger;
 import java.util.List;
+import java.util.Locale;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
+import com.memoblend.applicationcore.constant.MessageIdConstants;
 import com.memoblend.applicationcore.diary.Diary;
 import com.memoblend.applicationcore.diary.DiaryNotFoundException;
 import com.memoblend.applicationcore.diary.DiaryRepository;
@@ -20,7 +24,7 @@ public class DiaryApplicationService {
 
   @Autowired
   private DiaryRepository diaryRepository;
-
+  private MessageSource messages;
   private final Logger apLog = Logger.getLogger(SystemPropertyConstants.APPLICATION_LOGGER);
 
   /**
@@ -29,7 +33,7 @@ public class DiaryApplicationService {
    * @return 全ての日記。
    */
   public List<Diary> getDiaries() {
-    apLog.info("全ての日記を取得します。");
+    apLog.info(messages.getMessage(MessageIdConstants.D_DIARY_GET_DIARIES, new Object[] {}, Locale.getDefault()));
     return diaryRepository.findAll();
   }
 
@@ -42,10 +46,10 @@ public class DiaryApplicationService {
    * @throws DiaryNotFoundException 日記が見つからない場合。
    */
   public Diary getDiary(LocalDate date) throws DiaryNotFoundException {
-    apLog.info(date.getYear() + "年" + date.getMonthValue() + "月" + date.getDayOfMonth() + "日の日記を取得します。");
+    apLog.info(messages.getMessage(MessageIdConstants.D_DIARY_GET_DIARY,
+        new Object[] { date.getYear(), date.getMonthValue(), date.getDayOfMonth() }, Locale.getDefault()));
     Diary diary = diaryRepository.findByDate(date);
     if (diary == null) {
-      apLog.info(date.getYear() + "年" + date.getMonthValue() + "月" + date.getDayOfMonth() + "日の日記が見つかりませんでした。");
       throw new DiaryNotFoundException(date);
     }
     return diary;
@@ -59,7 +63,8 @@ public class DiaryApplicationService {
    */
   public Diary addDiary(Diary diary) {
     final LocalDate date = diary.getDate();
-    apLog.info(date.getYear() + "年" + date.getMonthValue() + "月" + date.getDayOfMonth() + "日の日記を追加します。");
+    apLog.info(messages.getMessage(MessageIdConstants.D_DIARY_ADD_DIARY,
+        new Object[] { date.getYear(), date.getMonthValue(), date.getDayOfMonth() }, Locale.getDefault()));
     Diary addedDiary = diaryRepository.add(diary);
     return addedDiary;
   }
