@@ -1,7 +1,6 @@
 package com.memoblend.applicationcore.diary;
 
 import java.time.LocalDate;
-
 import com.memoblend.applicationcore.constant.ExceptionIdConstants;
 import com.memoblend.systemcommon.exception.LogicException;
 
