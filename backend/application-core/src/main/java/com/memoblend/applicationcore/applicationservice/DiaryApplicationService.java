@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.memoblend.applicationcore.diary.Diary;
 import com.memoblend.applicationcore.diary.DiaryNotFoundException;
 import com.memoblend.applicationcore.diary.DiaryRepository;
-import com.memoblend.systemcommon.constant.LoggerConstant;
+import com.memoblend.systemcommon.constant.SystemPropertyConstants;
 import lombok.AllArgsConstructor;
 
 /**
@@ -21,7 +21,7 @@ public class DiaryApplicationService {
   @Autowired
   private DiaryRepository diaryRepository;
 
-  private final Logger apLog = Logger.getLogger(LoggerConstant.APPLICATION_LOGGER);
+  private final Logger apLog = Logger.getLogger(SystemPropertyConstants.APPLICATION_LOGGER);
 
   /**
    * 全ての日記を取得します。

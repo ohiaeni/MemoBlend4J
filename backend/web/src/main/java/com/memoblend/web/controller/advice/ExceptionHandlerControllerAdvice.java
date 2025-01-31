@@ -2,7 +2,6 @@ package com.memoblend.web.controller.advice;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ProblemDetail;
@@ -10,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-import com.memoblend.systemcommon.constant.LoggerConstant;
+import com.memoblend.systemcommon.constant.SystemPropertyConstants;
 import com.memoblend.systemcommon.exception.LogicException;
 import com.memoblend.systemcommon.exception.SystemException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -19,10 +18,9 @@ import jakarta.servlet.http.HttpServletRequest;
  * 本番環境で使用する集約例外ハンドラークラスです。
  */
 @ControllerAdvice(basePackages = "com.memoblend")
-@Profile("production")
 public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHandler {
 
-  private static final Logger apLog = LoggerFactory.getLogger(LoggerConstant.APPLICATION_LOGGER);
+  private static final Logger apLog = LoggerFactory.getLogger(SystemPropertyConstants.APPLICATION_LOGGER);
 
   /**
    * その他の業務エラーをステータースコード 500 で返却します。
