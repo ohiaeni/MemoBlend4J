@@ -16,7 +16,7 @@ public class PostDiaryRequestMapper {
    */
   public static Diary convert(PostDiaryRequest request) {
     Diary diary = new Diary(
-        request.getId(),
+        0,
         request.getUserId(),
         request.getTitle(),
         request.getContent(),
