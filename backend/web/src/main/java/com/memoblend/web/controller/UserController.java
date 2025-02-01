@@ -4,9 +4,11 @@ import java.net.URI;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,9 +18,11 @@ import com.memoblend.applicationcore.user.UserNotFoundException;
 import com.memoblend.web.controller.dto.user.GetUserResponse;
 import com.memoblend.web.controller.dto.user.GetUsersResponse;
 import com.memoblend.web.controller.dto.user.PostUserRequest;
+import com.memoblend.web.controller.dto.user.PutUserRequest;
 import com.memoblend.web.controller.dto.mapper.GetUserReponseMapper;
 import com.memoblend.web.controller.dto.mapper.GetUsersResponseMapper;
 import com.memoblend.web.controller.dto.mapper.PostUserRequestMapper;
+import com.memoblend.web.controller.dto.mapper.PutUserRequestMapper;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 
@@ -74,5 +78,36 @@ public class UserController {
     User user = PostUserRequestMapper.convert(request);
     User addedUser = userApplicationService.addUser(user);
     return ResponseEntity.created(URI.create("/api/user/" + addedUser.getId())).build();
+  }
+
+  /**
+   * ユーザー情報を削除します。
+   * 
+   * @param id ユーザーのid。
+   * @return 削除結果。
+   */
+  @DeleteMapping("{id}")
+  public ResponseEntity<?> deleteUser(@PathVariable("id") long id) {
+    User user = null;
+    try {
+      user = userApplicationService.getUser(id);
+    } catch (UserNotFoundException e) {
+      return ResponseEntity.notFound().build();
+    }
+    userApplicationService.deleteUser(user.getId());
+    return ResponseEntity.ok().build();
+  }
+
+  /**
+   * 日記情報を更新します。
+   * 
+   * @param request 日記情報。
+   * @return 更新結果。
+   */
+  @PutMapping
+  public ResponseEntity<?> putUser(@RequestBody PutUserRequest request) {
+    User user = PutUserRequestMapper.convert(request);
+    userApplicationService.updateUser(user);
+    return ResponseEntity.ok().build();
   }
 }
