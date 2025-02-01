@@ -99,9 +99,9 @@ public class UserController {
   }
 
   /**
-   * 日記情報を更新します。
+   * ユーザー情報を更新します。
    * 
-   * @param request 日記情報。
+   * @param request ユーザー情報。
    * @return 更新結果。
    */
   @PutMapping
