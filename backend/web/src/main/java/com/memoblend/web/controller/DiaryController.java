@@ -72,7 +72,7 @@ public class DiaryController {
    */
   @GetMapping("{date}")
   public ResponseEntity<?> getDiary(@PathVariable("date") long date) {
-    LocalDate convertedDate = LocalDateConverter.longToLocalDate(date);
+    LocalDate convertedDate = LocalDateConverter.convert(date);
     Diary diary = null;
     try {
       diary = diaryApplicationService.getDiary(convertedDate);
@@ -112,7 +112,7 @@ public class DiaryController {
    */
   @DeleteMapping("{date}")
   public ResponseEntity<?> deleteDiary(@PathVariable("date") long date) {
-    LocalDate convertedDate = LocalDateConverter.longToLocalDate(date);
+    LocalDate convertedDate = LocalDateConverter.convert(date);
     Diary diary = null;
     try {
       diary = diaryApplicationService.getDiary(convertedDate);

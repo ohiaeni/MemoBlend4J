@@ -15,7 +15,7 @@ public class LocalDateConverter {
    * @param date long型の日付
    * @return LocalDate型の日付
    */
-  public static LocalDate longToLocalDate(long date) {
+  public static LocalDate convert(long date) {
     try {
       String dateString = String.valueOf(date);
       DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
