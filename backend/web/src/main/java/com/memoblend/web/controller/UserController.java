@@ -19,10 +19,10 @@ import com.memoblend.web.controller.dto.user.GetUserResponse;
 import com.memoblend.web.controller.dto.user.GetUsersResponse;
 import com.memoblend.web.controller.dto.user.PostUserRequest;
 import com.memoblend.web.controller.dto.user.PutUserRequest;
-import com.memoblend.web.controller.dto.mapper.GetUserReponseMapper;
-import com.memoblend.web.controller.dto.mapper.GetUsersResponseMapper;
-import com.memoblend.web.controller.dto.mapper.PostUserRequestMapper;
-import com.memoblend.web.controller.dto.mapper.PutUserRequestMapper;
+import com.memoblend.web.controller.mapper.user.GetUserReponseMapper;
+import com.memoblend.web.controller.mapper.user.GetUsersResponseMapper;
+import com.memoblend.web.controller.mapper.user.PostUserRequestMapper;
+import com.memoblend.web.controller.mapper.user.PutUserRequestMapper;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 

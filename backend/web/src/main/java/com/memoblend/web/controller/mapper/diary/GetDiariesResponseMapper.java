@@ -1,4 +1,4 @@
-package com.memoblend.web.controller.dto.mapper;
+package com.memoblend.web.controller.mapper.diary;
 
 import java.util.List;
 import com.memoblend.applicationcore.diary.Diary;
