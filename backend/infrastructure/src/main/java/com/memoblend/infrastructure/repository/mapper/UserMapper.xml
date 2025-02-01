@@ -15,7 +15,7 @@
 		VALUES (#{userName})
 	</insert>
 
-    <delete id="delete" parameterType="com.memoblend.applicationcore.user.User">
+    <delete id="delete" parameterType="long">
 		DELETE FROM users WHERE id = #{id}
 	</delete>
 
