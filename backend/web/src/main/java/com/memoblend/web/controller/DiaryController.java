@@ -3,6 +3,7 @@ package com.memoblend.web.controller;
 import org.springframework.web.bind.annotation.RestController;
 import com.memoblend.applicationcore.applicationservice.DiaryApplicationService;
 import com.memoblend.applicationcore.diary.Diary;
+import com.memoblend.applicationcore.diary.DiaryAlreadyExistException;
 import com.memoblend.applicationcore.diary.DiaryNotFoundException;
 import com.memoblend.systemcommon.constant.CommonExceptionIdConstants;
 import com.memoblend.systemcommon.constant.SystemPropertyConstants;
@@ -100,7 +101,20 @@ public class DiaryController {
   @PostMapping
   public ResponseEntity<?> postDiary(@RequestBody PostDiaryRequest request) {
     Diary diary = PostDiaryRequestMapper.convert(request);
-    Diary addedDiary = diaryApplicationService.addDiary(diary);
+    Diary addedDiary = null;
+    try {
+      addedDiary = diaryApplicationService.addDiary(diary);
+    } catch (DiaryAlreadyExistException e) {
+      apLog.info(e.getMessage());
+      apLog.debug(ExceptionUtils.getStackTrace(e));
+      ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e, e.getExceptionId(),
+          e.getLogMessageValue(), e.getFrontMessageValue());
+      ProblemDetail problemDetail = problemDetailsFactory.createProblemDetail(errorBuilder,
+          CommonExceptionIdConstants.E_BUSINESS, HttpStatus.CONFLICT);
+      return ResponseEntity.status(HttpStatus.CONFLICT)
+          .contentType(MediaType.APPLICATION_PROBLEM_JSON)
+          .body(problemDetail);
+    }
     return ResponseEntity.created(URI.create("/api/diary/" + addedDiary.getDate())).build();
   }
 

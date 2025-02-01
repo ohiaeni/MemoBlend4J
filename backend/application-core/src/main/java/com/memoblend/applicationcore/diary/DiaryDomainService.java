@@ -1,12 +1,14 @@
 package com.memoblend.applicationcore.diary;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import lombok.AllArgsConstructor;
 
 /**
  * 日記のドメインサービスです。
  */
 @AllArgsConstructor
+@Component
 public class DiaryDomainService {
   @Autowired
   private DiaryRepository diaryRepository;

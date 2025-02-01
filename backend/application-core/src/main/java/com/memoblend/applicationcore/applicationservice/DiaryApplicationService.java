@@ -9,6 +9,8 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import com.memoblend.applicationcore.constant.MessageIdConstants;
 import com.memoblend.applicationcore.diary.Diary;
+import com.memoblend.applicationcore.diary.DiaryAlreadyExistException;
+import com.memoblend.applicationcore.diary.DiaryDomainService;
 import com.memoblend.applicationcore.diary.DiaryNotFoundException;
 import com.memoblend.applicationcore.diary.DiaryRepository;
 import com.memoblend.systemcommon.constant.SystemPropertyConstants;
@@ -23,6 +25,8 @@ public class DiaryApplicationService {
 
   @Autowired
   private DiaryRepository diaryRepository;
+  @Autowired
+  private DiaryDomainService diaryDomainService;
   private MessageSource messages;
   private final Logger apLog = Logger.getLogger(SystemPropertyConstants.APPLICATION_LOGGER);
 
@@ -59,11 +63,15 @@ public class DiaryApplicationService {
    * 
    * @param diary 追加する日記。
    * @return 追加された日記。
+   * @throws DiaryAlreadyExistException 日記が既に存在する場合。
    */
-  public Diary addDiary(Diary diary) {
+  public Diary addDiary(Diary diary) throws DiaryAlreadyExistException {
     final LocalDate date = diary.getDate();
     apLog.info(messages.getMessage(MessageIdConstants.D_DIARY_ADD_DIARY,
         new Object[] { date.getYear(), date.getMonthValue(), date.getDayOfMonth() }, Locale.getDefault()));
+    if (diaryDomainService.isExistDiary(diary)) {
+      throw new DiaryAlreadyExistException(date);
+    }
     Diary addedDiary = diaryRepository.add(diary);
     return addedDiary;
   }
