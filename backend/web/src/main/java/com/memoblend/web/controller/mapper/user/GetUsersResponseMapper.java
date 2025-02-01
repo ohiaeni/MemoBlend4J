@@ -1,4 +1,4 @@
-package com.memoblend.web.controller.dto.mapper;
+package com.memoblend.web.controller.mapper.user;
 
 import java.util.List;
 import com.memoblend.applicationcore.user.User;
