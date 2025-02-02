@@ -18,7 +18,7 @@ public interface UserMapper {
   public List<User> findAll();
 
   /**
-   * ユーザーIDを指定して、
+   * IDを指定して、
    * {@link User} を取得します。
    * 
    * @param id ユーザーID。
