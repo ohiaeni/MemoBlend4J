@@ -2,7 +2,7 @@ version: 2
 updates:
   # npm (JavaScript) の依存関係
   - package-ecosystem: "npm"
-    directory: "/src/frontend/"
+    directory: "/frontend/"
     schedule:
       interval: "weekly"
     labels:
@@ -11,7 +11,7 @@ updates:
 
   # gradle (Java) の依存関係
   - package-ecosystem: "gradle"
-    directory: "/src/backend/"
+    directory: "/backend/"
     schedule:
       interval: "weekly"
     labels:
