@@ -127,13 +127,19 @@ public class DiaryController {
   @DeleteMapping("{date}")
   public ResponseEntity<?> deleteDiary(@PathVariable("date") long date) {
     LocalDate convertedDate = LocalDateConverter.convert(date);
-    Diary diary = null;
     try {
-      diary = diaryApplicationService.getDiary(convertedDate);
+      diaryApplicationService.deleteDiary(convertedDate);
     } catch (DiaryNotFoundException e) {
-      return ResponseEntity.notFound().build();
+      apLog.info(e.getMessage());
+      apLog.debug(ExceptionUtils.getStackTrace(e));
+      ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e, e.getExceptionId(),
+          e.getLogMessageValue(), e.getFrontMessageValue());
+      ProblemDetail problemDetail = problemDetailsFactory.createProblemDetail(errorBuilder,
+          CommonExceptionIdConstants.E_BUSINESS, HttpStatus.NOT_FOUND);
+      return ResponseEntity.status(HttpStatus.NOT_FOUND)
+          .contentType(MediaType.APPLICATION_PROBLEM_JSON)
+          .body(problemDetail);
     }
-    diaryApplicationService.deleteDiary(diary.getDate(), diary.getId());
     return ResponseEntity.ok().build();
   }
 
@@ -146,7 +152,19 @@ public class DiaryController {
   @PutMapping
   public ResponseEntity<?> putDiary(@RequestBody PutDiaryRequest request) {
     Diary diary = PutDiaryRequestMapper.convert(request);
-    diaryApplicationService.updateDiary(diary);
+    try {
+      diaryApplicationService.updateDiary(diary);
+    } catch (DiaryNotFoundException e) {
+      apLog.info(e.getMessage());
+      apLog.debug(ExceptionUtils.getStackTrace(e));
+      ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e, e.getExceptionId(),
+          e.getLogMessageValue(), e.getFrontMessageValue());
+      ProblemDetail problemDetail = problemDetailsFactory.createProblemDetail(errorBuilder,
+          CommonExceptionIdConstants.E_BUSINESS, HttpStatus.NOT_FOUND);
+      return ResponseEntity.status(HttpStatus.NOT_FOUND)
+          .contentType(MediaType.APPLICATION_PROBLEM_JSON)
+          .body(problemDetail);
+    }
     return ResponseEntity.ok().build();
   }
 }
