@@ -84,7 +84,8 @@ public class DiaryApplicationService {
    */
   public void updateDiary(Diary diary) throws DiaryNotFoundException {
     final LocalDate date = diary.getDate();
-    apLog.info(date.getYear() + "年" + date.getMonthValue() + "月" + date.getDayOfMonth() + "日の日記を更新します。");
+    apLog.info(messages.getMessage(MessageIdConstants.D_DIARY_UPDATE_DIARY,
+        new Object[] { date.getYear(), date.getMonthValue(), date.getDayOfMonth() }, Locale.getDefault()));
     if (!diaryDomainService.isExistDiary(diary)) {
       throw new DiaryNotFoundException(date);
     }
@@ -98,7 +99,8 @@ public class DiaryApplicationService {
    * @throws DiaryNotFoundException 日記が見つからない場合。
    */
   public void deleteDiary(LocalDate date) throws DiaryNotFoundException {
-    apLog.info(date.getYear() + "年" + date.getMonthValue() + "月" + date.getDayOfMonth() + "日の日記を削除します。");
+    apLog.info(messages.getMessage(MessageIdConstants.D_DIARY_DELETE_DIARY,
+        new Object[] { date.getYear(), date.getMonthValue(), date.getDayOfMonth() }, Locale.getDefault()));
     Diary diary = diaryRepository.findByDate(date);
     if (diary == null) {
       throw new DiaryNotFoundException(date);
