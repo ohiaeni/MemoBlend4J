@@ -374,10 +374,6 @@
             "type": "string",
             "format": "date"
           },
-          "id": {
-            "type": "integer",
-            "format": "int64"
-          },
           "title": {
             "type": "string"
           },
