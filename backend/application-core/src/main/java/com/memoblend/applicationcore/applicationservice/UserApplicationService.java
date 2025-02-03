@@ -62,4 +62,25 @@ public class UserApplicationService {
     User addedUser = userRepository.add(user);
     return addedUser;
   }
+
+  /**
+   * ユーザーを更新します。
+   * 
+   * @param user 更新するユーザー。
+   */
+  public void updateUser(User user) {
+    final String userName = user.getUserName();
+    apLog.info(userName + "を更新します。");
+    userRepository.update(user);
+  }
+
+  /**
+   * ユーザーを削除します。
+   * 
+   * @param id   ユーザーのID。
+   */
+  public void deleteUser(long id) {
+    apLog.info("ユーザーID: " + id + "を削除します。");
+    userRepository.delete(id);
+  }
 }
