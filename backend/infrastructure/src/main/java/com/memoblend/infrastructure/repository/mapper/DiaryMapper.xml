@@ -7,11 +7,11 @@
 	</select>
 
 	<select id="findByDate" resultType="com.memoblend.applicationcore.diary.Diary">
-		SELECT * FROM diaries WHERE updated_date = #{date}
+		SELECT * FROM diaries WHERE date = #{date}
 	</select>
 	
 	<insert id="add" parameterType="com.memoblend.applicationcore.diary.Diary">
-		INSERT INTO diaries (user_id, title, content, updated_date)
+		INSERT INTO diaries (user_id, title, content, date)
 		VALUES (#{userId}, #{title}, #{content}, #{date})
 	</insert>
 
@@ -21,7 +21,7 @@
 
 	<update id="update" parameterType="com.memoblend.applicationcore.diary.Diary">
 		UPDATE diaries
-		SET title = #{title}, content = #{content}, updated_date = #{date}
+		SET title = #{title}, content = #{content}, date = #{date}
 		WHERE id = #{id}
 		AND user_id = #{userId}
 	</update>
