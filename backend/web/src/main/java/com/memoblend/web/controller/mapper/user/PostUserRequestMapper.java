@@ -1,4 +1,4 @@
-package com.memoblend.web.controller.dto.mapper;
+package com.memoblend.web.controller.mapper.user;
 
 import com.memoblend.applicationcore.user.User;
 import com.memoblend.web.controller.dto.user.PostUserRequest;
