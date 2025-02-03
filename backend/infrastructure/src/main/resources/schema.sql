@@ -13,5 +13,5 @@ CREATE TABLE diaries
   user_id BIGSERIAL NOT NULL,
   title VARCHAR(64) NOT NULL,
   content VARCHAR NOT NULL,
-  updated_date TIMESTAMP NOT NULL
+  date TIMESTAMP NOT NULL
 );
