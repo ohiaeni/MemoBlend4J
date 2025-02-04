@@ -1,0 +1,76 @@
+---
+# cspell:ignore mikepenz dorny
+name: バックエンドサンプルAPに対するプルリクエスト時の単体テスト実行
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'backend/**'
+      - '.github/workflows/backend-pull-request-ut.yml'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      checks: write
+      contents: read
+
+    steps:
+      - name: ブランチのチェックアウト
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: JDK21のセットアップ
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'adopt'
+          java-version: '21'
+          cache: 'gradle'
+
+      - name: gradlewに実行権限付与
+        run: chmod +x backend/gradlew
+
+      - id: run-build-and-tests
+        name: ビルド（コンパイル, 静的テスト, JUnit）実行
+        run: ./gradlew build > build-result.txt
+        working-directory: ./backend
+        continue-on-error: true
+
+      - name: ビルド（コンパイル, 静的テスト, JUnit）結果の表示
+        shell: bash
+        working-directory: ./backend
+        if: ${{ success() || (failure() && steps.run-build-and-tests.outcome == 'failure') }}
+        run: |
+          echo '# Build Result :gear:' >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          cat build-result.txt >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+
+      - name: ビルド（コンパイル, 静的テスト, JUnit）成功
+        if: ${{ steps.run-build-and-tests.outcome == 'success' }}
+        run: |
+          echo '## Test Result :memo:' >> $GITHUB_STEP_SUMMARY
+          echo ':heavy_check_mark: ビルドとテストに成功しました。' >> $GITHUB_STEP_SUMMARY
+
+      - name: ビルド（コンパイル, 静的テスト, JUnit）失敗
+        if: ${{ steps.run-build-and-tests.outcome == 'failure' }}
+        run: |
+          echo '## Test Result :memo:' >> $GITHUB_STEP_SUMMARY
+          echo ':x: ビルドまたはテストに失敗しました。' >> $GITHUB_STEP_SUMMARY
+
+      - name: JUnitレポート
+        uses: mikepenz/action-junit-report@ee6b445351cd81e2f73a16a0e52d598aeac2197f  # v5.3.0
+        with:
+          report_paths: '**/build/test-results/test/TEST-*.xml'
+
+      - name: Report
+        uses: dorny/test-reporter@31a54ee7ebcacc03a09ea97a7e5465a47b84aea5  # v1.9.1
+        if: always()
+        with:
+          name: Maven Tests
+          path: '**/build/test-results/test/TEST-*.xml'
+          reporter: java-junit
+          fail-on-error: true
