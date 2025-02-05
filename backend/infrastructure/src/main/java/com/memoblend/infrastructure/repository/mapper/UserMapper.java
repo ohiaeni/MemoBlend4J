@@ -10,40 +10,40 @@ import com.memoblend.applicationcore.user.User;
 @Mapper
 public interface UserMapper {
 
-   /**
-    * ユーザーを全件取得します。
-    * 
-    * @return 全てのユーザー 。
-    */
-   public List<User> findAll();
+  /**
+   * ユーザーを全件取得します。
+   * 
+   * @return 全てのユーザー 。
+   */
+  public List<User> findAll();
 
-   /**
-    * IDを指定して、
-    * {@link User} を取得します。
-    * 
-    * @param id ユーザーID。
-    * @return 条件に合うユーザー。
-    */
-   public User findById(long id);
+  /**
+   * IDを指定して、
+   * {@link User} を取得します。
+   * 
+   * @param id ユーザーID。
+   * @return 条件に合うユーザー。
+   */
+  public User findById(long id);
 
-   /**
-    * ユーザーを追加します。
-    * 
-    * @param user 追加するユーザー。
-    */
-   public long add(User user);
+  /**
+   * ユーザーを追加します。
+   * 
+   * @param user 追加するユーザー。
+   */
+  public long add(User user);
 
-   /**
-    * ID を指定して、 {@link User} を削除します。
-    * 
-    * @param id 削除するユーザーの ID。
-    */
-   public long delete(long id);
+  /**
+   * ID を指定して、 {@link User} を削除します。
+   * 
+   * @param id 削除するユーザーの ID。
+   */
+  public long delete(long id);
 
-   /**
-    * {@link User} を更新します。
-    * 
-    * @param user 更新するユーザー。
-    */
-   public long update(User user);
+  /**
+   * {@link User} を更新します。
+   * 
+   * @param user 更新するユーザー。
+   */
+  public long update(User user);
 }
