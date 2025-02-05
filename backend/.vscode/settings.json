@@ -1,0 +1,10 @@
+{
+  "java.dependency.packagePresentation": "hierarchical",
+  "java.configuration.updateBuildConfiguration": "automatic",
+  "java.format.settings.url": "${workspaceFolder}\\config\\formatter\\eclipse-formatter.xml",
+  "[java]": {
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": true,
+    "editor.formatOnType": true
+  }
+}
