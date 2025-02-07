@@ -68,15 +68,14 @@ public class DiaryController {
   /**
    * 日記情報を取得します。
    * 
-   * @param date 日記の日付
-   * @return 日記情報
+   * @param date 日記の ID 。
+   * @return 日記情報。
    */
-  @GetMapping("{date}")
-  public ResponseEntity<?> getDiary(@PathVariable("date") long date) {
-    LocalDate convertedDate = LocalDateConverter.convert(date);
+  @GetMapping("{id}")
+  public ResponseEntity<?> getDiary(@PathVariable("id") long id) {
     Diary diary = null;
     try {
-      diary = diaryApplicationService.getDiary(convertedDate);
+      diary = diaryApplicationService.getDiary(id);
     } catch (DiaryNotFoundException e) {
       apLog.info(e.getMessage());
       apLog.debug(ExceptionUtils.getStackTrace(e));
@@ -124,11 +123,10 @@ public class DiaryController {
    * @param date 日記の日付。
    * @return 削除結果。
    */
-  @DeleteMapping("{date}")
-  public ResponseEntity<?> deleteDiary(@PathVariable("date") long date) {
-    LocalDate convertedDate = LocalDateConverter.convert(date);
+  @DeleteMapping("{id}")
+  public ResponseEntity<?> deleteDiary(@PathVariable("date") long id) {
     try {
-      diaryApplicationService.deleteDiary(convertedDate);
+      diaryApplicationService.deleteDiary(id);
     } catch (DiaryNotFoundException e) {
       apLog.info(e.getMessage());
       apLog.debug(ExceptionUtils.getStackTrace(e));
