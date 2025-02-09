@@ -21,7 +21,6 @@ import org.springframework.context.MessageSource;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import com.memoblend.applicationcore.diary.Diary;
-import com.memoblend.applicationcore.diary.DiaryAlreadyExistException;
 import com.memoblend.applicationcore.diary.DiaryDomainService;
 import com.memoblend.applicationcore.diary.DiaryNotFoundException;
 import com.memoblend.applicationcore.diary.DiaryRepository;
@@ -77,15 +76,16 @@ public class DiaryApplicationServiceTest {
   }
 
   @Test
-  void testGetDiary_正常系_リポジトリのfindByDateを1回呼び出す() throws DiaryNotFoundException {
+  void testGetDiary_正常系_リポジトリのfindByIdを1回呼び出す() throws DiaryNotFoundException {
     // Arrange
     LocalDate date = LocalDate.of(2025, 1, 1);
     Diary diary = createDiary(date);
-    when(diaryRepository.findByDate(date)).thenReturn(diary);
+    long id = diary.getId();
+    when(diaryRepository.findById(id)).thenReturn(diary);
     // Act
-    diaryApplicationService.getDiary(date);
+    diaryApplicationService.getDiary(id);
     // Assert
-    verify(diaryRepository, times(1)).findByDate(date);
+    verify(diaryRepository, times(1)).findById(id);
   }
 
   @Test
@@ -93,9 +93,10 @@ public class DiaryApplicationServiceTest {
     // Arrange
     LocalDate date = LocalDate.of(2025, 1, 1);
     Diary diary = createDiary(date);
-    when(diaryRepository.findByDate(date)).thenReturn(diary);
+    long id = diary.getId();
+    when(diaryRepository.findById(id)).thenReturn(diary);
     // Act
-    Diary actual = diaryApplicationService.getDiary(date);
+    Diary actual = diaryApplicationService.getDiary(id);
     // Assert
     assertThat(actual).isEqualTo(diary);
   }
@@ -103,22 +104,23 @@ public class DiaryApplicationServiceTest {
   @Test
   void testGetDiary_異常系_指定した日付の日記が存在しない場合DiaryNotFoundExceptionがスローされる() {
     // Arrange
-    LocalDate date = LocalDate.of(2025, 1, 1);
-    when(diaryRepository.findByDate(date)).thenReturn(null);
+    long id = 1;
+    when(diaryRepository.findById(id)).thenReturn(null);
     // Act
     Executable action = () -> {
-      diaryApplicationService.getDiary(date);
+      diaryApplicationService.getDiary(id);
     };
     // Assert
     assertThrows(DiaryNotFoundException.class, action);
   }
 
   @Test
-  void testAddDiary_正常系_リポジトリのaddを1回呼び出す() throws DiaryAlreadyExistException {
+  void testAddDiary_正常系_リポジトリのaddを1回呼び出す() {
     // Arrange
     LocalDate date = LocalDate.of(2025, 1, 1);
     Diary diary = createDiary(date);
-    when(diaryDomainService.isExistDiary(diary)).thenReturn(false);
+    long id = diary.getId();
+    when(diaryDomainService.isExistDiary(id)).thenReturn(false);
     when(diaryRepository.add(diary)).thenReturn(diary);
     // Act
     diaryApplicationService.addDiary(diary);
@@ -127,11 +129,12 @@ public class DiaryApplicationServiceTest {
   }
 
   @Test
-  void testAddDiary_正常系_追加された日記を返す() throws DiaryAlreadyExistException {
+  void testAddDiary_正常系_追加された日記を返す() {
     // Arrange
     LocalDate date = LocalDate.of(2025, 1, 1);
     Diary diary = createDiary(date);
-    when(diaryDomainService.isExistDiary(diary)).thenReturn(false);
+    long id = diary.getId();
+    when(diaryDomainService.isExistDiary(id)).thenReturn(false);
     when(diaryRepository.add(diary)).thenReturn(diary);
     // Act
     Diary actual = diaryApplicationService.addDiary(diary);
@@ -140,25 +143,12 @@ public class DiaryApplicationServiceTest {
   }
 
   @Test
-  void testAddDiary_異常系_追加しようとした日記が既に存在する場合DiaryAlreadyExistExceptionがスローされる() {
-    // Arrange
-    LocalDate date = LocalDate.of(2025, 1, 1);
-    Diary diary = createDiary(date);
-    when(diaryDomainService.isExistDiary(diary)).thenReturn(true);
-    // Act
-    Executable action = () -> {
-      diaryApplicationService.addDiary(diary);
-    };
-    // Assert
-    assertThrows(DiaryAlreadyExistException.class, action);
-  }
-
-  @Test
   void testUpdateDiary_正常系_リポジトリのupdateを1回呼び出す() throws DiaryNotFoundException {
     // Arrange
     LocalDate date = LocalDate.of(2025, 1, 1);
     Diary diary = createDiary(date);
-    when(diaryDomainService.isExistDiary(diary)).thenReturn(true);
+    long id = diary.getId();
+    when(diaryDomainService.isExistDiary(id)).thenReturn(true);
     // Act
     diaryApplicationService.updateDiary(diary);
     // Assert
@@ -170,7 +160,8 @@ public class DiaryApplicationServiceTest {
     // Arrange
     LocalDate date = LocalDate.of(2025, 1, 1);
     Diary diary = createDiary(date);
-    when(diaryDomainService.isExistDiary(diary)).thenReturn(false);
+    long id = diary.getId();
+    when(diaryDomainService.isExistDiary(id)).thenReturn(false);
     // Act
     Executable action = () -> {
       diaryApplicationService.updateDiary(diary);
@@ -182,23 +173,22 @@ public class DiaryApplicationServiceTest {
   @Test
   void testDeleteDiary_正常系_リポジトリのdeleteを1回呼び出す() throws DiaryNotFoundException {
     // Arrange
-    LocalDate date = LocalDate.of(2025, 1, 1);
-    Diary diary = createDiary(date);
-    when(diaryRepository.findByDate(date)).thenReturn(diary);
+    long id = 1;
+    when(diaryDomainService.isExistDiary(id)).thenReturn(true);
     // Act
-    diaryApplicationService.deleteDiary(date);
+    diaryApplicationService.deleteDiary(id);
     // Assert
-    verify(diaryRepository, times(1)).delete(diary.getId());
+    verify(diaryRepository, times(1)).delete(id);
   }
 
   @Test
   void testDeleteDiary_異常系_削除しようとした日記が存在しない場合DiaryNotFoundExceptionがスローされる() {
     // Arrange
-    LocalDate date = LocalDate.of(2025, 1, 1);
-    when(diaryRepository.findByDate(date)).thenReturn(null);
+    long id = 1;
+    when(diaryDomainService.isExistDiary(id)).thenReturn(false);
     // Act
     Executable action = () -> {
-      diaryApplicationService.deleteDiary(date);
+      diaryApplicationService.deleteDiary(id);
     };
     // Assert
     assertThrows(DiaryNotFoundException.class, action);

@@ -6,11 +6,11 @@
 		SELECT * FROM diaries
 	</select>
 
-	<select id="findByDate" resultType="com.memoblend.applicationcore.diary.Diary">
-		SELECT * FROM diaries WHERE date = #{date}
+	<select id="findById" resultType="com.memoblend.applicationcore.diary.Diary">
+		SELECT * FROM diaries WHERE id = #{id}
 	</select>
 	
-	<insert id="add" parameterType="com.memoblend.applicationcore.diary.Diary">
+	<insert id="add" parameterType="com.memoblend.applicationcore.diary.Diary" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO diaries (user_id, title, content, date)
 		VALUES (#{userId}, #{title}, #{content}, #{date})
 	</insert>
