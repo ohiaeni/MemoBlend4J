@@ -4,7 +4,6 @@ about: Issueを作成する際にはこちらのテンプレートを使用し�
 title: ''
 labels: ''
 assignees: ''
-
 ---
 
 ## 概要
