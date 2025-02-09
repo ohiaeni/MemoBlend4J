@@ -32,7 +32,7 @@ public class DiaryApplicationService {
   /**
    * 全ての日記を取得します。
    * 
-   * @return 全ての日記。
+   * @return 全ての日記のリスト。
    */
   public List<Diary> getDiaries() {
     apLog.info(messages.getMessage(MessageIdConstants.D_DIARY_GET_DIARIES, new Object[] {}, Locale.getDefault()));
@@ -40,10 +40,9 @@ public class DiaryApplicationService {
   }
 
   /**
-   * 日付を指定して、
-   * {@link Diary} を取得します。
+   * ID を指定して、{@link Diary} を取得します。
    * 
-   * @param id 日記の ID。
+   * @param id 日記の ID 。
    * @return 条件に合う日記。
    * @throws DiaryNotFoundException 日記が見つからない場合。
    */
@@ -90,7 +89,7 @@ public class DiaryApplicationService {
   /**
    * 日記を削除します。
    * 
-   * @param id 日記の ID 。
+   * @param id 日記のID。
    * @throws DiaryNotFoundException 日記が見つからない場合。
    */
   public void deleteDiary(long id) throws DiaryNotFoundException {

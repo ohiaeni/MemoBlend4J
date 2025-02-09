@@ -15,7 +15,7 @@ public interface DiaryRepository {
   List<Diary> findAll();
 
   /**
-   * ID を指定して、 {@link Diary} を取得します。
+   * ID を指定して、{@link Diary} を取得します。
    * 
    * @param id 日記の ID 。
    * @return 条件に合う日記。
@@ -30,9 +30,9 @@ public interface DiaryRepository {
   Diary add(Diary diary);
 
   /**
-   * 日付 を指定して、 {@link Diary} を削除します。
+   * 日付 を指定して、{@link Diary} を削除します。
    * 
-   * @param id 削除する日記の ID。
+   * @param id 削除する日記の ID 。
    */
   long delete(long id);
 
