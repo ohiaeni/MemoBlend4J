@@ -10,5 +10,5 @@ import lombok.Data;
 @AllArgsConstructor
 public class PutUserRequest {
   private long id;
-  private String userName;
+  private String name;
 }

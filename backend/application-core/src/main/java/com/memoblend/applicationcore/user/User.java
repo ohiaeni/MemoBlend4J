@@ -19,5 +19,5 @@ public class User {
   @NotNull
   @NotBlank
   @Size(min = 1, max = 15, message = "{0}は1～15文字の範囲で入力してください")
-  private String userName;
+  private String name;
 }

@@ -11,8 +11,8 @@
 	</select>
 	
 	<insert id="add" parameterType="com.memoblend.applicationcore.user.User">
-		INSERT INTO users (user_name)
-		VALUES (#{userName})
+		INSERT INTO users (name)
+		VALUES (#{name})
 	</insert>
 
     <delete id="delete" parameterType="long">
@@ -21,7 +21,7 @@
 
 	<update id="update" parameterType="com.memoblend.applicationcore.user.User">
 		UPDATE users
-		SET user_name = #{userName}
+		SET name = #{name}
 		WHERE id = #{id}
 	</update>
 	

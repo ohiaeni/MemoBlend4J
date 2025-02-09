@@ -348,7 +348,7 @@
             "type": "integer",
             "format": "int64"
           },
-          "userName": {
+          "name": {
             "type": "string"
           }
         }
@@ -390,7 +390,7 @@
             "type": "integer",
             "format": "int64"
           },
-          "userName": {
+          "name": {
             "type": "string"
           }
         }
@@ -425,7 +425,7 @@
             "type": "integer",
             "format": "int64"
           },
-          "userName": {
+          "name": {
             "type": "string"
           }
         }
@@ -437,7 +437,7 @@
             "type": "integer",
             "format": "int64"
           },
-          "userName": {
+          "name": {
             "type": "string",
             "maxLength": 15,
             "minLength": 1
@@ -445,7 +445,7 @@
         },
         "required": [
           "id",
-          "userName"
+          "name"
         ]
       }
     }
