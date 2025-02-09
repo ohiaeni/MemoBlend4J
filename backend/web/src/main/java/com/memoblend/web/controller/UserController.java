@@ -19,9 +19,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.memoblend.applicationcore.applicationservice.UserApplicationService;
+import com.memoblend.applicationcore.user.UserNotFoundException;
 import com.memoblend.applicationcore.user.User;
 import com.memoblend.applicationcore.user.UserAlreadyExistException;
-import com.memoblend.applicationcore.user.UserNotFoundException;
 import com.memoblend.systemcommon.constant.CommonExceptionIdConstants;
 import com.memoblend.systemcommon.constant.SystemPropertyConstants;
 import com.memoblend.web.controller.dto.user.GetUserResponse;
@@ -69,12 +69,20 @@ public class UserController {
    * @return ユーザー情報
    */
   @GetMapping("{id}")
-  public ResponseEntity<GetUserResponse> getUser(@PathVariable("id") long id) {
+  public ResponseEntity<?> getUser(@PathVariable("id") long id) {
     User user = null;
     try {
       user = userApplicationService.getUser(id);
     } catch (UserNotFoundException e) {
-      return ResponseEntity.notFound().build();
+      apLog.info(e.getMessage());
+      apLog.debug(ExceptionUtils.getStackTrace(e));
+      ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e, e.getExceptionId(),
+          e.getLogMessageValue(), e.getFrontMessageValue());
+      ProblemDetail problemDetail = problemDetailsFactory.createProblemDetail(errorBuilder,
+          CommonExceptionIdConstants.E_BUSINESS, HttpStatus.NOT_FOUND);
+      return ResponseEntity.status(HttpStatus.NOT_FOUND)
+          .contentType(MediaType.APPLICATION_PROBLEM_JSON)
+          .body(problemDetail);
     }
     GetUserResponse response = GetUserReponseMapper.convert(user);
     return ResponseEntity.ok().body(response);

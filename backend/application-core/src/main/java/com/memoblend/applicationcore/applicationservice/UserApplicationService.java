@@ -40,10 +40,9 @@ public class UserApplicationService {
   }
 
   /**
-   * ユーザーIDを指定して、
-   * {@link User} を取得します。
+   * IDを指定して、{@link User} を取得します。
    * 
-   * @param id ユーザーID。
+   * @param id ユーザーの ID 。
    * @return 条件に合うユーザー。
    * @throws UserNotFoundException ユーザーが見つからない場合。
    */
@@ -68,7 +67,7 @@ public class UserApplicationService {
     final long id = user.getId();
     apLog.info(messages.getMessage(MessageIdConstants.D_USER_ADD_USER,
         new Object[] { id }, Locale.getDefault()));
-    if (userDomainService.isExistUser(user)) {
+    if (userDomainService.isExistUser(id)) {
       throw new UserAlreadyExistException(id);
     }
     User addedUser = userRepository.add(user);
@@ -85,7 +84,7 @@ public class UserApplicationService {
     final long id = user.getId();
     apLog.info(messages.getMessage(MessageIdConstants.D_USER_UPDATE_USER,
         new Object[] { id }, Locale.getDefault()));
-    if (!userDomainService.isExistUser(user)) {
+    if (!userDomainService.isExistUser(id)) {
       throw new UserNotFoundException(id);
     }
     userRepository.update(user);
@@ -100,8 +99,7 @@ public class UserApplicationService {
   public void deleteUser(long id) throws UserNotFoundException {
     apLog.info(messages.getMessage(MessageIdConstants.D_USER_DELETE_USER,
         new Object[] { id }, Locale.getDefault()));
-    User user = userRepository.findById(id);
-    if (user == null) {
+    if (!userDomainService.isExistUser(id)) {
       throw new UserNotFoundException(id);
     }
     userRepository.delete(id);
