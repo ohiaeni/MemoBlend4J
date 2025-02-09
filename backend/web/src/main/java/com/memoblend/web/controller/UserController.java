@@ -2,7 +2,13 @@ package com.memoblend.web.controller;
 
 import java.net.URI;
 import java.util.List;
+import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +20,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.memoblend.applicationcore.applicationservice.UserApplicationService;
 import com.memoblend.applicationcore.user.User;
+import com.memoblend.applicationcore.user.UserAlreadyExistException;
 import com.memoblend.applicationcore.user.UserNotFoundException;
+import com.memoblend.systemcommon.constant.CommonExceptionIdConstants;
+import com.memoblend.systemcommon.constant.SystemPropertyConstants;
 import com.memoblend.web.controller.dto.user.GetUserResponse;
 import com.memoblend.web.controller.dto.user.GetUsersResponse;
 import com.memoblend.web.controller.dto.user.PostUserRequest;
@@ -23,6 +32,7 @@ import com.memoblend.web.controller.mapper.user.GetUserReponseMapper;
 import com.memoblend.web.controller.mapper.user.GetUsersResponseMapper;
 import com.memoblend.web.controller.mapper.user.PostUserRequestMapper;
 import com.memoblend.web.controller.mapper.user.PutUserRequestMapper;
+import com.memoblend.web.log.ErrorMessageBuilder;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 
@@ -36,6 +46,9 @@ import lombok.AllArgsConstructor;
 public class UserController {
   @Autowired
   UserApplicationService userApplicationService;
+  @Autowired
+  private ProblemDetailsFactory problemDetailsFactory;
+  private static final Logger apLog = LoggerFactory.getLogger(SystemPropertyConstants.APPLICATION_LOGGER);
 
   /**
    * ユーザーを全件取得します。
@@ -76,7 +89,20 @@ public class UserController {
   @PostMapping
   public ResponseEntity<?> postUser(@RequestBody PostUserRequest request) {
     User user = PostUserRequestMapper.convert(request);
-    User addedUser = userApplicationService.addUser(user);
+    User addedUser = null;
+    try {
+      addedUser = userApplicationService.addUser(user);
+    } catch (UserAlreadyExistException e) {
+      apLog.info(e.getMessage());
+      apLog.debug(ExceptionUtils.getStackTrace(e));
+      ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e, e.getExceptionId(),
+          e.getLogMessageValue(), e.getFrontMessageValue());
+      ProblemDetail problemDetail = problemDetailsFactory.createProblemDetail(errorBuilder,
+          CommonExceptionIdConstants.E_BUSINESS, HttpStatus.CONFLICT);
+      return ResponseEntity.status(HttpStatus.CONFLICT)
+          .contentType(MediaType.APPLICATION_PROBLEM_JSON)
+          .body(problemDetail);
+    }
     return ResponseEntity.created(URI.create("/api/user/" + addedUser.getId())).build();
   }
 
@@ -88,13 +114,19 @@ public class UserController {
    */
   @DeleteMapping("{id}")
   public ResponseEntity<?> deleteUser(@PathVariable("id") long id) {
-    User user = null;
     try {
-      user = userApplicationService.getUser(id);
+      userApplicationService.deleteUser(id);
     } catch (UserNotFoundException e) {
-      return ResponseEntity.notFound().build();
+      apLog.info(e.getMessage());
+      apLog.debug(ExceptionUtils.getStackTrace(e));
+      ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e, e.getExceptionId(),
+          e.getLogMessageValue(), e.getFrontMessageValue());
+      ProblemDetail problemDetail = problemDetailsFactory.createProblemDetail(errorBuilder,
+          CommonExceptionIdConstants.E_BUSINESS, HttpStatus.NOT_FOUND);
+      return ResponseEntity.status(HttpStatus.NOT_FOUND)
+          .contentType(MediaType.APPLICATION_PROBLEM_JSON)
+          .body(problemDetail);
     }
-    userApplicationService.deleteUser(user.getId());
     return ResponseEntity.ok().build();
   }
 
@@ -107,7 +139,19 @@ public class UserController {
   @PutMapping
   public ResponseEntity<?> putUser(@RequestBody PutUserRequest request) {
     User user = PutUserRequestMapper.convert(request);
-    userApplicationService.updateUser(user);
+    try {
+      userApplicationService.updateUser(user);
+    } catch (UserNotFoundException e) {
+      apLog.info(e.getMessage());
+      apLog.debug(ExceptionUtils.getStackTrace(e));
+      ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e, e.getExceptionId(),
+          e.getLogMessageValue(), e.getFrontMessageValue());
+      ProblemDetail problemDetail = problemDetailsFactory.createProblemDetail(errorBuilder,
+          CommonExceptionIdConstants.E_BUSINESS, HttpStatus.NOT_FOUND);
+      return ResponseEntity.status(HttpStatus.NOT_FOUND)
+          .contentType(MediaType.APPLICATION_PROBLEM_JSON)
+          .body(problemDetail);
+    }
     return ResponseEntity.ok().build();
   }
 }
