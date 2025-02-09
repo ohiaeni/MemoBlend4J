@@ -16,10 +16,10 @@ public class DiaryDomainService {
   /**
    * 日記が存在するかどうかを判定します。
    * 
-   * @param diary 日記。
+   * @param id 日記の ID 。
    * @return 日記が存在する場合は true、存在しない場合は false。
    */
-  public boolean isExistDiary(Diary diary) {
-    return diaryRepository.findByDate(diary.getDate()) != null;
+  public boolean isExistDiary(long id) {
+    return diaryRepository.findById(id) != null;
   }
 }

@@ -9,7 +9,6 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import com.memoblend.applicationcore.constant.MessageIdConstants;
 import com.memoblend.applicationcore.diary.Diary;
-import com.memoblend.applicationcore.diary.DiaryAlreadyExistException;
 import com.memoblend.applicationcore.diary.DiaryDomainService;
 import com.memoblend.applicationcore.diary.DiaryNotFoundException;
 import com.memoblend.applicationcore.diary.DiaryRepository;
@@ -44,16 +43,16 @@ public class DiaryApplicationService {
    * 日付を指定して、
    * {@link Diary} を取得します。
    * 
-   * @param date 日記を作成した日付。
+   * @param id 日記の ID。
    * @return 条件に合う日記。
    * @throws DiaryNotFoundException 日記が見つからない場合。
    */
-  public Diary getDiary(LocalDate date) throws DiaryNotFoundException {
+  public Diary getDiary(long id) throws DiaryNotFoundException {
     apLog.info(messages.getMessage(MessageIdConstants.D_DIARY_GET_DIARY,
-        new Object[] { date.getYear(), date.getMonthValue(), date.getDayOfMonth() }, Locale.getDefault()));
-    Diary diary = diaryRepository.findByDate(date);
+        new Object[] { id }, Locale.getDefault()));
+    Diary diary = diaryRepository.findById(id);
     if (diary == null) {
-      throw new DiaryNotFoundException(date);
+      throw new DiaryNotFoundException(id);
     }
     return diary;
   }
@@ -63,15 +62,11 @@ public class DiaryApplicationService {
    * 
    * @param diary 追加する日記。
    * @return 追加された日記。
-   * @throws DiaryAlreadyExistException 日記が既に存在する場合。
    */
-  public Diary addDiary(Diary diary) throws DiaryAlreadyExistException {
+  public Diary addDiary(Diary diary) {
     final LocalDate date = diary.getDate();
     apLog.info(messages.getMessage(MessageIdConstants.D_DIARY_ADD_DIARY,
         new Object[] { date.getYear(), date.getMonthValue(), date.getDayOfMonth() }, Locale.getDefault()));
-    if (diaryDomainService.isExistDiary(diary)) {
-      throw new DiaryAlreadyExistException(date);
-    }
     Diary addedDiary = diaryRepository.add(diary);
     return addedDiary;
   }
@@ -83,11 +78,11 @@ public class DiaryApplicationService {
    * @throws DiaryNotFoundException 日記が見つからない場合。
    */
   public void updateDiary(Diary diary) throws DiaryNotFoundException {
-    final LocalDate date = diary.getDate();
+    final long id = diary.getId();
     apLog.info(messages.getMessage(MessageIdConstants.D_DIARY_UPDATE_DIARY,
-        new Object[] { date.getYear(), date.getMonthValue(), date.getDayOfMonth() }, Locale.getDefault()));
-    if (!diaryDomainService.isExistDiary(diary)) {
-      throw new DiaryNotFoundException(date);
+        new Object[] { id }, Locale.getDefault()));
+    if (!diaryDomainService.isExistDiary(id)) {
+      throw new DiaryNotFoundException(id);
     }
     diaryRepository.update(diary);
   }
@@ -95,16 +90,15 @@ public class DiaryApplicationService {
   /**
    * 日記を削除します。
    * 
-   * @param date 日記を作成した日付。
+   * @param id 日記の ID 。
    * @throws DiaryNotFoundException 日記が見つからない場合。
    */
-  public void deleteDiary(LocalDate date) throws DiaryNotFoundException {
+  public void deleteDiary(long id) throws DiaryNotFoundException {
     apLog.info(messages.getMessage(MessageIdConstants.D_DIARY_DELETE_DIARY,
-        new Object[] { date.getYear(), date.getMonthValue(), date.getDayOfMonth() }, Locale.getDefault()));
-    Diary diary = diaryRepository.findByDate(date);
-    if (diary == null) {
-      throw new DiaryNotFoundException(date);
+        new Object[] { id }, Locale.getDefault()));
+    if (!diaryDomainService.isExistDiary(id)) {
+      throw new DiaryNotFoundException(id);
     }
-    diaryRepository.delete(diary.getId());
+    diaryRepository.delete(id);
   }
 }

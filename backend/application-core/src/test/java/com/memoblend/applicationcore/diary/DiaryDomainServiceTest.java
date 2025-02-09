@@ -31,9 +31,10 @@ public class DiaryDomainServiceTest {
     // Arrange
     LocalDate date = LocalDate.of(2025, 1, 1);
     Diary diary = createDiary(date);
-    when(diaryRepository.findByDate(diary.getDate())).thenReturn(diary);
+    long id = diary.getId();
+    when(diaryRepository.findById(id)).thenReturn(diary);
     // Act
-    boolean actual = diaryDomainService.isExistDiary(diary);
+    boolean actual = diaryDomainService.isExistDiary(id);
     // Assert
     assertTrue(actual);
   }
@@ -43,9 +44,10 @@ public class DiaryDomainServiceTest {
     // Arrange
     LocalDate date = LocalDate.of(2025, 1, 1);
     Diary diary = createDiary(date);
-    when(diaryRepository.findByDate(diary.getDate())).thenReturn(null);
+    long id = diary.getId();
+    when(diaryRepository.findById(id)).thenReturn(null);
     // Act
-    boolean actual = diaryDomainService.isExistDiary(diary);
+    boolean actual = diaryDomainService.isExistDiary(id);
     // Assert
     assertTrue(!actual);
   }

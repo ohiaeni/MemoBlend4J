@@ -1,6 +1,5 @@
 package com.memoblend.infrastructure.repository;
 
-import java.time.LocalDate;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -25,15 +24,14 @@ public class MyBatisDiaryRepository implements DiaryRepository {
   }
 
   @Override
-  public Diary findByDate(LocalDate date) {
-    return diaryMapper.findByDate(date);
+  public Diary findById(long id) {
+    return diaryMapper.findById(id);
   }
 
   @Override
   public Diary add(Diary diary) {
-    Diary addedDiary = new Diary(0, diary.getUserId(), diary.getTitle(), diary.getContent(), diary.getDate());
-    diaryMapper.add(addedDiary);
-    diary.setId(addedDiary.getUserId());
+    diaryMapper.add(diary);
+    Diary addedDiary = diary;
     return addedDiary;
   }
 

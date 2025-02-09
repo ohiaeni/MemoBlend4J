@@ -3,11 +3,9 @@ package com.memoblend.web.controller;
 import org.springframework.web.bind.annotation.RestController;
 import com.memoblend.applicationcore.applicationservice.DiaryApplicationService;
 import com.memoblend.applicationcore.diary.Diary;
-import com.memoblend.applicationcore.diary.DiaryAlreadyExistException;
 import com.memoblend.applicationcore.diary.DiaryNotFoundException;
 import com.memoblend.systemcommon.constant.CommonExceptionIdConstants;
 import com.memoblend.systemcommon.constant.SystemPropertyConstants;
-import com.memoblend.systemcommon.util.LocalDateConverter;
 import com.memoblend.web.controller.dto.diary.GetDiariesResponse;
 import com.memoblend.web.controller.dto.diary.GetDiaryResponse;
 import com.memoblend.web.controller.dto.diary.PostDiaryRequest;
@@ -20,7 +18,6 @@ import com.memoblend.web.log.ErrorMessageBuilder;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import java.net.URI;
-import java.time.LocalDate;
 import java.util.List;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
@@ -68,7 +65,7 @@ public class DiaryController {
   /**
    * 日記情報を取得します。
    * 
-   * @param date 日記の ID 。
+   * @param id 日記の ID 。
    * @return 日記情報。
    */
   @GetMapping("{id}")
@@ -100,31 +97,18 @@ public class DiaryController {
   @PostMapping
   public ResponseEntity<?> postDiary(@RequestBody PostDiaryRequest request) {
     Diary diary = PostDiaryRequestMapper.convert(request);
-    Diary addedDiary = null;
-    try {
-      addedDiary = diaryApplicationService.addDiary(diary);
-    } catch (DiaryAlreadyExistException e) {
-      apLog.info(e.getMessage());
-      apLog.debug(ExceptionUtils.getStackTrace(e));
-      ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e, e.getExceptionId(),
-          e.getLogMessageValue(), e.getFrontMessageValue());
-      ProblemDetail problemDetail = problemDetailsFactory.createProblemDetail(errorBuilder,
-          CommonExceptionIdConstants.E_BUSINESS, HttpStatus.CONFLICT);
-      return ResponseEntity.status(HttpStatus.CONFLICT)
-          .contentType(MediaType.APPLICATION_PROBLEM_JSON)
-          .body(problemDetail);
-    }
-    return ResponseEntity.created(URI.create("/api/diary/" + addedDiary.getDate())).build();
+    Diary addedDiary = diaryApplicationService.addDiary(diary);
+    return ResponseEntity.created(URI.create("/api/diary/" + addedDiary.getId())).build();
   }
 
   /**
    * 日記情報を削除します。
    * 
-   * @param date 日記の日付。
+   * @param id 日記の ID 。
    * @return 削除結果。
    */
   @DeleteMapping("{id}")
-  public ResponseEntity<?> deleteDiary(@PathVariable("date") long id) {
+  public ResponseEntity<?> deleteDiary(@PathVariable("id") long id) {
     try {
       diaryApplicationService.deleteDiary(id);
     } catch (DiaryNotFoundException e) {

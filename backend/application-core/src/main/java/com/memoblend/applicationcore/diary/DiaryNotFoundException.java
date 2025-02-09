@@ -1,6 +1,5 @@
 package com.memoblend.applicationcore.diary;
 
-import java.time.LocalDate;
 import com.memoblend.applicationcore.constant.ExceptionIdConstants;
 import com.memoblend.systemcommon.exception.LogicException;
 
@@ -12,13 +11,11 @@ public class DiaryNotFoundException extends LogicException {
   /**
    * {@link DiaryNotFoundException} クラスのインスタンスを初期化します。
    * 
-   * @param date 日記を作成した日付。
+   * @param id 日記の ID 。
    */
-  public DiaryNotFoundException(LocalDate date) {
+  public DiaryNotFoundException(long id) {
     super(null, ExceptionIdConstants.E_DIARY_NOT_FOUND,
-        new String[] { String.valueOf(date.getYear()), String.valueOf(date.getMonthValue()),
-            String.valueOf(date.getDayOfMonth()) },
-        new String[] { String.valueOf(date.getYear()), String.valueOf(date.getMonthValue()),
-            String.valueOf(date.getDayOfMonth()) });
+        new String[] { String.valueOf(id) },
+        new String[] { String.valueOf(id) });
   }
 }

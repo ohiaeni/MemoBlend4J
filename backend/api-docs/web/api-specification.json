@@ -97,13 +97,13 @@
         ]
       }
     },
-    "/api/diary/{date}": {
+    "/api/diary/{id}": {
       "delete": {
         "operationId": "deleteDiary",
         "parameters": [
           {
             "in": "path",
-            "name": "date",
+            "name": "id",
             "required": true,
             "schema": {
               "type": "integer",
@@ -132,7 +132,7 @@
         "parameters": [
           {
             "in": "path",
-            "name": "date",
+            "name": "id",
             "required": true,
             "schema": {
               "type": "integer",

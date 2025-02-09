@@ -1,6 +1,5 @@
 package com.memoblend.infrastructure.repository.mapper;
 
-import java.time.LocalDate;
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import com.memoblend.applicationcore.diary.Diary;
@@ -22,10 +21,10 @@ public interface DiaryMapper {
    * 日付を指定して、
    * {@link Diary} を取得します。
    * 
-   * @param date 日記を作成した日付。
+   * @param id 日記の ID 。
    * @return 条件に合う日記。
    */
-  public Diary findByDate(LocalDate date);
+  public Diary findById(long id);
 
   /**
    * 日記を追加します。

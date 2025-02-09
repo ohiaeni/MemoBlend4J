@@ -1,6 +1,5 @@
 package com.memoblend.applicationcore.diary;
 
-import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -18,10 +17,10 @@ public interface DiaryRepository {
   /**
    * ID を指定して、 {@link Diary} を取得します。
    * 
-   * @param date 日記を作成した日付。
+   * @param id 日記の ID 。
    * @return 条件に合う日記。
    */
-  Diary findByDate(LocalDate date);
+  Diary findById(long id);
 
   /**
    * 日記を追加します。
