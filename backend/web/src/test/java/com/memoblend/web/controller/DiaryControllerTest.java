@@ -3,6 +3,7 @@ package com.memoblend.web.controller;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -65,15 +66,15 @@ public class DiaryControllerTest {
 
   @Test
   public void testDeleteDiary_正常系_日記を削除する() throws Exception {
-    long id = 1;
-    this.mockMvc.perform(get("/api/diary/" + id))
+    long id = 10;
+    this.mockMvc.perform(delete("/api/diary/" + id))
         .andExpect(status().isOk());
   }
 
   @Test
   public void testDeleteDiary_異常系_日記が存在しない() throws Exception {
     long id = 999;
-    this.mockMvc.perform(get("/api/diary/" + id))
+    this.mockMvc.perform(delete("/api/diary/" + id))
         .andExpect(status().isNotFound());
   }
 
