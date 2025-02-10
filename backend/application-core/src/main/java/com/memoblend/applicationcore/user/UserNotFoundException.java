@@ -1,5 +1,6 @@
 package com.memoblend.applicationcore.user;
 
+import com.memoblend.applicationcore.constant.ExceptionIdConstants;
 import com.memoblend.systemcommon.exception.LogicException;
 
 /**
@@ -12,6 +13,8 @@ public class UserNotFoundException extends LogicException {
    * @param id ユーザーID。
    */
   public UserNotFoundException(long id) {
-    super(null, "ユーザーIDが、" + id + "のユーザーは存在しません", null, null);
+    super(null, ExceptionIdConstants.E_USER_NOT_FOUND,
+        new String[] { String.valueOf(id) },
+        new String[] { String.valueOf(id) });
   }
 }

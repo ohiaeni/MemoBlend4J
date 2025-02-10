@@ -47,7 +47,6 @@ public class DiaryController {
   DiaryApplicationService diaryApplicationService;
   @Autowired
   private ProblemDetailsFactory problemDetailsFactory;
-
   private static final Logger apLog = LoggerFactory.getLogger(SystemPropertyConstants.APPLICATION_LOGGER);
 
   /**
