@@ -1,5 +1,5 @@
 -- Insert 10 dummy records into `users`
-INSERT INTO users (user_name) VALUES
+INSERT INTO users (name) VALUES
 ('Alice'),
 ('Bob'),
 ('Charlie'),

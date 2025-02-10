@@ -30,7 +30,7 @@ public class MyBatisUserRepository implements UserRepository {
 
   @Override
   public User add(User user) {
-    User addedUser = new User(0, user.getUserName());
+    User addedUser = new User(0, user.getName());
     userMapper.add(addedUser);
     user.setId(addedUser.getId());
     return addedUser;
