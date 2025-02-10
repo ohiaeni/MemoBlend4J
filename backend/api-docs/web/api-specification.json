@@ -36,7 +36,9 @@
             "description": "OK"
           }
         },
-        "tags": ["Diary"]
+        "tags": [
+          "Diary"
+        ]
       },
       "post": {
         "operationId": "postDiary",
@@ -62,7 +64,9 @@
             "description": "OK"
           }
         },
-        "tags": ["Diary"]
+        "tags": [
+          "Diary"
+        ]
       },
       "put": {
         "operationId": "putDiary",
@@ -88,7 +92,9 @@
             "description": "OK"
           }
         },
-        "tags": ["Diary"]
+        "tags": [
+          "Diary"
+        ]
       }
     },
     "/api/diary/{id}": {
@@ -117,7 +123,9 @@
             "description": "OK"
           }
         },
-        "tags": ["Diary"]
+        "tags": [
+          "Diary"
+        ]
       },
       "get": {
         "operationId": "getDiary",
@@ -144,7 +152,9 @@
             "description": "OK"
           }
         },
-        "tags": ["Diary"]
+        "tags": [
+          "Diary"
+        ]
       }
     },
     "/api/user": {
@@ -162,7 +172,9 @@
             "description": "OK"
           }
         },
-        "tags": ["User"]
+        "tags": [
+          "User"
+        ]
       },
       "post": {
         "operationId": "postUser",
@@ -188,7 +200,9 @@
             "description": "OK"
           }
         },
-        "tags": ["User"]
+        "tags": [
+          "User"
+        ]
       },
       "put": {
         "operationId": "putUser",
@@ -214,7 +228,9 @@
             "description": "OK"
           }
         },
-        "tags": ["User"]
+        "tags": [
+          "User"
+        ]
       }
     },
     "/api/user/{id}": {
@@ -243,7 +259,9 @@
             "description": "OK"
           }
         },
-        "tags": ["User"]
+        "tags": [
+          "User"
+        ]
       },
       "get": {
         "operationId": "getUser",
@@ -270,7 +288,9 @@
             "description": "OK"
           }
         },
-        "tags": ["User"]
+        "tags": [
+          "User"
+        ]
       }
     }
   },
@@ -302,7 +322,13 @@
             "format": "int64"
           }
         },
-        "required": ["content", "date", "id", "title", "userId"]
+        "required": [
+          "content",
+          "date",
+          "id",
+          "title",
+          "userId"
+        ]
       },
       "GetDiariesResponse": {
         "type": "object",
@@ -312,18 +338,6 @@
             "items": {
               "$ref": "#/components/schemas/Diary"
             }
-          }
-        }
-      },
-      "GetUserResponse": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "name": {
-            "type": "string"
           }
         }
       },
@@ -417,7 +431,10 @@
             "minLength": 1
           }
         },
-        "required": ["id", "name"]
+        "required": [
+          "id",
+          "name"
+        ]
       }
     }
   }
