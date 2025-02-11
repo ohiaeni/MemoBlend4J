@@ -64,14 +64,10 @@ public class UserApplicationService {
    * @throws UserAlreadyExistException ユーザーが既に存在する場合。
    */
   public User addUser(User user) throws UserAlreadyExistException {
-    final long id = user.getId();
-    final String name = user.getName();
-    apLog.info(messages.getMessage(MessageIdConstants.D_USER_ADD_USER,
-        new Object[] { name }, Locale.getDefault()));
-    if (userDomainService.isExistUser(id)) {
-      throw new UserAlreadyExistException(id);
-    }
     User addedUser = userRepository.add(user);
+    long addedId = addedUser.getId();
+    apLog.info(messages.getMessage(MessageIdConstants.D_USER_ADD_USER,
+        new Object[] { addedId }, Locale.getDefault()));
     return addedUser;
   }
 
