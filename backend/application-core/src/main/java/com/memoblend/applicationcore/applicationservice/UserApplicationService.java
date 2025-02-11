@@ -65,8 +65,9 @@ public class UserApplicationService {
    */
   public User addUser(User user) throws UserAlreadyExistException {
     final long id = user.getId();
+    final String name = user.getName();
     apLog.info(messages.getMessage(MessageIdConstants.D_USER_ADD_USER,
-        new Object[] { id }, Locale.getDefault()));
+        new Object[] { name }, Locale.getDefault()));
     if (userDomainService.isExistUser(id)) {
       throw new UserAlreadyExistException(id);
     }
