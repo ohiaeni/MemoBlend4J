@@ -9,6 +9,5 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class PostUserRequest {
-  private long id;
   private String name;
 }
