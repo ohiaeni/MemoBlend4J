@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.memoblend.applicationcore.applicationservice.UserApplicationService;
 import com.memoblend.applicationcore.user.UserNotFoundException;
 import com.memoblend.applicationcore.user.User;
-import com.memoblend.applicationcore.user.UserAlreadyExistException;
 import com.memoblend.systemcommon.constant.CommonExceptionIdConstants;
 import com.memoblend.systemcommon.constant.SystemPropertyConstants;
 import com.memoblend.web.controller.dto.user.GetUserResponse;
@@ -97,20 +96,7 @@ public class UserController {
   @PostMapping
   public ResponseEntity<?> postUser(@RequestBody PostUserRequest request) {
     User user = PostUserRequestMapper.convert(request);
-    User addedUser = null;
-    try {
-      addedUser = userApplicationService.addUser(user);
-    } catch (UserAlreadyExistException e) {
-      apLog.info(e.getMessage());
-      apLog.debug(ExceptionUtils.getStackTrace(e));
-      ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e, e.getExceptionId(),
-          e.getLogMessageValue(), e.getFrontMessageValue());
-      ProblemDetail problemDetail = problemDetailsFactory.createProblemDetail(errorBuilder,
-          CommonExceptionIdConstants.E_BUSINESS, HttpStatus.CONFLICT);
-      return ResponseEntity.status(HttpStatus.CONFLICT)
-          .contentType(MediaType.APPLICATION_PROBLEM_JSON)
-          .body(problemDetail);
-    }
+    User addedUser = userApplicationService.addUser(user);
     return ResponseEntity.created(URI.create("/api/user/" + addedUser.getId())).build();
   }
 
