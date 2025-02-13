@@ -8,7 +8,6 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import com.memoblend.applicationcore.constant.MessageIdConstants;
 import com.memoblend.applicationcore.user.User;
-import com.memoblend.applicationcore.user.UserAlreadyExistException;
 import com.memoblend.applicationcore.user.UserDomainService;
 import com.memoblend.applicationcore.user.UserNotFoundException;
 import com.memoblend.applicationcore.user.UserRepository;
@@ -61,16 +60,12 @@ public class UserApplicationService {
    * 
    * @param user 追加するユーザー。
    * @return 追加されたユーザー。
-   * @throws UserAlreadyExistException ユーザーが既に存在する場合。
    */
-  public User addUser(User user) throws UserAlreadyExistException {
-    final long id = user.getId();
-    apLog.info(messages.getMessage(MessageIdConstants.D_USER_ADD_USER,
-        new Object[] { id }, Locale.getDefault()));
-    if (userDomainService.isExistUser(id)) {
-      throw new UserAlreadyExistException(id);
-    }
+  public User addUser(User user) {
     User addedUser = userRepository.add(user);
+    long addedId = addedUser.getId();
+    apLog.info(messages.getMessage(MessageIdConstants.D_USER_ADD_USER,
+        new Object[] { addedId }, Locale.getDefault()));
     return addedUser;
   }
 

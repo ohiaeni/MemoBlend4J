@@ -29,6 +29,7 @@ public interface UserMapper {
    * ユーザーを追加します。
    * 
    * @param user 追加するユーザー。
+   * @return 追加したユーザーの数 。
    */
   public long add(User user);
 
