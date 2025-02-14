@@ -33,7 +33,7 @@ public class DummyUserInjectionFilter extends OncePerRequestFilter {
   protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
       throws IOException, ServletException {
     UserDetails dummyUser = new User("admin@example.com", "",
-        List.of(new SimpleGrantedAuthority(UserRoleConstants.ADMIN)));
+        List.of(new SimpleGrantedAuthority(UserRoleConstants.USER)));
 
     UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(dummyUser,
         dummyUser.getPassword(), dummyUser.getAuthorities());

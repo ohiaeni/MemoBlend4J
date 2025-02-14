@@ -6,4 +6,6 @@ package com.memoblend.applicationcore.constant;
 public class UserRoleConstants {
   /** 管理者ユーザーのロール名です。 */
   public static final String ADMIN = "ROLE_ADMIN";
+  /** 一般ユーザーのロール名です。 */
+  public static final String USER = "ROLE_USER";
 }
