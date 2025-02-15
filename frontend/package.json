@@ -1,0 +1,39 @@
+{
+  "name": "frontend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "lint:ci:diary": "npm run lint:ci -w diary",
+    "type-check:diary": "npm run type-check -w diary",
+    "build-only:dev:diary": "npm run build-only:dev -w diary",
+    "build:prod:diary": "npm run build:prod -w diary",
+    "test:unit:diary": "npm run test:unit -w diary",
+    "dev:diary": "npm run dev -w diary",
+    "mock:diary": "npm run mock -w diary"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "private": "true",
+  "description": "",
+  "workspaces": [
+    "diary"
+  ],
+  "devDependencies": {
+    "@openapitools/openapi-generator-cli": "^2.16.3",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.5.2",
+    "postcss-nesting": "^13.0.1",
+    "stylelint": "^16.14.1",
+    "stylelint-config-recommended-vue": "^1.6.0",
+    "stylelint-config-standard": "^37.0.0",
+    "stylelint-prettier": "^5.0.3",
+    "tailwindcss": "^4.0.6"
+  },
+  "dependencies": {
+    "vee-validate": "^4.15.0",
+    "vue-i18n": "^11.1.1",
+    "yup": "^1.6.1"
+  }
+}
