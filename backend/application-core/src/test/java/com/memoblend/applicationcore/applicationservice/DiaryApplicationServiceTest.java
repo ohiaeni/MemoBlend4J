@@ -5,7 +5,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.times;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-
 import org.junit.jupiter.api.function.Executable;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -102,7 +101,7 @@ public class DiaryApplicationServiceTest {
   }
 
   @Test
-  void testGetDiary_異常系_指定した日付の日記が存在しない場合DiaryNotFoundExceptionがスローされる() {
+  void testGetDiary_異常系_指定したidの日記が存在しない場合DiaryNotFoundExceptionがスローされる() {
     // Arrange
     long id = 1;
     when(diaryRepository.findById(id)).thenReturn(null);
