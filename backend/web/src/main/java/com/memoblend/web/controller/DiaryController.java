@@ -2,6 +2,7 @@ package com.memoblend.web.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 import com.memoblend.applicationcore.applicationservice.DiaryApplicationService;
+import com.memoblend.applicationcore.auth.PermissionDeniedException;
 import com.memoblend.applicationcore.diary.Diary;
 import com.memoblend.applicationcore.diary.DiaryNotFoundException;
 import com.memoblend.systemcommon.constant.CommonExceptionIdConstants;
@@ -53,9 +54,10 @@ public class DiaryController {
    * 日記を全件取得します。
    * 
    * @return 日記情報。
+   * @throws PermissionDeniedException 権限エラーが起きた場合。
    */
   @GetMapping("")
-  public ResponseEntity<GetDiariesResponse> getDiaries() {
+  public ResponseEntity<?> getDiaries() throws PermissionDeniedException {
     List<Diary> diaries = diaryApplicationService.getDiaries();
     GetDiariesResponse response = GetDiariesResponseMapper.convert(diaries);
     return ResponseEntity.ok().body(response);
@@ -66,9 +68,10 @@ public class DiaryController {
    * 
    * @param id 日記の ID 。
    * @return 日記情報。
+   * @throws PermissionDeniedException 権限エラーが起きた場合。
    */
   @GetMapping("{id}")
-  public ResponseEntity<?> getDiary(@PathVariable("id") long id) {
+  public ResponseEntity<?> getDiary(@PathVariable("id") long id) throws PermissionDeniedException {
     Diary diary = null;
     try {
       diary = diaryApplicationService.getDiary(id);
@@ -92,9 +95,10 @@ public class DiaryController {
    * 
    * @param request 日記情報。
    * @return 登録結果。
+   * @throws PermissionDeniedException 権限エラーが起きた場合。
    */
   @PostMapping
-  public ResponseEntity<?> postDiary(@RequestBody PostDiaryRequest request) {
+  public ResponseEntity<?> postDiary(@RequestBody PostDiaryRequest request) throws PermissionDeniedException {
     Diary diary = PostDiaryRequestMapper.convert(request);
     Diary addedDiary = diaryApplicationService.addDiary(diary);
     return ResponseEntity.created(URI.create("/api/diary/" + addedDiary.getId())).build();
@@ -105,9 +109,10 @@ public class DiaryController {
    * 
    * @param id 日記の ID 。
    * @return 削除結果。
+   * @throws PermissionDeniedException 権限エラーが起きた場合。
    */
   @DeleteMapping("{id}")
-  public ResponseEntity<?> deleteDiary(@PathVariable("id") long id) {
+  public ResponseEntity<?> deleteDiary(@PathVariable("id") long id) throws PermissionDeniedException {
     try {
       diaryApplicationService.deleteDiary(id);
     } catch (DiaryNotFoundException e) {
@@ -129,9 +134,10 @@ public class DiaryController {
    * 
    * @param request 日記情報。
    * @return 更新結果。
+   * @throws PermissionDeniedException 権限エラーが起きた場合。
    */
   @PutMapping
-  public ResponseEntity<?> putDiary(@RequestBody PutDiaryRequest request) {
+  public ResponseEntity<?> putDiary(@RequestBody PutDiaryRequest request) throws PermissionDeniedException {
     Diary diary = PutDiaryRequestMapper.convert(request);
     try {
       diaryApplicationService.updateDiary(diary);
