@@ -1,4 +1,4 @@
-package com.memoblend.web.controller;
+package com.memoblend.web.controller.util;
 
 import java.util.Arrays;
 import java.util.LinkedHashMap;
