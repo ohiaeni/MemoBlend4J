@@ -16,8 +16,8 @@ public interface UserRepository {
   /**
    * ID を指定して、 {@link User} を取得します。
    * 
-   * @param id 日記を作成した日付。
-   * @return 条件に合う日記。
+   * @param id ユーザー ID 。
+   * @return 条件に合うユーザー。
    */
   User findById(long id);
 
@@ -25,6 +25,7 @@ public interface UserRepository {
    * ユーザーを追加します。
    * 
    * @param user 追加するユーザー。
+   * @return 追加したユーザー。
    */
   User add(User user);
 

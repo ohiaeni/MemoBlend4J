@@ -11,9 +11,6 @@ public class ExceptionIdConstants {
   /** ユーザーID：{0}のユーザーが見つかりませんでした。 */
   public static final String E_USER_NOT_FOUND = "userNotFound";
 
-  /** ユーザーID：{0}のユーザーは既に存在します。 */
-  public static final String E_USER_ALREADY_EXIST = "userAlreadyExist";
-
   /** {0} を実行する権限がありません。 */
   public static final String E_PERMISSION_DENIED = "permissionDenied";
 }

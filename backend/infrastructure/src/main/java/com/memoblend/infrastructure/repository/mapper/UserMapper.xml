@@ -10,7 +10,7 @@
 		SELECT * FROM users WHERE id = #{id}
 	</select>
 	
-	<insert id="add" parameterType="com.memoblend.applicationcore.user.User">
+	<insert id="add" parameterType="com.memoblend.applicationcore.user.User" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO users (name)
 		VALUES (#{name})
 	</insert>
