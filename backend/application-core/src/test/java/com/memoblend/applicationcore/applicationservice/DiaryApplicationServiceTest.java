@@ -128,7 +128,7 @@ public class DiaryApplicationServiceTest {
   }
 
   @Test
-  void testGetDiary_異常系_指定した日付の日記が存在しない場合DiaryNotFoundExceptionがスローされる() {
+  void testGetDiary_異常系_指定したidの日記が存在しない場合DiaryNotFoundExceptionがスローされる() {
     // Arrange
     long id = 1;
     when(diaryRepository.findById(id)).thenReturn(null);
