@@ -32,6 +32,7 @@ dependencies {
 	implementation project(':system-common')
 
 	testImplementation supportDependencies.spring_boot_starter_test
+	testImplementation supportDependencies.spring_security_test
 	compileOnly supportDependencies.servlet_api
 }
 
