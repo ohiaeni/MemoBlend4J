@@ -15,7 +15,12 @@ import com.memoblend.web.controller.mapper.diary.GetDiariesResponseMapper;
 import com.memoblend.web.controller.mapper.diary.GetDiaryReponseMapper;
 import com.memoblend.web.controller.mapper.diary.PostDiaryRequestMapper;
 import com.memoblend.web.controller.mapper.diary.PutDiaryRequestMapper;
+import com.memoblend.web.controller.util.ProblemDetailsFactory;
 import com.memoblend.web.log.ErrorMessageBuilder;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import java.net.URI;
@@ -41,7 +46,7 @@ import org.springframework.web.bind.annotation.PutMapping;
  */
 @RestController
 @RequestMapping("api/diary")
-@Tag(name = "Diary", description = "日記の情報にアクセスするAPI")
+@Tag(name = "Diary", description = "日記の情報にアクセスする API です。")
 @AllArgsConstructor
 public class DiaryController {
   @Autowired
@@ -56,6 +61,13 @@ public class DiaryController {
    * @return 日記情報。
    * @throws PermissionDeniedException 権限エラーが起きた場合。
    */
+  @Operation(summary = "日記を全件取得します。", description = "日記を全件取得します。")
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "200", description = "成功。", content = @Content),
+      @ApiResponse(responseCode = "401", description = "未認証。", content = @Content),
+      @ApiResponse(responseCode = "404", description = "対応した日記が存在しません。", content = @Content),
+      @ApiResponse(responseCode = "500", description = "サーバーエラー。", content = @Content)
+  })
   @GetMapping("")
   public ResponseEntity<?> getDiaries() throws PermissionDeniedException {
     List<Diary> diaries = diaryApplicationService.getDiaries();
@@ -64,12 +76,20 @@ public class DiaryController {
   }
 
   /**
-   * 日記情報を取得します。
+   * ID を指定して、日記情報を取得します。
    * 
    * @param id 日記の ID 。
    * @return 日記情報。
    * @throws PermissionDeniedException 権限エラーが起きた場合。
    */
+  @Operation(summary = "ID を指定して、日記情報を取得します。", description = "ID を指定して、日記情報を取得します。")
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "200", description = "成功。", content = @Content),
+      @ApiResponse(responseCode = "400", description = "リクエストエラー。", content = @Content),
+      @ApiResponse(responseCode = "401", description = "未認証。", content = @Content),
+      @ApiResponse(responseCode = "404", description = "対応した日記が存在しません。", content = @Content),
+      @ApiResponse(responseCode = "500", description = "サーバーエラー。", content = @Content)
+  })
   @GetMapping("{id}")
   public ResponseEntity<?> getDiary(@PathVariable("id") long id) throws PermissionDeniedException {
     Diary diary = null;
@@ -97,6 +117,14 @@ public class DiaryController {
    * @return 登録結果。
    * @throws PermissionDeniedException 権限エラーが起きた場合。
    */
+  @Operation(summary = "日記情報を登録します。", description = "日記情報を登録します。")
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "201", description = "成功。", content = @Content),
+      @ApiResponse(responseCode = "400", description = "リクエストエラー。", content = @Content),
+      @ApiResponse(responseCode = "401", description = "未認証。", content = @Content),
+      @ApiResponse(responseCode = "404", description = "日記の登録に失敗しました。", content = @Content),
+      @ApiResponse(responseCode = "500", description = "サーバーエラー。", content = @Content)
+  })
   @PostMapping
   public ResponseEntity<?> postDiary(@RequestBody PostDiaryRequest request) throws PermissionDeniedException {
     Diary diary = PostDiaryRequestMapper.convert(request);
@@ -105,12 +133,20 @@ public class DiaryController {
   }
 
   /**
-   * 日記情報を削除します。
+   * ID を指定して、日記情報を削除します。
    * 
    * @param id 日記の ID 。
    * @return 削除結果。
    * @throws PermissionDeniedException 権限エラーが起きた場合。
    */
+  @Operation(summary = "ID を指定して、日記情報を削除します。", description = "ID を指定して、日記情報を削除します。")
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "204", description = "成功。", content = @Content),
+      @ApiResponse(responseCode = "400", description = "リクエストエラー。", content = @Content),
+      @ApiResponse(responseCode = "401", description = "未認証。", content = @Content),
+      @ApiResponse(responseCode = "404", description = "対応した日記が存在しません。", content = @Content),
+      @ApiResponse(responseCode = "500", description = "サーバーエラー。", content = @Content),
+  })
   @DeleteMapping("{id}")
   public ResponseEntity<?> deleteDiary(@PathVariable("id") long id) throws PermissionDeniedException {
     try {
@@ -136,6 +172,14 @@ public class DiaryController {
    * @return 更新結果。
    * @throws PermissionDeniedException 権限エラーが起きた場合。
    */
+  @Operation(summary = "日記情報を更新します。", description = "日記情報を更新します。")
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "204", description = "成功。", content = @Content),
+      @ApiResponse(responseCode = "400", description = "リクエストエラー。", content = @Content),
+      @ApiResponse(responseCode = "401", description = "未認証。", content = @Content),
+      @ApiResponse(responseCode = "404", description = "対応した日記が存在しません。", content = @Content),
+      @ApiResponse(responseCode = "500", description = "サーバーエラー。", content = @Content),
+  })
   @PutMapping
   public ResponseEntity<?> putDiary(@RequestBody PutDiaryRequest request) throws PermissionDeniedException {
     Diary diary = PutDiaryRequestMapper.convert(request);

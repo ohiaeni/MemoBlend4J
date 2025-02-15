@@ -9,7 +9,7 @@ import com.memoblend.systemcommon.exception.LogicException;
 public class DiaryNotFoundException extends LogicException {
 
   /**
-   * {@link DiaryNotFoundException} クラスのインスタンスを初期化します。
+   * ID を指定して、 {@link DiaryNotFoundException} クラスのインスタンスを初期化します。
    * 
    * @param id 日記の ID 。
    */

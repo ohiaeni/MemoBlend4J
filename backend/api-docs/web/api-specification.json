@@ -12,35 +12,40 @@
   ],
   "tags": [
     {
-      "description": "日記の情報にアクセスするAPI",
-      "name": "Diary"
+      "description": "ユーザーの情報にアクセスする API です。",
+      "name": "User"
     },
     {
-      "description": "ユーザーの情報にアクセスするAPI",
-      "name": "User"
+      "description": "日記の情報にアクセスする API です。",
+      "name": "Diary"
     }
   ],
   "paths": {
     "/api/diary": {
       "get": {
+        "description": "日記を全件取得します。",
         "operationId": "getDiaries",
         "responses": {
           "200": {
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "object"
-                }
-              }
-            },
-            "description": "OK"
+            "description": "成功。"
+          },
+          "401": {
+            "description": "未認証。"
+          },
+          "404": {
+            "description": "対応した日記が存在しません。"
+          },
+          "500": {
+            "description": "サーバーエラー。"
           }
         },
+        "summary": "日記を全件取得します。",
         "tags": [
           "Diary"
         ]
       },
       "post": {
+        "description": "日記情報を登録します。",
         "operationId": "postDiary",
         "requestBody": {
           "content": {
@@ -53,22 +58,29 @@
           "required": true
         },
         "responses": {
-          "200": {
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "object"
-                }
-              }
-            },
-            "description": "OK"
+          "201": {
+            "description": "成功。"
+          },
+          "400": {
+            "description": "リクエストエラー。"
+          },
+          "401": {
+            "description": "未認証。"
+          },
+          "404": {
+            "description": "日記の登録に失敗しました。"
+          },
+          "500": {
+            "description": "サーバーエラー。"
           }
         },
+        "summary": "日記情報を登録します。",
         "tags": [
           "Diary"
         ]
       },
       "put": {
+        "description": "日記情報を更新します。",
         "operationId": "putDiary",
         "requestBody": {
           "content": {
@@ -81,17 +93,23 @@
           "required": true
         },
         "responses": {
-          "200": {
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "object"
-                }
-              }
-            },
-            "description": "OK"
+          "204": {
+            "description": "成功。"
+          },
+          "400": {
+            "description": "リクエストエラー。"
+          },
+          "401": {
+            "description": "未認証。"
+          },
+          "404": {
+            "description": "対応した日記が存在しません。"
+          },
+          "500": {
+            "description": "サーバーエラー。"
           }
         },
+        "summary": "日記情報を更新します。",
         "tags": [
           "Diary"
         ]
@@ -99,6 +117,7 @@
     },
     "/api/diary/{id}": {
       "delete": {
+        "description": "ID を指定して、日記情報を削除します。",
         "operationId": "deleteDiary",
         "parameters": [
           {
@@ -112,22 +131,29 @@
           }
         ],
         "responses": {
-          "200": {
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "object"
-                }
-              }
-            },
-            "description": "OK"
+          "204": {
+            "description": "成功。"
+          },
+          "400": {
+            "description": "リクエストエラー。"
+          },
+          "401": {
+            "description": "未認証。"
+          },
+          "404": {
+            "description": "対応した日記が存在しません。"
+          },
+          "500": {
+            "description": "サーバーエラー。"
           }
         },
+        "summary": "ID を指定して、日記情報を削除します。",
         "tags": [
           "Diary"
         ]
       },
       "get": {
+        "description": "ID を指定して、日記情報を取得します。",
         "operationId": "getDiary",
         "parameters": [
           {
@@ -142,16 +168,22 @@
         ],
         "responses": {
           "200": {
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "object"
-                }
-              }
-            },
-            "description": "OK"
+            "description": "成功。"
+          },
+          "400": {
+            "description": "リクエストエラー。"
+          },
+          "401": {
+            "description": "未認証。"
+          },
+          "404": {
+            "description": "対応した日記が存在しません。"
+          },
+          "500": {
+            "description": "サーバーエラー。"
           }
         },
+        "summary": "ID を指定して、日記情報を取得します。",
         "tags": [
           "Diary"
         ]
@@ -159,24 +191,23 @@
     },
     "/api/user": {
       "get": {
+        "description": "ユーザーを全件取得します。",
         "operationId": "getUsers",
         "responses": {
           "200": {
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/GetUsersResponse"
-                }
-              }
-            },
-            "description": "OK"
+            "description": "成功。"
+          },
+          "500": {
+            "description": "サーバーエラー。"
           }
         },
+        "summary": "ユーザーを全件取得します。",
         "tags": [
           "User"
         ]
       },
       "post": {
+        "description": "ユーザー情報を登録します。",
         "operationId": "postUser",
         "requestBody": {
           "content": {
@@ -189,22 +220,23 @@
           "required": true
         },
         "responses": {
-          "200": {
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "object"
-                }
-              }
-            },
-            "description": "OK"
+          "201": {
+            "description": "成功。"
+          },
+          "400": {
+            "description": "リクエストエラー。"
+          },
+          "500": {
+            "description": "サーバーエラー。"
           }
         },
+        "summary": "ユーザー情報を登録します。",
         "tags": [
           "User"
         ]
       },
       "put": {
+        "description": "ユーザー情報を更新します。",
         "operationId": "putUser",
         "requestBody": {
           "content": {
@@ -217,17 +249,20 @@
           "required": true
         },
         "responses": {
-          "200": {
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "object"
-                }
-              }
-            },
-            "description": "OK"
+          "204": {
+            "description": "成功。"
+          },
+          "400": {
+            "description": "リクエストエラー。"
+          },
+          "404": {
+            "description": "対応したユーザーが存在しません。"
+          },
+          "500": {
+            "description": "サーバーエラー。"
           }
         },
+        "summary": "ユーザー情報を更新します。",
         "tags": [
           "User"
         ]
@@ -235,6 +270,7 @@
     },
     "/api/user/{id}": {
       "delete": {
+        "description": "ID を指定して、ユーザー情報を削除します。",
         "operationId": "deleteUser",
         "parameters": [
           {
@@ -248,22 +284,26 @@
           }
         ],
         "responses": {
-          "200": {
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "object"
-                }
-              }
-            },
-            "description": "OK"
+          "204": {
+            "description": "成功。"
+          },
+          "400": {
+            "description": "リクエストエラー。"
+          },
+          "404": {
+            "description": "対応したユーザーが存在しません。"
+          },
+          "500": {
+            "description": "サーバーエラー。"
           }
         },
+        "summary": "ID を指定して、ユーザー情報を削除します。",
         "tags": [
           "User"
         ]
       },
       "get": {
+        "description": "ID を指定して、ユーザー情報を取得します。",
         "operationId": "getUser",
         "parameters": [
           {
@@ -278,16 +318,19 @@
         ],
         "responses": {
           "200": {
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "object"
-                }
-              }
-            },
-            "description": "OK"
+            "description": "成功。"
+          },
+          "400": {
+            "description": "リクエストエラー。"
+          },
+          "404": {
+            "description": "対応したユーザーが存在しません。"
+          },
+          "500": {
+            "description": "サーバーエラー。"
           }
         },
+        "summary": "ID を指定して、ユーザー情報を取得します。",
         "tags": [
           "User"
         ]
@@ -296,17 +339,6 @@
   },
   "components": {
     "schemas": {
-      "GetUsersResponse": {
-        "type": "object",
-        "properties": {
-          "users": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/User"
-            }
-          }
-        }
-      },
       "PostDiaryRequest": {
         "type": "object",
         "properties": {
@@ -368,24 +400,6 @@
             "type": "string"
           }
         }
-      },
-      "User": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "name": {
-            "type": "string",
-            "maxLength": 15,
-            "minLength": 1
-          }
-        },
-        "required": [
-          "id",
-          "name"
-        ]
       }
     }
   }

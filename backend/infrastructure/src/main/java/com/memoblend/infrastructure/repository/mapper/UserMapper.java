@@ -5,7 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.memoblend.applicationcore.user.User;
 
 /**
- * ユーザーのマッパーです。
+ * ユーザーの OR マッパークラスです。
  */
 @Mapper
 public interface UserMapper {
@@ -13,12 +13,12 @@ public interface UserMapper {
   /**
    * ユーザーを全件取得します。
    * 
-   * @return 全てのユーザー 。
+   * @return 全てのユーザー。
    */
   public List<User> findAll();
 
   /**
-   * IDを指定して、{@link User} を取得します。
+   * ID を指定して、{@link User} を取得します。
    * 
    * @param id ユーザーの ID 。
    * @return 条件に合うユーザー。
@@ -29,14 +29,14 @@ public interface UserMapper {
    * ユーザーを追加します。
    * 
    * @param user 追加するユーザー。
-   * @return 追加したユーザーの数 。
+   * @return 追加したユーザーの数。
    */
   public long add(User user);
 
   /**
    * ID を指定して、 {@link User} を削除します。
    * 
-   * @param id 削除するユーザーの ID。
+   * @param id 削除するユーザーの ID 。
    */
   public long delete(long id);
 

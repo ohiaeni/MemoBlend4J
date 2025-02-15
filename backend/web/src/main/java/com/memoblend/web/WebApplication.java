@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 /**
- * Webのエントリーポイントクラスです。
+ * Web のエントリーポイントクラスです。
  */
 @SpringBootApplication
 @ComponentScan(basePackages = { "com.memoblend" })
