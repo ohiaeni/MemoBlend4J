@@ -41,9 +41,7 @@ public class UserDomainServiceTest {
   @Test
   void testIsExistUser_正常系_ユーザーが存在しない場合はfalseを返す() {
     // Arrange
-    String name = "testName";
-    User user = createUser(name);
-    long id = user.getId();
+    long id = 999;
     when(userRepository.findById(id)).thenReturn(null);
     // Act
     boolean actual = userDomainService.isExistUser(id);
