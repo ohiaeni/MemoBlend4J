@@ -108,9 +108,9 @@ public class DiaryApplicationService {
   }
 
   /**
-   * 日記を削除します。
+   * ID を指定して、日記を削除します。
    * 
-   * @param id 日記のID。
+   * @param id 日記の ID 。
    * @throws DiaryNotFoundException    日記が見つからない場合。
    * @throws PermissionDeniedException 認可が拒否された場合。
    */

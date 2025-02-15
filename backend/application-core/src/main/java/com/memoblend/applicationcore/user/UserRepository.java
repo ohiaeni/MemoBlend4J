@@ -32,7 +32,7 @@ public interface UserRepository {
   /**
    * ID を指定して、 {@link User} を削除します。
    * 
-   * @param id 削除するユーザーの ID。
+   * @param id 削除するユーザーの ID 。
    */
   long delete(long id);
 

@@ -5,7 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.memoblend.applicationcore.diary.Diary;
 
 /**
- * 日記のマッパーです。
+ * 日記の OR マッパークラスです。
  */
 @Mapper
 public interface DiaryMapper {

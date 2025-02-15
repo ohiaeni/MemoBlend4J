@@ -39,7 +39,7 @@ public class UserApplicationService {
   }
 
   /**
-   * IDを指定して、{@link User} を取得します。
+   * ID を指定して、{@link User} を取得します。
    * 
    * @param id ユーザーの ID 。
    * @return 条件に合うユーザー。
@@ -86,9 +86,9 @@ public class UserApplicationService {
   }
 
   /**
-   * ユーザーを削除します。
+   * ID を指定して、ユーザーを削除します。
    * 
-   * @param id ユーザーのID。
+   * @param id ユーザーの ID 。
    * @throws UserNotFoundException ユーザーが見つからない場合。
    */
   public void deleteUser(long id) throws UserNotFoundException {
