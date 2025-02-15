@@ -42,9 +42,7 @@ public class DiaryDomainServiceTest {
   @Test
   void testIsExistDiary_正常系_日記が存在しない場合はfalseを返す() {
     // Arrange
-    LocalDate date = LocalDate.of(2025, 1, 1);
-    Diary diary = createDiary(date);
-    long id = diary.getId();
+    long id = 999;
     when(diaryRepository.findById(id)).thenReturn(null);
     // Act
     boolean actual = diaryDomainService.isExistDiary(id);
