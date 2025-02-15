@@ -2,6 +2,7 @@ package com.memoblend.web.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 import com.memoblend.applicationcore.applicationservice.DiaryApplicationService;
+import com.memoblend.applicationcore.auth.PermissionDeniedException;
 import com.memoblend.applicationcore.diary.Diary;
 import com.memoblend.applicationcore.diary.DiaryNotFoundException;
 import com.memoblend.systemcommon.constant.CommonExceptionIdConstants;
@@ -55,8 +56,21 @@ public class DiaryController {
    * @return 日記情報。
    */
   @GetMapping("")
-  public ResponseEntity<GetDiariesResponse> getDiaries() {
-    List<Diary> diaries = diaryApplicationService.getDiaries();
+  public ResponseEntity<?> getDiaries() {
+    List<Diary> diaries = null;
+    try {
+      diaries = diaryApplicationService.getDiaries();
+    } catch (PermissionDeniedException e) {
+      apLog.info(e.getMessage());
+      apLog.debug(ExceptionUtils.getStackTrace(e));
+      ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e, e.getExceptionId(),
+          e.getLogMessageValue(), e.getFrontMessageValue());
+      ProblemDetail problemDetail = problemDetailsFactory.createProblemDetail(errorBuilder,
+          CommonExceptionIdConstants.E_BUSINESS, HttpStatus.NOT_FOUND);
+      return ResponseEntity.status(HttpStatus.NOT_FOUND)
+          .contentType(MediaType.APPLICATION_PROBLEM_JSON)
+          .body(problemDetail);
+    }
     GetDiariesResponse response = GetDiariesResponseMapper.convert(diaries);
     return ResponseEntity.ok().body(response);
   }
@@ -72,7 +86,7 @@ public class DiaryController {
     Diary diary = null;
     try {
       diary = diaryApplicationService.getDiary(id);
-    } catch (DiaryNotFoundException e) {
+    } catch (DiaryNotFoundException | PermissionDeniedException e) {
       apLog.info(e.getMessage());
       apLog.debug(ExceptionUtils.getStackTrace(e));
       ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e, e.getExceptionId(),
@@ -96,7 +110,20 @@ public class DiaryController {
   @PostMapping
   public ResponseEntity<?> postDiary(@RequestBody PostDiaryRequest request) {
     Diary diary = PostDiaryRequestMapper.convert(request);
-    Diary addedDiary = diaryApplicationService.addDiary(diary);
+    Diary addedDiary = null;
+    try {
+      addedDiary = diaryApplicationService.addDiary(diary);
+    } catch (PermissionDeniedException e) {
+      apLog.info(e.getMessage());
+      apLog.debug(ExceptionUtils.getStackTrace(e));
+      ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e, e.getExceptionId(),
+          e.getLogMessageValue(), e.getFrontMessageValue());
+      ProblemDetail problemDetail = problemDetailsFactory.createProblemDetail(errorBuilder,
+          CommonExceptionIdConstants.E_BUSINESS, HttpStatus.NOT_FOUND);
+      return ResponseEntity.status(HttpStatus.NOT_FOUND)
+          .contentType(MediaType.APPLICATION_PROBLEM_JSON)
+          .body(problemDetail);
+    }
     return ResponseEntity.created(URI.create("/api/diary/" + addedDiary.getId())).build();
   }
 
@@ -110,7 +137,7 @@ public class DiaryController {
   public ResponseEntity<?> deleteDiary(@PathVariable("id") long id) {
     try {
       diaryApplicationService.deleteDiary(id);
-    } catch (DiaryNotFoundException e) {
+    } catch (DiaryNotFoundException | PermissionDeniedException e) {
       apLog.info(e.getMessage());
       apLog.debug(ExceptionUtils.getStackTrace(e));
       ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e, e.getExceptionId(),
@@ -135,7 +162,7 @@ public class DiaryController {
     Diary diary = PutDiaryRequestMapper.convert(request);
     try {
       diaryApplicationService.updateDiary(diary);
-    } catch (DiaryNotFoundException e) {
+    } catch (DiaryNotFoundException | PermissionDeniedException e) {
       apLog.info(e.getMessage());
       apLog.debug(ExceptionUtils.getStackTrace(e));
       ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e, e.getExceptionId(),
