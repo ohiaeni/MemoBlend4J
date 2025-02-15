@@ -29,7 +29,7 @@
             "content": {
               "*/*": {
                 "schema": {
-                  "$ref": "#/components/schemas/GetDiariesResponse"
+                  "type": "object"
                 }
               }
             },
@@ -296,51 +296,6 @@
   },
   "components": {
     "schemas": {
-      "Diary": {
-        "type": "object",
-        "properties": {
-          "content": {
-            "type": "string",
-            "maxLength": 2147483647,
-            "minLength": 1
-          },
-          "date": {
-            "type": "string",
-            "format": "date"
-          },
-          "id": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "title": {
-            "type": "string",
-            "maxLength": 30,
-            "minLength": 1
-          },
-          "userId": {
-            "type": "integer",
-            "format": "int64"
-          }
-        },
-        "required": [
-          "content",
-          "date",
-          "id",
-          "title",
-          "userId"
-        ]
-      },
-      "GetDiariesResponse": {
-        "type": "object",
-        "properties": {
-          "diaries": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Diary"
-            }
-          }
-        }
-      },
       "GetUsersResponse": {
         "type": "object",
         "properties": {
