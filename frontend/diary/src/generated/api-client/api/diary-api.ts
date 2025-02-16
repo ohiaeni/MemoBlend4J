@@ -22,8 +22,6 @@ import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObj
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, type RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
-import type { GetDiariesResponse } from '../models';
-// @ts-ignore
 import type { PostDiaryRequest } from '../models';
 // @ts-ignore
 import type { PutDiaryRequest } from '../models';
@@ -34,7 +32,8 @@ import type { PutDiaryRequest } from '../models';
 export const DiaryApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * 
+         * ID を指定して、日記情報を削除します。
+         * @summary ID を指定して、日記情報を削除します。
          * @param {number} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -67,7 +66,8 @@ export const DiaryApiAxiosParamCreator = function (configuration?: Configuration
             };
         },
         /**
-         * 
+         * 日記を全件取得します。
+         * @summary 日記を全件取得します。
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -96,7 +96,8 @@ export const DiaryApiAxiosParamCreator = function (configuration?: Configuration
             };
         },
         /**
-         * 
+         * ID を指定して、日記情報を取得します。
+         * @summary ID を指定して、日記情報を取得します。
          * @param {number} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -129,7 +130,8 @@ export const DiaryApiAxiosParamCreator = function (configuration?: Configuration
             };
         },
         /**
-         * 
+         * 日記情報を登録します。
+         * @summary 日記情報を登録します。
          * @param {PostDiaryRequest} postDiaryRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -164,7 +166,8 @@ export const DiaryApiAxiosParamCreator = function (configuration?: Configuration
             };
         },
         /**
-         * 
+         * 日記情報を更新します。
+         * @summary 日記情報を更新します。
          * @param {PutDiaryRequest} putDiaryRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -209,59 +212,64 @@ export const DiaryApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = DiaryApiAxiosParamCreator(configuration)
     return {
         /**
-         * 
+         * ID を指定して、日記情報を削除します。
+         * @summary ID を指定して、日記情報を削除します。
          * @param {number} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async deleteDiary(id: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
+        async deleteDiary(id: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.deleteDiary(id, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['DiaryApi.deleteDiary']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * 
+         * 日記を全件取得します。
+         * @summary 日記を全件取得します。
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getDiaries(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetDiariesResponse>> {
+        async getDiaries(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getDiaries(options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['DiaryApi.getDiaries']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * 
+         * ID を指定して、日記情報を取得します。
+         * @summary ID を指定して、日記情報を取得します。
          * @param {number} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getDiary(id: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
+        async getDiary(id: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getDiary(id, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['DiaryApi.getDiary']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * 
+         * 日記情報を登録します。
+         * @summary 日記情報を登録します。
          * @param {PostDiaryRequest} postDiaryRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async postDiary(postDiaryRequest: PostDiaryRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
+        async postDiary(postDiaryRequest: PostDiaryRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.postDiary(postDiaryRequest, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['DiaryApi.postDiary']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * 
+         * 日記情報を更新します。
+         * @summary 日記情報を更新します。
          * @param {PutDiaryRequest} putDiaryRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async putDiary(putDiaryRequest: PutDiaryRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
+        async putDiary(putDiaryRequest: PutDiaryRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.putDiary(putDiaryRequest, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['DiaryApi.putDiary']?.[localVarOperationServerIndex]?.url;
@@ -278,47 +286,52 @@ export const DiaryApiFactory = function (configuration?: Configuration, basePath
     const localVarFp = DiaryApiFp(configuration)
     return {
         /**
-         * 
+         * ID を指定して、日記情報を削除します。
+         * @summary ID を指定して、日記情報を削除します。
          * @param {number} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        deleteDiary(id: number, options?: RawAxiosRequestConfig): AxiosPromise<object> {
+        deleteDiary(id: number, options?: RawAxiosRequestConfig): AxiosPromise<void> {
             return localVarFp.deleteDiary(id, options).then((request) => request(axios, basePath));
         },
         /**
-         * 
+         * 日記を全件取得します。
+         * @summary 日記を全件取得します。
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getDiaries(options?: RawAxiosRequestConfig): AxiosPromise<GetDiariesResponse> {
+        getDiaries(options?: RawAxiosRequestConfig): AxiosPromise<void> {
             return localVarFp.getDiaries(options).then((request) => request(axios, basePath));
         },
         /**
-         * 
+         * ID を指定して、日記情報を取得します。
+         * @summary ID を指定して、日記情報を取得します。
          * @param {number} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getDiary(id: number, options?: RawAxiosRequestConfig): AxiosPromise<object> {
+        getDiary(id: number, options?: RawAxiosRequestConfig): AxiosPromise<void> {
             return localVarFp.getDiary(id, options).then((request) => request(axios, basePath));
         },
         /**
-         * 
+         * 日記情報を登録します。
+         * @summary 日記情報を登録します。
          * @param {PostDiaryRequest} postDiaryRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        postDiary(postDiaryRequest: PostDiaryRequest, options?: RawAxiosRequestConfig): AxiosPromise<object> {
+        postDiary(postDiaryRequest: PostDiaryRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
             return localVarFp.postDiary(postDiaryRequest, options).then((request) => request(axios, basePath));
         },
         /**
-         * 
+         * 日記情報を更新します。
+         * @summary 日記情報を更新します。
          * @param {PutDiaryRequest} putDiaryRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        putDiary(putDiaryRequest: PutDiaryRequest, options?: RawAxiosRequestConfig): AxiosPromise<object> {
+        putDiary(putDiaryRequest: PutDiaryRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
             return localVarFp.putDiary(putDiaryRequest, options).then((request) => request(axios, basePath));
         },
     };
@@ -332,7 +345,8 @@ export const DiaryApiFactory = function (configuration?: Configuration, basePath
  */
 export class DiaryApi extends BaseAPI {
     /**
-     * 
+     * ID を指定して、日記情報を削除します。
+     * @summary ID を指定して、日記情報を削除します。
      * @param {number} id 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -343,7 +357,8 @@ export class DiaryApi extends BaseAPI {
     }
 
     /**
-     * 
+     * 日記を全件取得します。
+     * @summary 日記を全件取得します。
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DiaryApi
@@ -353,7 +368,8 @@ export class DiaryApi extends BaseAPI {
     }
 
     /**
-     * 
+     * ID を指定して、日記情報を取得します。
+     * @summary ID を指定して、日記情報を取得します。
      * @param {number} id 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -364,7 +380,8 @@ export class DiaryApi extends BaseAPI {
     }
 
     /**
-     * 
+     * 日記情報を登録します。
+     * @summary 日記情報を登録します。
      * @param {PostDiaryRequest} postDiaryRequest 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -375,7 +392,8 @@ export class DiaryApi extends BaseAPI {
     }
 
     /**
-     * 
+     * 日記情報を更新します。
+     * @summary 日記情報を更新します。
      * @param {PutDiaryRequest} putDiaryRequest 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
