@@ -9,7 +9,8 @@
     "build:prod:diary": "npm run build:prod -w diary",
     "test:unit:diary": "npm run test:unit -w diary",
     "dev:diary": "npm run dev -w diary",
-    "mock:diary": "npm run mock -w diary"
+    "mock:diary": "npm run mock -w diary",
+    "lint": "eslint . --fix --ignore-pattern .gitignore && stylelint \"**/*.{vue,css}\" --fix"
   },
   "keywords": [],
   "author": "",
@@ -31,6 +32,7 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.0.6",
+    "axios": "^1.7.9",
     "vee-validate": "^4.15.0",
     "vue-i18n": "^11.1.1",
     "yup": "^1.6.1"
