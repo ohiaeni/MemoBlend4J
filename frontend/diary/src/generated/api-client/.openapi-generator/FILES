@@ -1,0 +1,16 @@
+.gitignore
+.npmignore
+.openapi-generator-ignore
+api.ts
+api/diary-api.ts
+api/user-api.ts
+base.ts
+common.ts
+configuration.ts
+git_push.sh
+index.ts
+models/index.ts
+models/post-diary-request.ts
+models/post-user-request.ts
+models/put-diary-request.ts
+models/put-user-request.ts
