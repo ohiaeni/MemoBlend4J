@@ -8,9 +8,9 @@ import com.memoblend.systemcommon.exception.LogicException;
  */
 public class UserNotFoundException extends LogicException {
   /**
-   * {@link UserNotFoundException} クラスのインスタンスを初期化します。
+   * ID を指定して、{@link UserNotFoundException} クラスのインスタンスを初期化します。
    * 
-   * @param id ユーザーID。
+   * @param id ユーザー ID 。
    */
   public UserNotFoundException(long id) {
     super(null, ExceptionIdConstants.E_USER_NOT_FOUND,

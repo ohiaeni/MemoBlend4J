@@ -14,10 +14,10 @@ public class UserDomainService {
   private UserRepository userRepository;
 
   /**
-   * ユーザーが存在するかどうかを判定します。
+   * ID を指定して、ユーザーが存在するかどうかを判定します。
    * 
    * @param id ユーザーの ID 。
-   * @return ユーザーが存在する場合は true、存在しない場合は false。
+   * @return ユーザーが存在する場合は true 、存在しない場合は false 。
    */
   public boolean isExistUser(long id) {
     return userRepository.findById(id) != null;

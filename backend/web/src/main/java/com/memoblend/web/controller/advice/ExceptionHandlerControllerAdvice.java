@@ -1,5 +1,6 @@
 package com.memoblend.web.controller.advice;
 
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,11 +11,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+import com.memoblend.applicationcore.auth.PermissionDeniedException;
 import com.memoblend.systemcommon.constant.CommonExceptionIdConstants;
 import com.memoblend.systemcommon.constant.SystemPropertyConstants;
 import com.memoblend.systemcommon.exception.LogicException;
 import com.memoblend.systemcommon.exception.SystemException;
-import com.memoblend.web.controller.ProblemDetailsFactory;
+import com.memoblend.web.controller.util.ProblemDetailsFactory;
 import com.memoblend.web.log.ErrorMessageBuilder;
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -30,6 +32,25 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
   private ProblemDetailsFactory problemDetailsFactory;
 
   /**
+   * 権限エラーをステータスコード 404 で返却します。
+   * 
+   * @param e 権限エラー。
+   * @return ステータスコード 404 のレスポンス。
+   */
+  @ExceptionHandler(PermissionDeniedException.class)
+  public ResponseEntity<ProblemDetail> handlePermissionDeniedException(PermissionDeniedException e) {
+    apLog.info(e.getMessage());
+    apLog.debug(ExceptionUtils.getStackTrace(e));
+    ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e, e.getExceptionId(),
+        e.getLogMessageValue(), e.getFrontMessageValue());
+    ProblemDetail problemDetail = problemDetailsFactory.createProblemDetail(errorBuilder,
+        CommonExceptionIdConstants.E_BUSINESS, HttpStatus.NOT_FOUND);
+    return ResponseEntity.status(HttpStatus.NOT_FOUND)
+        .contentType(MediaType.APPLICATION_PROBLEM_JSON)
+        .body(problemDetail);
+  }
+
+  /**
    * その他の業務エラーをステータースコード 500 で返却します。
    *
    * @param e   業務例外。
@@ -38,7 +59,8 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
    */
   @ExceptionHandler(LogicException.class)
   public ResponseEntity<ProblemDetail> handleLogicException(LogicException e, HttpServletRequest req) {
-    ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e, CommonExceptionIdConstants.E_BUSINESS, null, null);
+    ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e, CommonExceptionIdConstants.E_BUSINESS, null,
+        null);
     apLog.error(errorBuilder.createLogMessageStackTrace());
     ProblemDetail problemDetail = problemDetailsFactory.createProblemDetail(
         errorBuilder,

@@ -20,6 +20,9 @@ import org.springframework.boot.autoconfigure.context.MessageSourceAutoConfigura
 import org.springframework.context.MessageSource;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import com.memoblend.applicationcore.auth.PermissionDeniedException;
+import com.memoblend.applicationcore.auth.UserStore;
+import com.memoblend.applicationcore.constant.UserRoleConstants;
 import com.memoblend.applicationcore.diary.Diary;
 import com.memoblend.applicationcore.diary.DiaryDomainService;
 import com.memoblend.applicationcore.diary.DiaryNotFoundException;
@@ -42,20 +45,24 @@ public class DiaryApplicationServiceTest {
   @Autowired
   private MessageSource messages;
 
+  @Mock
+  private UserStore userStore;
+
   private DiaryApplicationService diaryApplicationService;
 
   @BeforeEach
   void setUp() {
-    diaryApplicationService = new DiaryApplicationService(diaryRepository, diaryDomainService, messages);
+    diaryApplicationService = new DiaryApplicationService(diaryRepository, diaryDomainService, messages, userStore);
   }
 
   @Test
-  void testGetDiaries_正常系_リポジトリのfindAllを1回呼び出す() {
+  void testGetDiaries_正常系_リポジトリのfindAllを1回呼び出す() throws PermissionDeniedException {
     // Arrange
     List<LocalDate> dates = new ArrayList<>();
     dates.add(LocalDate.of(2025, 1, 1));
     List<Diary> diaries = createDiaries(dates);
     when(diaryRepository.findAll()).thenReturn(diaries);
+    when(userStore.isInRole(UserRoleConstants.USER)).thenReturn(true);
     // Act
     diaryApplicationService.getDiaries();
     // Assert
@@ -63,12 +70,13 @@ public class DiaryApplicationServiceTest {
   }
 
   @Test
-  void testGetDiaries_正常系_日記のリストを返す() {
+  void testGetDiaries_正常系_日記のリストを返す() throws PermissionDeniedException {
     // Arrange
     List<LocalDate> dates = new ArrayList<>();
     dates.add(LocalDate.of(2025, 1, 1));
     List<Diary> diaries = createDiaries(dates);
     when(diaryRepository.findAll()).thenReturn(diaries);
+    when(userStore.isInRole(UserRoleConstants.USER)).thenReturn(true);
     // Act
     List<Diary> actual = diaryApplicationService.getDiaries();
     // Assert
@@ -76,12 +84,29 @@ public class DiaryApplicationServiceTest {
   }
 
   @Test
-  void testGetDiary_正常系_リポジトリのfindByIdを1回呼び出す() throws DiaryNotFoundException {
+  void testGetDiaries_異常系_権限がない場合にPermissionDeniedExceptionが発生する() {
+    // Arrange
+    List<LocalDate> dates = new ArrayList<>();
+    dates.add(LocalDate.of(2025, 1, 1));
+    List<Diary> diaries = createDiaries(dates);
+    when(diaryRepository.findAll()).thenReturn(diaries);
+    when(userStore.isInRole(UserRoleConstants.USER)).thenReturn(false);
+    // Act
+    Executable action = () -> {
+      diaryApplicationService.getDiaries();
+    };
+    // Assert
+    assertThrows(PermissionDeniedException.class, action);
+  }
+
+  @Test
+  void testGetDiary_正常系_リポジトリのfindByIdを1回呼び出す() throws DiaryNotFoundException, PermissionDeniedException {
     // Arrange
     LocalDate date = LocalDate.of(2025, 1, 1);
     Diary diary = createDiary(date);
     long id = diary.getId();
     when(diaryRepository.findById(id)).thenReturn(diary);
+    when(userStore.isInRole(UserRoleConstants.USER)).thenReturn(true);
     // Act
     diaryApplicationService.getDiary(id);
     // Assert
@@ -89,12 +114,13 @@ public class DiaryApplicationServiceTest {
   }
 
   @Test
-  void testGetDiary_正常系_指定した日付の日記を返す() throws DiaryNotFoundException {
+  void testGetDiary_正常系_指定した日付の日記を返す() throws DiaryNotFoundException, PermissionDeniedException {
     // Arrange
     LocalDate date = LocalDate.of(2025, 1, 1);
     Diary diary = createDiary(date);
     long id = diary.getId();
     when(diaryRepository.findById(id)).thenReturn(diary);
+    when(userStore.isInRole(UserRoleConstants.USER)).thenReturn(true);
     // Act
     Diary actual = diaryApplicationService.getDiary(id);
     // Assert
@@ -102,10 +128,11 @@ public class DiaryApplicationServiceTest {
   }
 
   @Test
-  void testGetDiary_異常系_指定した日付の日記が存在しない場合DiaryNotFoundExceptionがスローされる() {
+  void testGetDiary_異常系_指定したidの日記が存在しない場合DiaryNotFoundExceptionがスローされる() {
     // Arrange
     long id = 1;
     when(diaryRepository.findById(id)).thenReturn(null);
+    when(userStore.isInRole(UserRoleConstants.USER)).thenReturn(true);
     // Act
     Executable action = () -> {
       diaryApplicationService.getDiary(id);
@@ -115,13 +142,30 @@ public class DiaryApplicationServiceTest {
   }
 
   @Test
-  void testAddDiary_正常系_リポジトリのaddを1回呼び出す() {
+  void testGetDiary_異常系_権限がない場合にPermnissionDeniedExceptionが発生する() {
+    // Arrange
+    LocalDate date = LocalDate.of(2025, 1, 1);
+    Diary diary = createDiary(date);
+    long id = diary.getId();
+    when(diaryRepository.findById(id)).thenReturn(diary);
+    when(userStore.isInRole(UserRoleConstants.USER)).thenReturn(false);
+    // Act
+    Executable action = () -> {
+      diaryApplicationService.getDiary(id);
+    };
+    // Assert
+    assertThrows(PermissionDeniedException.class, action);
+  }
+
+  @Test
+  void testAddDiary_正常系_リポジトリのaddを1回呼び出す() throws PermissionDeniedException {
     // Arrange
     LocalDate date = LocalDate.of(2025, 1, 1);
     Diary diary = createDiary(date);
     long id = diary.getId();
     when(diaryDomainService.isExistDiary(id)).thenReturn(false);
     when(diaryRepository.add(diary)).thenReturn(diary);
+    when(userStore.isInRole(UserRoleConstants.USER)).thenReturn(true);
     // Act
     diaryApplicationService.addDiary(diary);
     // Assert
@@ -129,13 +173,14 @@ public class DiaryApplicationServiceTest {
   }
 
   @Test
-  void testAddDiary_正常系_追加された日記を返す() {
+  void testAddDiary_正常系_追加された日記を返す() throws PermissionDeniedException {
     // Arrange
     LocalDate date = LocalDate.of(2025, 1, 1);
     Diary diary = createDiary(date);
     long id = diary.getId();
     when(diaryDomainService.isExistDiary(id)).thenReturn(false);
     when(diaryRepository.add(diary)).thenReturn(diary);
+    when(userStore.isInRole(UserRoleConstants.USER)).thenReturn(true);
     // Act
     Diary actual = diaryApplicationService.addDiary(diary);
     // Assert
@@ -143,12 +188,30 @@ public class DiaryApplicationServiceTest {
   }
 
   @Test
-  void testUpdateDiary_正常系_リポジトリのupdateを1回呼び出す() throws DiaryNotFoundException {
+  void testAddDiary_異常系_権限がない場合にPermissionDeniedExceptionが発生する() {
+    // Arrange
+    LocalDate date = LocalDate.of(2025, 1, 1);
+    Diary diary = createDiary(date);
+    long id = diary.getId();
+    when(diaryDomainService.isExistDiary(id)).thenReturn(false);
+    when(diaryRepository.add(diary)).thenReturn(diary);
+    when(userStore.isInRole(UserRoleConstants.USER)).thenReturn(false);
+    // Act
+    Executable action = () -> {
+      diaryApplicationService.addDiary(diary);
+    };
+    // Assert
+    assertThrows(PermissionDeniedException.class, action);
+  }
+
+  @Test
+  void testUpdateDiary_正常系_リポジトリのupdateを1回呼び出す() throws DiaryNotFoundException, PermissionDeniedException {
     // Arrange
     LocalDate date = LocalDate.of(2025, 1, 1);
     Diary diary = createDiary(date);
     long id = diary.getId();
     when(diaryDomainService.isExistDiary(id)).thenReturn(true);
+    when(userStore.isInRole(UserRoleConstants.USER)).thenReturn(true);
     // Act
     diaryApplicationService.updateDiary(diary);
     // Assert
@@ -162,6 +225,7 @@ public class DiaryApplicationServiceTest {
     Diary diary = createDiary(date);
     long id = diary.getId();
     when(diaryDomainService.isExistDiary(id)).thenReturn(false);
+    when(userStore.isInRole(UserRoleConstants.USER)).thenReturn(true);
     // Act
     Executable action = () -> {
       diaryApplicationService.updateDiary(diary);
@@ -171,10 +235,27 @@ public class DiaryApplicationServiceTest {
   }
 
   @Test
-  void testDeleteDiary_正常系_リポジトリのdeleteを1回呼び出す() throws DiaryNotFoundException {
+  void testUpdateDiary_異常系_権限がない場合にPermissionDeniedExceptionが発生する() {
+    // Arrange
+    LocalDate date = LocalDate.of(2025, 1, 1);
+    Diary diary = createDiary(date);
+    long id = diary.getId();
+    when(diaryDomainService.isExistDiary(id)).thenReturn(true);
+    when(userStore.isInRole(UserRoleConstants.USER)).thenReturn(false);
+    // Act
+    Executable action = () -> {
+      diaryApplicationService.updateDiary(diary);
+    };
+    // Assert
+    assertThrows(PermissionDeniedException.class, action);
+  }
+
+  @Test
+  void testDeleteDiary_正常系_リポジトリのdeleteを1回呼び出す() throws DiaryNotFoundException, PermissionDeniedException {
     // Arrange
     long id = 1;
     when(diaryDomainService.isExistDiary(id)).thenReturn(true);
+    when(userStore.isInRole(UserRoleConstants.USER)).thenReturn(true);
     // Act
     diaryApplicationService.deleteDiary(id);
     // Assert
@@ -186,12 +267,27 @@ public class DiaryApplicationServiceTest {
     // Arrange
     long id = 1;
     when(diaryDomainService.isExistDiary(id)).thenReturn(false);
+    when(userStore.isInRole(UserRoleConstants.USER)).thenReturn(true);
     // Act
     Executable action = () -> {
       diaryApplicationService.deleteDiary(id);
     };
     // Assert
     assertThrows(DiaryNotFoundException.class, action);
+  }
+
+  @Test
+  void testDeleteDiary_異常系_権限がない場合PermissionDeniedExceptionが発生する() {
+    // Arrange
+    long id = 1;
+    when(diaryDomainService.isExistDiary(id)).thenReturn(true);
+    when(userStore.isInRole(UserRoleConstants.USER)).thenReturn(false);
+    // Act
+    Executable action = () -> {
+      diaryApplicationService.deleteDiary(id);
+    };
+    // Assert
+    assertThrows(PermissionDeniedException.class, action);
   }
 
   private List<Diary> createDiaries(List<LocalDate> dates) {

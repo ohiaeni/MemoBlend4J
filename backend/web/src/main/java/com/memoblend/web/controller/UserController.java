@@ -31,7 +31,12 @@ import com.memoblend.web.controller.mapper.user.GetUserReponseMapper;
 import com.memoblend.web.controller.mapper.user.GetUsersResponseMapper;
 import com.memoblend.web.controller.mapper.user.PostUserRequestMapper;
 import com.memoblend.web.controller.mapper.user.PutUserRequestMapper;
+import com.memoblend.web.controller.util.ProblemDetailsFactory;
 import com.memoblend.web.log.ErrorMessageBuilder;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 
@@ -40,7 +45,7 @@ import lombok.AllArgsConstructor;
  */
 @RestController
 @RequestMapping("api/user")
-@Tag(name = "User", description = "ユーザーの情報にアクセスするAPI")
+@Tag(name = "User", description = "ユーザーの情報にアクセスする API です。")
 @AllArgsConstructor
 public class UserController {
   @Autowired
@@ -54,6 +59,11 @@ public class UserController {
    * 
    * @return ユーザー情報。
    */
+  @Operation(summary = "ユーザーを全件取得します。", description = "ユーザーを全件取得します。")
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "200", description = "成功。", content = @Content),
+      @ApiResponse(responseCode = "500", description = "サーバーエラー。", content = @Content)
+  })
   @GetMapping("")
   public ResponseEntity<GetUsersResponse> getUsers() {
     List<User> users = userApplicationService.getUsers();
@@ -62,11 +72,18 @@ public class UserController {
   }
 
   /**
-   * ユーザー情報を取得します。
+   * ID を指定して、ユーザー情報を取得します。
    * 
-   * @param id ユーザーID
-   * @return ユーザー情報
+   * @param id ユーザー ID 。
+   * @return ユーザー情報。
    */
+  @Operation(summary = "ID を指定して、ユーザー情報を取得します。", description = "ID を指定して、ユーザー情報を取得します。")
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "200", description = "成功。", content = @Content),
+      @ApiResponse(responseCode = "400", description = "リクエストエラー。", content = @Content),
+      @ApiResponse(responseCode = "404", description = "対応したユーザーが存在しません。", content = @Content),
+      @ApiResponse(responseCode = "500", description = "サーバーエラー。", content = @Content)
+  })
   @GetMapping("{id}")
   public ResponseEntity<?> getUser(@PathVariable("id") long id) {
     User user = null;
@@ -90,9 +107,15 @@ public class UserController {
   /**
    * ユーザー情報を登録します。
    * 
-   * @param request ユーザー情報
-   * @return 登録結果
+   * @param request ユーザー情報。
+   * @return 登録結果。
    */
+  @Operation(summary = "ユーザー情報を登録します。", description = "ユーザー情報を登録します。")
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "201", description = "成功。", content = @Content),
+      @ApiResponse(responseCode = "400", description = "リクエストエラー。", content = @Content),
+      @ApiResponse(responseCode = "500", description = "サーバーエラー。", content = @Content)
+  })
   @PostMapping
   public ResponseEntity<?> postUser(@RequestBody PostUserRequest request) {
     User user = PostUserRequestMapper.convert(request);
@@ -101,11 +124,18 @@ public class UserController {
   }
 
   /**
-   * ユーザー情報を削除します。
+   * ID を指定して、ユーザー情報を削除します。
    * 
-   * @param id ユーザーのid。
+   * @param id ユーザーの ID 。
    * @return 削除結果。
    */
+  @Operation(summary = "ID を指定して、ユーザー情報を削除します。", description = "ID を指定して、ユーザー情報を削除します。")
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "204", description = "成功。", content = @Content),
+      @ApiResponse(responseCode = "400", description = "リクエストエラー。", content = @Content),
+      @ApiResponse(responseCode = "404", description = "対応したユーザーが存在しません。", content = @Content),
+      @ApiResponse(responseCode = "500", description = "サーバーエラー。", content = @Content),
+  })
   @DeleteMapping("{id}")
   public ResponseEntity<?> deleteUser(@PathVariable("id") long id) {
     try {
@@ -130,6 +160,13 @@ public class UserController {
    * @param request ユーザー情報。
    * @return 更新結果。
    */
+  @Operation(summary = "ユーザー情報を更新します。", description = "ユーザー情報を更新します。")
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "204", description = "成功。", content = @Content),
+      @ApiResponse(responseCode = "400", description = "リクエストエラー。", content = @Content),
+      @ApiResponse(responseCode = "404", description = "対応したユーザーが存在しません。", content = @Content),
+      @ApiResponse(responseCode = "500", description = "サーバーエラー。", content = @Content),
+  })
   @PutMapping
   public ResponseEntity<?> putUser(@RequestBody PutUserRequest request) {
     User user = PutUserRequestMapper.convert(request);
