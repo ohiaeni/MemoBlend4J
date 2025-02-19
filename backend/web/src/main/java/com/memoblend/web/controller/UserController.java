@@ -1,7 +1,6 @@
 package com.memoblend.web.controller;
 
 import java.net.URI;
-import java.util.List;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,11 +23,9 @@ import com.memoblend.applicationcore.user.User;
 import com.memoblend.systemcommon.constant.CommonExceptionIdConstants;
 import com.memoblend.systemcommon.constant.SystemPropertyConstants;
 import com.memoblend.web.controller.dto.user.GetUserResponse;
-import com.memoblend.web.controller.dto.user.GetUsersResponse;
 import com.memoblend.web.controller.dto.user.PostUserRequest;
 import com.memoblend.web.controller.dto.user.PutUserRequest;
 import com.memoblend.web.controller.mapper.user.GetUserReponseMapper;
-import com.memoblend.web.controller.mapper.user.GetUsersResponseMapper;
 import com.memoblend.web.controller.mapper.user.PostUserRequestMapper;
 import com.memoblend.web.controller.mapper.user.PutUserRequestMapper;
 import com.memoblend.web.controller.util.ProblemDetailsFactory;
@@ -53,23 +50,6 @@ public class UserController {
   @Autowired
   private ProblemDetailsFactory problemDetailsFactory;
   private static final Logger apLog = LoggerFactory.getLogger(SystemPropertyConstants.APPLICATION_LOGGER);
-
-  /**
-   * ユーザーを全件取得します。
-   * 
-   * @return ユーザー情報。
-   */
-  @Operation(summary = "ユーザーを全件取得します。", description = "ユーザーを全件取得します。")
-  @ApiResponses(value = {
-      @ApiResponse(responseCode = "200", description = "成功。", content = @Content),
-      @ApiResponse(responseCode = "500", description = "サーバーエラー。", content = @Content)
-  })
-  @GetMapping("")
-  public ResponseEntity<GetUsersResponse> getUsers() {
-    List<User> users = userApplicationService.getUsers();
-    GetUsersResponse response = GetUsersResponseMapper.convert(users);
-    return ResponseEntity.ok().body(response);
-  }
 
   /**
    * ID を指定して、ユーザー情報を取得します。

@@ -190,22 +190,6 @@
       }
     },
     "/api/user": {
-      "get": {
-        "description": "ユーザーを全件取得します。",
-        "operationId": "getUsers",
-        "responses": {
-          "200": {
-            "description": "成功。"
-          },
-          "500": {
-            "description": "サーバーエラー。"
-          }
-        },
-        "summary": "ユーザーを全件取得します。",
-        "tags": [
-          "User"
-        ]
-      },
       "post": {
         "description": "ユーザー情報を登録します。",
         "operationId": "postUser",
