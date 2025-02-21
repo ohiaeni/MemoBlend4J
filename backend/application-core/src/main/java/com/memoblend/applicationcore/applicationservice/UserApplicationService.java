@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import com.memoblend.applicationcore.constant.MessageIdConstants;
 import com.memoblend.applicationcore.user.User;
 import com.memoblend.applicationcore.user.UserDomainService;
@@ -19,6 +20,7 @@ import lombok.AllArgsConstructor;
  */
 @Service
 @AllArgsConstructor
+@Transactional(rollbackFor = Exception.class)
 public class UserApplicationService {
 
   @Autowired
