@@ -27,6 +27,13 @@
         "operationId": "getDiaries",
         "responses": {
           "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetDiariesResponse"
+                }
+              }
+            },
             "description": "成功。"
           },
           "401": {
@@ -168,6 +175,13 @@
         ],
         "responses": {
           "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetDiaryResponse"
+                }
+              }
+            },
             "description": "成功。"
           },
           "400": {
@@ -339,6 +353,86 @@
   },
   "components": {
     "schemas": {
+      "Diary": {
+        "type": "object",
+        "properties": {
+          "content": {
+            "type": "string",
+            "maxLength": 2147483647,
+            "minLength": 1
+          },
+          "date": {
+            "type": "string",
+            "format": "date"
+          },
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "title": {
+            "type": "string",
+            "maxLength": 30,
+            "minLength": 1
+          },
+          "userId": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "required": [
+          "content",
+          "date",
+          "id",
+          "title",
+          "userId"
+        ]
+      },
+      "GetDiariesResponse": {
+        "type": "object",
+        "properties": {
+          "diaryList": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Diary"
+            }
+          },
+          "limit": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "page": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "total": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "GetDiaryResponse": {
+        "type": "object",
+        "properties": {
+          "content": {
+            "type": "string"
+          },
+          "date": {
+            "type": "string",
+            "format": "date"
+          },
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "title": {
+            "type": "string"
+          },
+          "userId": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
       "PostDiaryRequest": {
         "type": "object",
         "properties": {
