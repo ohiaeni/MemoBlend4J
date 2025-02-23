@@ -6,7 +6,7 @@ import HamburgerMenuIcon from './components/atoms/HamburgerMenuIcon.vue';
 import XMarkIcon from './components/atoms/XMarkIcon.vue';
 
 const navigation = [
-  { name: 'Diary', href: '/diaries', current: true },
+  { name: 'Diary', href: '/', current: true },
   // { name: 'test', href: '/test', current: false },
 ]
 </script>
