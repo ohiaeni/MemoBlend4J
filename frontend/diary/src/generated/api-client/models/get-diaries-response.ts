@@ -28,24 +28,6 @@ export interface GetDiariesResponse {
      * @type {Array<Diary>}
      * @memberof GetDiariesResponse
      */
-    'diaryList'?: Array<Diary>;
-    /**
-     * 
-     * @type {number}
-     * @memberof GetDiariesResponse
-     */
-    'limit'?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof GetDiariesResponse
-     */
-    'page'?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof GetDiariesResponse
-     */
-    'total'?: number;
+    'diaries'?: Array<Diary>;
 }
 
