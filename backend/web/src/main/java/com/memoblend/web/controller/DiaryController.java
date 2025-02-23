@@ -19,6 +19,7 @@ import com.memoblend.web.controller.util.ProblemDetailsFactory;
 import com.memoblend.web.log.ErrorMessageBuilder;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -63,13 +64,13 @@ public class DiaryController {
    */
   @Operation(summary = "日記を全件取得します。", description = "日記を全件取得します。")
   @ApiResponses(value = {
-      @ApiResponse(responseCode = "200", description = "成功。", content = @Content),
+      @ApiResponse(responseCode = "200", description = "成功。", content = @Content(mediaType = "application/json", schema = @Schema(implementation = GetDiariesResponse.class))),
       @ApiResponse(responseCode = "401", description = "未認証。", content = @Content),
       @ApiResponse(responseCode = "404", description = "対応した日記が存在しません。", content = @Content),
       @ApiResponse(responseCode = "500", description = "サーバーエラー。", content = @Content)
   })
   @GetMapping("")
-  public ResponseEntity<?> getDiaries() throws PermissionDeniedException {
+  public ResponseEntity<GetDiariesResponse> getDiaries() throws PermissionDeniedException {
     List<Diary> diaries = diaryApplicationService.getDiaries();
     GetDiariesResponse response = GetDiariesResponseMapper.convert(diaries);
     return ResponseEntity.ok().body(response);
@@ -84,7 +85,7 @@ public class DiaryController {
    */
   @Operation(summary = "ID を指定して、日記情報を取得します。", description = "ID を指定して、日記情報を取得します。")
   @ApiResponses(value = {
-      @ApiResponse(responseCode = "200", description = "成功。", content = @Content),
+      @ApiResponse(responseCode = "200", description = "成功。", content = @Content(mediaType = "application/json", schema = @Schema(implementation = GetDiaryResponse.class))),
       @ApiResponse(responseCode = "400", description = "リクエストエラー。", content = @Content),
       @ApiResponse(responseCode = "401", description = "未認証。", content = @Content),
       @ApiResponse(responseCode = "404", description = "対応した日記が存在しません。", content = @Content),
