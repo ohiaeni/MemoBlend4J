@@ -9,7 +9,7 @@ function createConfig(): apiClient.Configuration {
 
 /** axios の共通の設定があればここに定義します。 */
 const axiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_AXIOS_BASE_ENDPOINT_ORIGIN,
+  baseURL: import.meta.env.VITE_AXIOS_BASE_ENDPOINT_ORIGIN || 'http://localhost:8080',
   headers: {
     'Content-Type': 'application/json',
   },
