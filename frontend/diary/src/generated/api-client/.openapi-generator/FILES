@@ -9,6 +9,9 @@ common.ts
 configuration.ts
 git_push.sh
 index.ts
+models/diary.ts
+models/get-diaries-response.ts
+models/get-diary-response.ts
 models/index.ts
 models/post-diary-request.ts
 models/post-user-request.ts

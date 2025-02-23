@@ -22,6 +22,10 @@ import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObj
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, type RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
+import type { GetDiariesResponse } from '../models';
+// @ts-ignore
+import type { GetDiaryResponse } from '../models';
+// @ts-ignore
 import type { PostDiaryRequest } from '../models';
 // @ts-ignore
 import type { PutDiaryRequest } from '../models';
@@ -230,7 +234,7 @@ export const DiaryApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getDiaries(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async getDiaries(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetDiariesResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getDiaries(options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['DiaryApi.getDiaries']?.[localVarOperationServerIndex]?.url;
@@ -243,7 +247,7 @@ export const DiaryApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getDiary(id: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async getDiary(id: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetDiaryResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getDiary(id, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['DiaryApi.getDiary']?.[localVarOperationServerIndex]?.url;
@@ -301,7 +305,7 @@ export const DiaryApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getDiaries(options?: RawAxiosRequestConfig): AxiosPromise<void> {
+        getDiaries(options?: RawAxiosRequestConfig): AxiosPromise<GetDiariesResponse> {
             return localVarFp.getDiaries(options).then((request) => request(axios, basePath));
         },
         /**
@@ -311,7 +315,7 @@ export const DiaryApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getDiary(id: number, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+        getDiary(id: number, options?: RawAxiosRequestConfig): AxiosPromise<GetDiaryResponse> {
             return localVarFp.getDiary(id, options).then((request) => request(axios, basePath));
         },
         /**
