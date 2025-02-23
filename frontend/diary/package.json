@@ -19,7 +19,7 @@
     "openapi-client:generate": "openapi-generator-cli generate -g typescript-axios -i ./../../backend/api-docs/web/api-specification.json --additional-properties=withSeparateModelsAndApi=true,modelPackage=models,apiPackage=api,supportsES6=true -o ./src/generated/api-client"
   },
   "dependencies": {
-    "pinia": "^2.3.1",
+    "pinia": "^3.0.1",
     "vue": "^3.5.13",
     "vue-router": "^4.5.0"
   },
