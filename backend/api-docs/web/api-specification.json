@@ -390,23 +390,11 @@
       "GetDiariesResponse": {
         "type": "object",
         "properties": {
-          "diaryList": {
+          "diaries": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/Diary"
             }
-          },
-          "limit": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "page": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "total": {
-            "type": "integer",
-            "format": "int32"
           }
         }
       },
