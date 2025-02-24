@@ -15,11 +15,11 @@ import lombok.Data;
 public class Diary {
 
   @NotNull
-  @NotBlank
+  //@NotBlank
   private long id;
 
   @NotNull
-  @NotBlank
+  //@NotBlank
   private long userId;
 
   @NotNull
@@ -33,6 +33,6 @@ public class Diary {
   private String content;
 
   @NotNull
-  @NotBlank
+  //@NotBlank
   private LocalDate date;
 }
