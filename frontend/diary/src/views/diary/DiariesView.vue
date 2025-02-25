@@ -11,7 +11,6 @@ const diariesResponse = ref<GetDiariesResponse>({
 onMounted(async () => {
   diariesResponse.value = await getDiaries();
 });
-
 </script>
 
 <template>
