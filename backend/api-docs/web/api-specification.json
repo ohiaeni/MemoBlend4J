@@ -366,9 +366,7 @@
         "required": [
           "content",
           "date",
-          "id",
-          "title",
-          "userId"
+          "title"
         ]
       },
       "GetDiariesResponse": {

@@ -3,6 +3,7 @@ package com.memoblend.applicationcore.diary;
 import java.time.LocalDate;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,25 +15,20 @@ import lombok.Data;
 @AllArgsConstructor
 public class Diary {
 
-  @NotNull
-  //@NotBlank
+  @PositiveOrZero
   private long id;
 
-  @NotNull
-  //@NotBlank
+  @PositiveOrZero
   private long userId;
 
-  @NotNull
-  @NotBlank
+  @NotBlank(message = "{0}は1～30文字の範囲で入力してください")
   @Size(min = 1, max = 30, message = "{0}は1～30文字の範囲で入力してください")
   private String title;
 
-  @NotNull
-  @NotBlank
+  @NotBlank(message = "{0}は1文字以上入力してください")
   @Size(min = 1, message = "{0}は1文字以上入力してください")
   private String content;
 
-  @NotNull
-  //@NotBlank
+  @NotNull(message = "{0}は必須です")
   private LocalDate date;
 }
