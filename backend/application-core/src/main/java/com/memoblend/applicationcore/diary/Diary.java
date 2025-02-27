@@ -15,10 +15,10 @@ import lombok.Data;
 @AllArgsConstructor
 public class Diary {
 
-  @PositiveOrZero
+  @PositiveOrZero(message = "{0}は0以上の値にしてください")
   private long id;
 
-  @PositiveOrZero
+  @PositiveOrZero(message = "{0}は0以上の値にしてください")
   private long userId;
 
   @NotBlank(message = "{0}は1～30文字の範囲で入力してください")

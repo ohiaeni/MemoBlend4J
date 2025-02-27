@@ -42,6 +42,16 @@ public class DiaryTest {
   }
 
   @Test
+  public void testIdSetZero_正常系_idが0() {
+    // Arrange
+    diary.setId(0L);
+    // Act
+    validator.validate(diary, bindingResult);
+    // Assert
+    assertTrue(!bindingResult.hasErrors());
+  }
+
+  @Test
   @SuppressWarnings("null")
   public void testIdIsNull_異常系_IDが負の数() {
     // Arrange
@@ -50,7 +60,17 @@ public class DiaryTest {
     validator.validate(diary, bindingResult);
     // Assert
     assertEquals("id", bindingResult.getFieldError().getField());
-    assertEquals("0 以上の値にしてください", bindingResult.getFieldError().getDefaultMessage());
+    assertEquals("{0}は0以上の値にしてください", bindingResult.getFieldError().getDefaultMessage());
+  }
+
+  @Test
+  public void testUserIdSetZero_正常系_userIdが0() {
+    // Arrange
+    diary.setUserId(0L);
+    // Act
+    validator.validate(diary, bindingResult);
+    // Assert
+    assertTrue(!bindingResult.hasErrors());
   }
 
   @Test
@@ -62,7 +82,7 @@ public class DiaryTest {
     validator.validate(diary, bindingResult);
     // Asert
     assertEquals("userId", bindingResult.getFieldError().getField());
-    assertEquals("0 以上の値にしてください", bindingResult.getFieldError().getDefaultMessage());
+    assertEquals("{0}は0以上の値にしてください", bindingResult.getFieldError().getDefaultMessage());
   }
   
   @Test
