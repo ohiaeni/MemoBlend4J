@@ -1,4 +1,3 @@
-
 package com.memoblend.applicationcore.diary;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -19,7 +18,7 @@ import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
  */
 @ExtendWith(SpringExtension.class)
 public class DiaryTest {
-  
+
   private Diary diary;
   private BindingResult bindingResult;
   private Validator validator;
@@ -52,7 +51,6 @@ public class DiaryTest {
   }
 
   @Test
-  @SuppressWarnings("null")
   public void testIdIsNull_異常系_IDが負の数() {
     // Arrange
     diary.setId(-1L);
@@ -74,7 +72,6 @@ public class DiaryTest {
   }
 
   @Test
-  @SuppressWarnings("null")
   public void testUserIdIsNull_異常系_userIdが負の数() {
     // Arrange
     diary.setUserId(-1L);
@@ -84,9 +81,8 @@ public class DiaryTest {
     assertEquals("userId", bindingResult.getFieldError().getField());
     assertEquals("{0}は0以上の値にしてください", bindingResult.getFieldError().getDefaultMessage());
   }
-  
+
   @Test
-  @SuppressWarnings("null")
   public void testTitleIsNull_異常系_titleがnull() {
     // Arrange
     diary.setTitle(null);
@@ -98,7 +94,6 @@ public class DiaryTest {
   }
 
   @Test
-  @SuppressWarnings("null")
   public void testTitleIsBlank_異常系_titleが空白() {
     // Arrange
     diary.setTitle(" ");
@@ -110,7 +105,6 @@ public class DiaryTest {
   }
 
   @Test
-  @SuppressWarnings("null")
   public void testTitleIsTooShort_異常系_titleが0文字() {
     // Arrange
     diary.setTitle("");
@@ -122,7 +116,6 @@ public class DiaryTest {
   }
 
   @Test
-  @SuppressWarnings("null")
   public void testTitleIsTooLong_異常系_titleの文字数オーバー() {
     // Arrange
     diary.setTitle("a".repeat(999));
@@ -134,7 +127,6 @@ public class DiaryTest {
   }
 
   @Test
-  @SuppressWarnings("null")
   public void testContentIsNull_異常系_contentがnull() {
     // Arrange
     diary.setContent(null);
@@ -146,7 +138,6 @@ public class DiaryTest {
   }
 
   @Test
-  @SuppressWarnings("null")
   public void testContentIsBlank_異常系_contentが空白() {
     // Arrange
     diary.setContent(" ");
@@ -158,7 +149,6 @@ public class DiaryTest {
   }
 
   @Test
-  @SuppressWarnings("null")
   public void testContentIsTooShort_異常系_contentが0文字() {
     // Arrange
     diary.setContent("");
@@ -170,7 +160,6 @@ public class DiaryTest {
   }
 
   @Test
-  @SuppressWarnings("null")
   public void testDateIsNull_異常系_日付がnull() {
     // Arrange
     diary.setDate(null);
