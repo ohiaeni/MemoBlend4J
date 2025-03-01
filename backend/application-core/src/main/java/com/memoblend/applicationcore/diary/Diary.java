@@ -15,9 +15,11 @@ import lombok.Data;
 @AllArgsConstructor
 public class Diary {
 
+  @NotNull(message = "{0}は必須です")
   @PositiveOrZero(message = "{0}は0以上の値にしてください")
   private long id;
 
+  @NotNull(message = "{0}は必須です")
   @PositiveOrZero(message = "{0}は0以上の値にしてください")
   private long userId;
 

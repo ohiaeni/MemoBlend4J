@@ -27,9 +27,7 @@ public class DiaryTest {
   void setUp() {
     this.diary = new Diary(1L, 1L, "testTitle", "testContent", LocalDate.of(2025, 1, 1));
     this.bindingResult = new BindException(diary, "Diary");
-    LocalValidatorFactoryBean factory = new LocalValidatorFactoryBean();
-    factory.afterPropertiesSet();
-    this.validator = factory;
+    setUpValidator();
   }
 
   @Test
@@ -51,7 +49,7 @@ public class DiaryTest {
   }
 
   @Test
-  public void testIdIsNull_異常系_IDが負の数() {
+  public void testIdIsNegative_異常系_IDが負の数() {
     // Arrange
     diary.setId(-1L);
     // Act
@@ -168,5 +166,11 @@ public class DiaryTest {
     // Assert
     assertEquals("date", bindingResult.getFieldError().getField());
     assertEquals("{0}は必須です", bindingResult.getFieldError().getDefaultMessage());
+  }
+
+  private void setUpValidator() {
+    LocalValidatorFactoryBean factory = new LocalValidatorFactoryBean();
+    factory.afterPropertiesSet();
+    this.validator = factory;
   }
 }
