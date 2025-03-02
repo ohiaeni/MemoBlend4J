@@ -3,7 +3,7 @@ import type { GetDiariesResponse } from '@/generated/api-client';
 import { getDiaries } from '@/services/diary/diary-service';
 import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
-
+import PencilIcon from '@/components/atoms/PencilIcon.vue';
 const router = useRouter();
 
 const diariesResponse = ref<GetDiariesResponse>({
@@ -24,27 +24,16 @@ const goToCreateDiary = () => {
 </script>
 
 <template>
-  <button @click="goToCreateDiary">新規作成</button>
-  <h1>日記の一覧</h1>
-  <table class="table-auto">
-    <thead>
-      <tr>
-        <th>日付</th>
-        <th>タイトル</th>
-        <th>本文</th>
-        <th>詳細</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr v-for="diary in diariesResponse.diaries" :key="diary.id">
-        <td class="border">{{ diary.date }}</td>
-        <td class="border">{{ diary.title }}</td>
-        <td class="border">{{ diary.content }}</td>
-        <td class="border"><button type="button"
-            class="rounded bg-blue-600 px-4 py-2 font-bold text-white hover:bg-blue-800"
-            @click="goToDiaryDetail(diary.id)">詳細</button></td>
-      </tr>
-    </tbody>
-  </table>
-
+  <div class="m-5">
+    <button class="fixed z-10 px-6 py-6 bottom-10 right-10 rounded-full bg-gray-800 text-white hover:bg-gray-500"
+      @click="goToCreateDiary">
+      <PencilIcon />
+    </button>
+    <div class="border rounded mb-4 relative border-gray-200 hover:border-gray-400 hover:shadow-lg"
+      v-for="diary in diariesResponse.diaries" :key="diary.id" @click="goToDiaryDetail(diary.id)">
+      <h2 class="rounded p-2 font-bold text-2xl">{{ diary.title }}</h2>
+      <p class="rounded p-2">{{ diary.content }}</p>
+      <p class="rounded p-2 text-gray-400">{{ diary.date }}</p>
+    </div>
+  </div>
 </template>
