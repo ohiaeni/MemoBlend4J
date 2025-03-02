@@ -1,4 +1,5 @@
 import DiariesView from '@/views/diary/DiariesView.vue'
+import DiaryDeleteView from '@/views/diary/DiaryDeleteView.vue'
 import DiaryDetailView from '@/views/diary/DiaryDetailView.vue'
 import DiaryEditView from '@/views/diary/DiaryEditView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
@@ -21,6 +22,11 @@ const router = createRouter({
       path: '/detail/:id/edit',
       name: 'edit',
       component: DiaryEditView,
+    },
+    {
+      path: '/detail/:id/delete',
+      name: 'delete',
+      component: DiaryDeleteView,
     },
   ],
 })
