@@ -36,9 +36,9 @@ const updateDiaryAsync = async () => {
     </div>
     <div class="mb-5">
       <label for="content" class="block mb-2 text-sm font-medium text-gray-900">内容</label>
-      <input type="text" id="content"
+      <textarea type="text" id="content"
         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-        required v-model="diary.content" />
+        rows="15" required v-model="diary.content"></textarea>
     </div>
     <div class="mb-5">
       <label for="date" class="block mb-2 text-sm font-medium text-gray-900">日付</label>
