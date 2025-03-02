@@ -2,6 +2,9 @@
 import type { GetDiariesResponse } from '@/generated/api-client';
 import { getDiaries } from '@/services/diary/diary-service';
 import { onMounted, ref } from 'vue';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
 
 const diariesResponse = ref<GetDiariesResponse>({
   diaries: [],
@@ -10,6 +13,10 @@ const diariesResponse = ref<GetDiariesResponse>({
 onMounted(async () => {
   diariesResponse.value = await getDiaries();
 });
+
+const goToDiaryDetail = (id: number) => {
+  router.push({ name: 'detail', params: { id: id } });
+};
 </script>
 
 <template>
@@ -20,6 +27,7 @@ onMounted(async () => {
         <th>日付</th>
         <th>タイトル</th>
         <th>本文</th>
+        <th>詳細</th>
       </tr>
     </thead>
     <tbody>
@@ -27,6 +35,9 @@ onMounted(async () => {
         <td class="border">{{ diary.date }}</td>
         <td class="border">{{ diary.title }}</td>
         <td class="border">{{ diary.content }}</td>
+        <td class="border"><button type="button"
+            class="rounded bg-blue-600 px-4 py-2 font-bold text-white hover:bg-blue-800"
+            @click="goToDiaryDetail(diary.id)">詳細</button></td>
       </tr>
     </tbody>
   </table>
