@@ -3,7 +3,7 @@ import type { GetDiariesResponse } from '@/generated/api-client';
 import { getDiaries } from '@/services/diary/diary-service';
 import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
-import PencilIcon from '@/components/atoms/PencilIcon.vue';
+import { PencilSquareIcon } from '@heroicons/vue/24/outline';
 const router = useRouter();
 
 const diariesResponse = ref<GetDiariesResponse>({
@@ -25,9 +25,9 @@ const goToCreateDiary = () => {
 
 <template>
   <div class="m-5">
-    <button class="fixed z-10 px-6 py-6 bottom-10 right-10 rounded-full bg-gray-800 text-white hover:bg-gray-500"
+    <button class="fixed z-10 px-4 py-4 bottom-10 right-10 rounded-full bg-gray-800 text-white hover:bg-gray-500"
       @click="goToCreateDiary">
-      <PencilIcon />
+      <PencilSquareIcon class="block w-8 h-8 stroke-white" />
     </button>
     <div class="border rounded-lg mb-4 relative border-gray-200 hover:border-gray-400 hover:shadow-lg"
       v-for="diary in diariesResponse.diaries" :key="diary.id" @click="goToDiaryDetail(diary.id)">
