@@ -19,3 +19,9 @@ onMounted(async () => {
   diary.value = await getDiary(id);
 });
 </script>
+
+<template>
+  <div>
+    {{ diary }}
+  </div>
+</template>
