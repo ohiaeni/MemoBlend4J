@@ -22,7 +22,7 @@ onMounted(async () => {
 const router = useRouter();
 const updateDiaryAsync = async () => {
   await updateDiary(diary.value);
-  router.push({ name: 'detail' });
+  router.push({ name: 'diaries' });
 };
 
 </script>
