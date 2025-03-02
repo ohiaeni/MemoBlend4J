@@ -37,11 +37,14 @@ const goToDeleteDiary = () => {
     <p class="mb-5">{{ diary.content }}</p>
     <p class="text-gray-400">{{ diary.date }}</p>
     <div class="absolute bottom-0 right-0">
-      <button type="button" class="text-white bg-gray-800 hover:bg-gray-500 px-4 py-2 rounded mx-1"
+      <button type="button"
+        class="text-white bg-gray-800 hover:bg-gray-500 px-4 py-2 rounded-lg focus:ring-4 focus:outline-none focus:ring-gray-200 mx-1"
         @click="goToEditDiary">
         <PencilIcon />
       </button>
-      <button type="button" class="text-white bg-gray-800 hover:bg-gray-500 px-4 py-2 rounded" @click="goToDeleteDiary">
+      <button type="button"
+        class="text-white bg-gray-800 hover:bg-gray-500 px-4 py-2 rounded-lg focus:ring-4 focus:outline-none focus:ring-gray-200"
+        @click="goToDeleteDiary">
         <TrashIcon />
       </button>
     </div>
