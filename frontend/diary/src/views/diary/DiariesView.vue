@@ -29,7 +29,7 @@ const goToCreateDiary = () => {
       @click="goToCreateDiary">
       <PencilIcon />
     </button>
-    <div class="border rounded mb-4 relative border-gray-200 hover:border-gray-400 hover:shadow-lg"
+    <div class="border rounded-lg mb-4 relative border-gray-200 hover:border-gray-400 hover:shadow-lg"
       v-for="diary in diariesResponse.diaries" :key="diary.id" @click="goToDiaryDetail(diary.id)">
       <h2 class="rounded p-2 font-bold text-2xl">{{ diary.title }}</h2>
       <p class="rounded p-2">{{ diary.content }}</p>
