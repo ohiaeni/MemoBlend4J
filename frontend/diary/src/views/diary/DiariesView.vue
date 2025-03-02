@@ -17,9 +17,14 @@ onMounted(async () => {
 const goToDiaryDetail = (id: number) => {
   router.push({ name: 'detail', params: { id: id } });
 };
+
+const goToCreateDiary = () => {
+  router.push({ name: 'create' });
+}
 </script>
 
 <template>
+  <button @click="goToCreateDiary">新規作成</button>
   <h1>日記の一覧</h1>
   <table class="table-auto">
     <thead>

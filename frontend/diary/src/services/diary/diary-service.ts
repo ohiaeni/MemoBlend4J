@@ -1,5 +1,5 @@
 import { diaryApi } from "@/api-client";
-import type { GetDiariesResponse, PutDiaryRequest } from "@/generated/api-client";
+import type { GetDiariesResponse, PostDiaryRequest, PutDiaryRequest } from "@/generated/api-client";
 
 export async function getDiaries(): Promise<GetDiariesResponse> {
   const response = await diaryApi.getDiaries();
@@ -17,4 +17,8 @@ export async function updateDiary(diary: PutDiaryRequest) {
 
 export async function deleteDiary(id: number) {
   await diaryApi.deleteDiary(id);
+}
+
+export async function createDiary(diary: PostDiaryRequest) {
+  await diaryApi.postDiary(diary);
 }
