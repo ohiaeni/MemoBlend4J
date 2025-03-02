@@ -22,13 +22,13 @@ onMounted(async () => {
 const router = useRouter();
 const updateDiaryAsync = async () => {
   await updateDiary(diary.value);
-  router.push({ name: 'edit' });
+  router.push({ name: 'detail' });
 };
 
 </script>
 <template>
-  <form class="max-w-sm mx-auto">
-    <div class="mb-5">
+  <form class="max-w-sm mx-auto" @submit.prevent="updateDiaryAsync()">
+    <div class=" mb-5 mt-5">
       <label for="title" class="block mb-2 text-sm font-medium text-gray-900">タイトル</label>
       <input type="text" id="title"
         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
@@ -47,7 +47,7 @@ const updateDiaryAsync = async () => {
         required v-model="diary.date" />
     </div>
     <button type="submit"
-      class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+      class="text-white bg-gray-800 hover:bg-gray-500 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg text-sm px-4 py-2.5"
       @click="updateDiaryAsync">更新</button>
   </form>
 
