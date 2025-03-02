@@ -3,7 +3,6 @@ import type { GetDiariesResponse } from '@/generated/api-client';
 import { getDiaries } from '@/services/diary/diary-service';
 import { onMounted, ref } from 'vue';
 
-
 const diariesResponse = ref<GetDiariesResponse>({
   diaries: [],
 });
