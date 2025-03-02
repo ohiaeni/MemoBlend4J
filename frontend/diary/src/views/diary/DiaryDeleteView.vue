@@ -24,17 +24,18 @@ const deleteDiaryAsync = async () => {
   deleteDiary(id);
   router.push({ name: 'diaries' });
 }
+
+const goToDiaries = () => {
+  router.push({ name: 'diaries' });
+}
 </script>
 
 <template>
-  <div>
-    <h1>日記の削除</h1>
-    <div>
-      <p>日付: {{ diary.date }}</p>
-      <p>タイトル: {{ diary.title }}</p>
-      <p>本文: {{ diary.content }}</p>
-    </div>
-    <button type="button" class="rounded bg-red-600 px-4 py-2 font-bold text-white hover:bg-red-800"
-      @click="deleteDiaryAsync">削除</button>
+  <div class="m-5">
+    <p>{{ diary.date }}の『{{ diary.title }}』を削除しますか？</p>
+    <button type="button" class="rounded-lg bg-gray-800 px-4 py-2 mr-3 font-bold text-white hover:bg-gray-400"
+      @click="deleteDiaryAsync">はい</button>
+    <button type="button" class="rounded-lg bg-gray-800 px-4 py-2 font-bold text-white hover:bg-gray-400"
+      @click="goToDiaries">いいえ</button>
   </div>
 </template>
