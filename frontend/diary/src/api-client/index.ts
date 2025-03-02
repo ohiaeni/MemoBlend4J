@@ -21,6 +21,7 @@ const diaryApi = new apiClient.DiaryApi(
   '',
   axiosInstance,
 );
+
 const userApi = new apiClient.UserApi(
   createConfig(),
   '',
