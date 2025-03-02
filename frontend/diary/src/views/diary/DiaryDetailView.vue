@@ -23,6 +23,10 @@ const router = useRouter();
 const goToEditDiary = () => {
   router.push({ name: 'edit' });
 }
+
+const goToDeleteDiary = () => {
+  router.push({ name: 'delete' });
+}
 </script>
 
 <template>
@@ -30,4 +34,5 @@ const goToEditDiary = () => {
     {{ diary }}
   </div>
   <button @click="goToEditDiary">編集画面</button>
+  <button @click="goToDeleteDiary">削除画面</button>
 </template>
