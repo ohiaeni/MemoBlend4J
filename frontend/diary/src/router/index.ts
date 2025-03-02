@@ -1,4 +1,5 @@
 import DiariesView from '@/views/diary/DiariesView.vue'
+import DiaryDetailView from '@/views/diary/DiaryDetailView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 
 
@@ -9,6 +10,10 @@ const router = createRouter({
       path: '/',
       name: 'diaries',
       component: DiariesView,
+    }, {
+      path: '/detail/:id',
+      name: 'detail',
+      component: DiaryDetailView,
     },
   ],
 })
