@@ -50,7 +50,7 @@ public class UserTest {
   }
 
   @Test
-  public void testIdIsNull_異常系_idが負の数() {
+  public void testIdIsNegative_異常系_idが負の数() {
     // Arrange
     user.setId(-1L);
     // Act

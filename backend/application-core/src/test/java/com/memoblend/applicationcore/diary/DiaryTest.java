@@ -51,7 +51,7 @@ public class DiaryTest {
   }
 
   @Test
-  public void testIdIsNull_異常系_idが負の数() {
+  public void testIdIsNegative_異常系_idが負の数() {
     // Arrange
     diary.setId(-1L);
     // Act
@@ -72,7 +72,7 @@ public class DiaryTest {
   }
 
   @Test
-  public void testUserIdIsNull_異常系_userIdが負の数() {
+  public void testUserIdIsNegative_異常系_userIdが負の数() {
     // Arrange
     diary.setUserId(-1L);
     // Act
