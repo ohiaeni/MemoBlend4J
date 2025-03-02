@@ -14,3 +14,7 @@ export async function getDiary(id: number) {
 export async function updateDiary(diary: PutDiaryRequest) {
   await diaryApi.putDiary(diary);
 }
+
+export async function deleteDiary(id: number) {
+  await diaryApi.deleteDiary(id);
+}
