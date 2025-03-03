@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import type { GetDiaryResponse } from '@/generated/api-client';
-import { getDiary } from '@/services/diary/diary-service';
+import { deleteDiary, getDiary } from '@/services/diary/diary-service';
 import { onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { PencilSquareIcon, TrashIcon } from '@heroicons/vue/24/outline';
+import TestModal from '@/components/ConfirmationModal.vue';
 
 const route = useRoute();
 const id = Number(route.params.id);
@@ -26,11 +27,24 @@ const goToEditDiary = () => {
 }
 
 const goToDeleteDiary = () => {
-  router.push({ name: 'delete' });
+  // router.push({ name: 'delete' });
+  showModal.value = true;
+}
+
+const showModal = ref(false);
+
+const closeModal = () => {
+  showModal.value = false;
+}
+const deleteDiaryAsync = async () => {
+  deleteDiary(id);
+  router.push({ name: 'diaries' });
 }
 </script>
 
 <template>
+  <TestModal :show="showModal" message="削除してもよろしいですか？" @close="closeModal" @confirm="deleteDiaryAsync"
+    @cancel="closeModal" />
   <div class="m-5 relative">
     <h1 class="text-2xl font-bold mb-5">{{ diary.title }}</h1>
     <p class="mb-5">{{ diary.content }}</p>
