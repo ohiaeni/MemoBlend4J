@@ -26,9 +26,7 @@ public class UserTest {
   void setUp() {
     this.user = new User(1L, "testName");
     this.bindingResult = new BindException(user, "User");
-    LocalValidatorFactoryBean factory = new LocalValidatorFactoryBean();
-    factory.afterPropertiesSet();
-    this.validator = factory;
+    setUpValidator();
   }
   
   @Test
@@ -102,5 +100,11 @@ public class UserTest {
     // Assert
     assertEquals("name", bindingResult.getFieldError().getField());
     assertEquals("{0}は1～15文字の範囲で入力してください", bindingResult.getFieldError().getDefaultMessage());
+  }
+
+  private void setUpValidator() {
+    LocalValidatorFactoryBean factory = new LocalValidatorFactoryBean();
+    factory.afterPropertiesSet();
+    this.validator = factory;
   }
 }
