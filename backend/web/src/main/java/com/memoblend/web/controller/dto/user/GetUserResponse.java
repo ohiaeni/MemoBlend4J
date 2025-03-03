@@ -11,4 +11,5 @@ import lombok.Data;
 public class GetUserResponse {
   private long id;
   private String name;
+  private boolean isDeleted;
 }

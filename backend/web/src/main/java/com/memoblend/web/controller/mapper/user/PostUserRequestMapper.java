@@ -17,7 +17,8 @@ public class PostUserRequestMapper {
   public static User convert(PostUserRequest request) {
     User user = new User(
         0,
-        request.getName());
+        request.getName(),
+        false);
     return user;
   }
 }

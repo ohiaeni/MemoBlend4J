@@ -2,7 +2,8 @@ DROP TABLE IF EXISTS users CASCADE;
 CREATE TABLE users
 (
   id BIGSERIAL NOT NULL PRIMARY KEY, -- primary key column
-  name VARCHAR(64) NOT NULL
+  name VARCHAR(64) NOT NULL,
+  is_deleted BOOLEAN NOT NULL DEFAULT FALSE
 );
 
 -- Drop and create the `diaries` table

@@ -1,15 +1,15 @@
 -- Insert 10 dummy records into `users`
-INSERT INTO users (name) VALUES
-('Alice'),
-('Bob'),
-('Charlie'),
-('Diana'),
-('Eve'),
-('Frank'),
-('Grace'),
-('Hank'),
-('Ivy'),
-('Jack');
+INSERT INTO users (name, is_deleted) VALUES
+('Alice', false),
+('Bob', false),
+('Charlie', false),
+('Diana', false),
+('Eve', false),
+('Frank', false),
+('Grace', false),
+('Hank', false),
+('Ivy', false),
+('Jack', false);
 
 -- Insert 10 dummy records into `diaries`
 INSERT INTO diaries (user_id, title, content, date) VALUES
