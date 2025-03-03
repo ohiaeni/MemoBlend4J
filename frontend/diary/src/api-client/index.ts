@@ -16,12 +16,18 @@ const axiosInstance = axios.create({
   withCredentials: true,
 });
 
+/**
+ * 日記の API クライアントです。
+ */
 const diaryApi = new apiClient.DiaryApi(
   createConfig(),
   '',
   axiosInstance,
 );
 
+/**
+ * ユーザーの API クライアントです。
+ */
 const userApi = new apiClient.UserApi(
   createConfig(),
   '',

@@ -4,23 +4,34 @@ import { getDiaries } from '@/services/diary/diary-service';
 import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { PencilSquareIcon } from '@heroicons/vue/24/outline';
-const router = useRouter();
 
+/**
+ * 日記の一覧を保持するオブジェクトです。
+ */
 const diariesResponse = ref<GetDiariesResponse>({
   diaries: [],
 });
 
-onMounted(async () => {
-  diariesResponse.value = await getDiaries();
-});
+const router = useRouter();
 
+/**
+ * 日記の詳細画面に遷移します。
+ * @param id 日記の ID 。
+ */
 const goToDiaryDetail = (id: number) => {
   router.push({ name: 'detail', params: { id: id } });
 };
 
+/**
+ * 日記の作成画面に遷移します。
+ */
 const goToCreateDiary = () => {
   router.push({ name: 'create' });
 }
+
+onMounted(async () => {
+  diariesResponse.value = await getDiaries();
+});
 </script>
 
 <template>

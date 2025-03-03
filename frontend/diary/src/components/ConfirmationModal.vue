@@ -1,12 +1,16 @@
 <script setup lang="ts">
 import { XMarkIcon } from '@heroicons/vue/24/outline';
 
+/**
+ * ユーザーに実行可否を確認するモーダルコンポーネントです。
+ */
 const props = defineProps<{
   show: boolean;
   message: string;
 }>();
 const emit = defineEmits(['close', 'confirm', 'cancel']);
 </script>
+
 <template>
   <div v-if="props.show" class="fixed z-1 bg-gray-500/75 w-full h-full" @click.self="emit('close')">
     <div>

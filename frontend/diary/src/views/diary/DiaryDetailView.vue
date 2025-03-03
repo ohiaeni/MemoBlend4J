@@ -9,6 +9,9 @@ import TestModal from '@/components/ConfirmationModal.vue';
 const route = useRoute();
 const id = Number(route.params.id);
 
+/**
+ * 日記の詳細を保持するオブジェクトです。
+ */
 const diary = ref<GetDiaryResponse>({
   content: '',
   date: '',
@@ -17,33 +20,51 @@ const diary = ref<GetDiaryResponse>({
   userId: 0,
 });
 
-onMounted(async () => {
-  diary.value = await getDiary(id);
-});
+/**
+ * 削除モーダルを表示するかどうかを保持するオブジェクトです。
+ */
+const showDeleteModal = ref(false);
 
-const router = useRouter();
-const goToEditDiary = () => {
-  router.push({ name: 'edit' });
-}
-
+/**
+ * 削除モーダルを表示します。
+ */
 const openDeleteModal = () => {
   showDeleteModal.value = true;
 }
 
-const showDeleteModal = ref(false);
-
-const closeModal = () => {
+/**
+ * 削除モーダルを非表示にします。
+ */
+const closeDeleteModal = () => {
   showDeleteModal.value = false;
 }
+
+const router = useRouter();
+
+/**
+ * 日記を削除します。
+ * 削除した後に日記の一覧画面に遷移します。
+ */
 const deleteDiaryAsync = async () => {
   await deleteDiary(id);
   router.push({ name: 'diaries' });
 }
+
+/**
+ * 編集画面に遷移します。
+ */
+const goToEditDiary = () => {
+  router.push({ name: 'edit' });
+}
+
+onMounted(async () => {
+  diary.value = await getDiary(id);
+});
 </script>
 
 <template>
-  <TestModal :show="showDeleteModal" message="削除してもよろしいですか？" @close="closeModal" @confirm="deleteDiaryAsync"
-    @cancel="closeModal" />
+  <TestModal :show="showDeleteModal" message="削除してもよろしいですか？" @close="closeDeleteModal" @confirm="deleteDiaryAsync"
+    @cancel="closeDeleteModal" />
   <div class="m-5 relative">
     <h1 class="text-2xl font-bold mb-5">{{ diary.title }}</h1>
     <p class="mb-5">{{ diary.content }}</p>
