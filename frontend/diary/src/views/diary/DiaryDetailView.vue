@@ -26,24 +26,23 @@ const goToEditDiary = () => {
   router.push({ name: 'edit' });
 }
 
-const goToDeleteDiary = () => {
-  // router.push({ name: 'delete' });
-  showModal.value = true;
+const openDeleteModal = () => {
+  showDeleteModal.value = true;
 }
 
-const showModal = ref(false);
+const showDeleteModal = ref(false);
 
 const closeModal = () => {
-  showModal.value = false;
+  showDeleteModal.value = false;
 }
 const deleteDiaryAsync = async () => {
-  deleteDiary(id);
+  await deleteDiary(id);
   router.push({ name: 'diaries' });
 }
 </script>
 
 <template>
-  <TestModal :show="showModal" message="削除してもよろしいですか？" @close="closeModal" @confirm="deleteDiaryAsync"
+  <TestModal :show="showDeleteModal" message="削除してもよろしいですか？" @close="closeModal" @confirm="deleteDiaryAsync"
     @cancel="closeModal" />
   <div class="m-5 relative">
     <h1 class="text-2xl font-bold mb-5">{{ diary.title }}</h1>
@@ -57,7 +56,7 @@ const deleteDiaryAsync = async () => {
       </button>
       <button type="button"
         class="text-white bg-gray-800 hover:bg-gray-500 px-4 py-2 rounded-lg focus:ring-4 focus:outline-none focus:ring-gray-200"
-        @click="goToDeleteDiary">
+        @click="openDeleteModal">
         <TrashIcon class="block w-6 h-6 stroke-white" />
       </button>
     </div>
