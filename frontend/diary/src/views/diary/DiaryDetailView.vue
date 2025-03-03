@@ -16,7 +16,16 @@ const diary = ref<GetDiaryResponse>({
   id: id,
   title: '',
   userId: 0,
-});
+})
+
+/**
+ * 削除モーダルの表示状態を保持するオブジェクトです。
+ */
+const showDeleteModal = ref(false);
+
+const closeDeleteModal = () => {
+  showDeleteModal.value = false;
+}
 
 const router = useRouter();
 
@@ -48,11 +57,11 @@ onMounted(async () => {
     <p>{{ diary.content }}</p>
     <div class="mt-4">
       <v-btn class="mr-4" @click="goToEditDiary">編集</v-btn>
-      <v-dialog max-width="500">
+      <v-dialog v-model="showDeleteModal" max-width="500">
         <template v-slot:activator="{ props: activatorProps }">
           <v-btn v-bind="activatorProps" text="削除"></v-btn>
         </template>
-        <template v-slot:default="{ isActive }">
+        <template v-slot:default>
           <v-card title="削除確認">
             <v-card-text>
               削除してもよろしいですか？
@@ -60,7 +69,7 @@ onMounted(async () => {
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn text="はい" @click="deleteDiaryAsync"></v-btn>
-              <v-btn text="いいえ" @click="isActive.value = false"></v-btn>
+              <v-btn text="いいえ" @click="closeDeleteModal"></v-btn>
             </v-card-actions>
           </v-card>
         </template>
