@@ -7,6 +7,9 @@ import { useRoute, useRouter } from 'vue-router';
 const route = useRoute();
 const id = Number(route.params.id);
 
+/**
+ * 日記の更新リクエストを保持するオブジェクトです。
+ */
 const diary = ref<PutDiaryRequest>({
   content: '',
   date: '',
@@ -15,16 +18,20 @@ const diary = ref<PutDiaryRequest>({
   userId: 0,
 });
 
-onMounted(async () => {
-  diary.value = await getDiary(id);
-});
-
 const router = useRouter();
+
+/**
+ * 日記を更新します。
+ * 更新後に日記の一覧画面に遷移します。
+ */
 const updateDiaryAsync = async () => {
   await updateDiary(diary.value);
   router.push({ name: 'diaries' });
 };
 
+onMounted(async () => {
+  diary.value = await getDiary(id);
+});
 </script>
 <template>
   <form class="max-w-sm mx-auto" @submit.prevent="updateDiaryAsync()">

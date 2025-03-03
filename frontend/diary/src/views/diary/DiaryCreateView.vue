@@ -4,6 +4,9 @@ import { createDiary } from '@/services/diary/diary-service';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 
+/**
+ * 日記を作成リクエストを保持するオブジェクトです。
+ */
 const diary = ref<PostDiaryRequest>({
   content: '',
   date: '',
@@ -12,6 +15,11 @@ const diary = ref<PostDiaryRequest>({
 })
 
 const router = useRouter();
+
+/**
+ * 日記を作成します。作成後に日記の一覧画面に遷移します。
+ * @param diary 日記の作成リクエスト。
+ */
 const createDiaryAsync = async (diary: PostDiaryRequest) => {
   await createDiary(diary);
   router.push({ name: 'diaries' });
