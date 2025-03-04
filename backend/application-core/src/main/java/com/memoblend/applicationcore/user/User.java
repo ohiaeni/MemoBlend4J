@@ -22,6 +22,5 @@ public class User {
   @Size(min = 1, max = 15, message = "{0}は1～15文字の範囲で入力してください")
   private String name;
 
-  @NotNull(message = "{0}は必須です") 
   private boolean isDeleted;
 }
