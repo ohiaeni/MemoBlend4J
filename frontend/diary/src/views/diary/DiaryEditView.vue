@@ -3,6 +3,7 @@ import type { PutDiaryRequest } from '@/generated/api-client';
 import { getDiary, updateDiary } from '@/services/diary/diary-service';
 import { onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import { format } from 'date-fns';
 
 const route = useRoute();
 const id = Number(route.params.id);
@@ -18,6 +19,11 @@ const diary = ref<PutDiaryRequest>({
   userId: 0,
 });
 
+/**
+ * v-date-input用Dateオブジェクト。
+ */
+const selectedDate = ref<Date | null>(null);
+
 const router = useRouter();
 
 /**
@@ -25,37 +31,29 @@ const router = useRouter();
  * 更新後に日記の一覧画面に遷移します。
  */
 const updateDiaryAsync = async () => {
+  if (selectedDate.value) {
+    diary.value.date = format(selectedDate.value, 'yyyy-MM-dd');
+  }
   await updateDiary(diary.value);
   router.push({ name: 'diaries' });
 };
 
 onMounted(async () => {
-  diary.value = await getDiary(id);
+  const response = await getDiary(id);
+  selectedDate.value = response.date ? new Date(response.date) : null;
+  diary.value = response;
 });
 </script>
-<template>
-  <form class="max-w-sm mx-auto" @submit.prevent="updateDiaryAsync()">
-    <div class=" mb-5 mt-5">
-      <label for="title" class="block mb-2 text-sm font-medium text-gray-900">タイトル</label>
-      <input type="text" id="title"
-        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-        required v-model="diary.title" />
-    </div>
-    <div class="mb-5">
-      <label for="content" class="block mb-2 text-sm font-medium text-gray-900">内容</label>
-      <textarea type="text" id="content"
-        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-        rows="15" required v-model="diary.content"></textarea>
-    </div>
-    <div class="mb-5">
-      <label for="date" class="block mb-2 text-sm font-medium text-gray-900">日付</label>
-      <input type="date" id="date"
-        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-        required v-model="diary.date" />
-    </div>
-    <button type="submit"
-      class="text-white bg-gray-800 hover:bg-gray-500 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg text-sm px-4 py-2.5"
-      @click="updateDiaryAsync">更新</button>
-  </form>
 
+<template>
+  <v-sheet class="mx-auto" width="500">
+    <v-form @submit.prevent>
+      <v-container>
+        <v-text-field v-model="diary.title" label="タイトル" required></v-text-field>
+        <v-text-field v-model="diary.content" label="内容" required></v-text-field>
+        <v-date-input v-model="selectedDate" label="日付"></v-date-input>
+        <v-btn type="submit" block @click="updateDiaryAsync">更新</v-btn>
+      </v-container>
+    </v-form>
+  </v-sheet>
 </template>
