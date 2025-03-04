@@ -3,6 +3,8 @@ import type { GetDiaryResponse } from '@/generated/api-client';
 import { deleteDiary, getDiary } from '@/services/diary/diary-service';
 import { onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import { PencilSquareIcon, TrashIcon } from '@heroicons/vue/24/outline';
+import TestModal from '@/components/ConfirmationModal.vue';
 
 const route = useRoute();
 const id = Number(route.params.id);
@@ -16,13 +18,23 @@ const diary = ref<GetDiaryResponse>({
   id: id,
   title: '',
   userId: 0,
-})
+});
 
 /**
- * 削除モーダルの表示状態を保持するオブジェクトです。
+ * 削除モーダルを表示するかどうかを保持するオブジェクトです。
  */
 const showDeleteModal = ref(false);
 
+/**
+ * 削除モーダルを表示します。
+ */
+const openDeleteModal = () => {
+  showDeleteModal.value = true;
+}
+
+/**
+ * 削除モーダルを非表示にします。
+ */
 const closeDeleteModal = () => {
   showDeleteModal.value = false;
 }
@@ -51,29 +63,23 @@ onMounted(async () => {
 </script>
 
 <template>
-  <v-container>
-    <h1>{{ diary.title }}</h1>
-    <p>{{ diary.date }}</p>
-    <p>{{ diary.content }}</p>
-    <div class="mt-4">
-      <v-btn class="mr-4" @click="goToEditDiary">編集</v-btn>
-      <v-dialog v-model="showDeleteModal" max-width="500">
-        <template v-slot:activator="{ props: activatorProps }">
-          <v-btn v-bind="activatorProps" text="削除"></v-btn>
-        </template>
-        <template v-slot:default>
-          <v-card title="削除確認">
-            <v-card-text>
-              削除してもよろしいですか？
-            </v-card-text>
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn text="はい" @click="deleteDiaryAsync"></v-btn>
-              <v-btn text="いいえ" @click="closeDeleteModal"></v-btn>
-            </v-card-actions>
-          </v-card>
-        </template>
-      </v-dialog>
+  <TestModal :show="showDeleteModal" message="削除してもよろしいですか？" @close="closeDeleteModal" @confirm="deleteDiaryAsync"
+    @cancel="closeDeleteModal" />
+  <div class="m-5 relative">
+    <h1 class="text-2xl font-bold mb-5">{{ diary.title }}</h1>
+    <p class="mb-5">{{ diary.content }}</p>
+    <p class="text-gray-400">{{ diary.date }}</p>
+    <div class="absolute bottom-0 right-0">
+      <button type="button"
+        class="text-white bg-gray-800 hover:bg-gray-500 px-4 py-2 rounded-lg focus:ring-4 focus:outline-none focus:ring-gray-200 mx-1"
+        @click="goToEditDiary">
+        <PencilSquareIcon class="block w-6 h-6 stroke-white" />
+      </button>
+      <button type="button"
+        class="text-white bg-gray-800 hover:bg-gray-500 px-4 py-2 rounded-lg focus:ring-4 focus:outline-none focus:ring-gray-200"
+        @click="openDeleteModal">
+        <TrashIcon class="block w-6 h-6 stroke-white" />
+      </button>
     </div>
-  </v-container>
+  </div>
 </template>
