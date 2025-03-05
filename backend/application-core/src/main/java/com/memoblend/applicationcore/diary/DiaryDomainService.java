@@ -20,6 +20,10 @@ public class DiaryDomainService {
    * @return 日記が存在する場合は true 、存在しない場合は false 。
    */
   public boolean isExistDiary(long id) {
-    return diaryRepository.findById(id) != null;
+    Diary diary = diaryRepository.findById(id);
+    if (diary == null || diary.isDeleted()) {
+      return false;
+    }
+    return true;
   }
 }

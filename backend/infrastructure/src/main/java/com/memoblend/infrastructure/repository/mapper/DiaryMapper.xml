@@ -15,8 +15,10 @@
 		VALUES (#{userId}, #{title}, #{content}, #{date})
 	</insert>
 
-    <delete id="delete" parameterType="long">
-		DELETE FROM diaries WHERE id = #{id}
+  <delete id="delete" parameterType="long">
+		UPDATE diaries
+		SET is_deleted = true
+		WHERE id = #{id}
 	</delete>
 
 	<update id="update" parameterType="com.memoblend.applicationcore.diary.Diary">
