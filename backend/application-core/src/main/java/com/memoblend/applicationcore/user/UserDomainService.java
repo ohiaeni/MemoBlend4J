@@ -20,6 +20,10 @@ public class UserDomainService {
    * @return ユーザーが存在する場合は true 、存在しない場合は false 。
    */
   public boolean isExistUser(long id) {
-    return userRepository.findById(id) != null;
+    User user = userRepository.findById(id);
+    if (user == null || user.isDeleted()) {
+      return false;
+    }
+    return true;
   }
 }

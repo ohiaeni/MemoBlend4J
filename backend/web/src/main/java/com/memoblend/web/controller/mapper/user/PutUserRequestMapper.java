@@ -17,7 +17,8 @@ public class PutUserRequestMapper {
   public static User convert(PutUserRequest request) {
     User user = new User(
         request.getId(),
-        request.getName());
+        request.getName(),
+        false);
     return user;
   }
 }

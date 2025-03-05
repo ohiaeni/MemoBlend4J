@@ -24,7 +24,7 @@ public class UserTest {
 
   @BeforeEach
   void setUp() {
-    this.user = new User(1L, "testName");
+    this.user = new User(1L, "testName", false);
     this.bindingResult = new BindException(user, "User");
     setUpValidator();
   }

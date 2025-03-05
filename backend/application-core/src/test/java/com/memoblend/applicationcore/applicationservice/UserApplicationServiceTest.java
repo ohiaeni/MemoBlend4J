@@ -203,7 +203,7 @@ public class UserApplicationServiceTest {
 
   private User createUser(String name) {
     long id = 1;
-    User user = new User(id, name);
+    User user = new User(id, name, false);
     return user;
   }
 
