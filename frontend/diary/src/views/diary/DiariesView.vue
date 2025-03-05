@@ -3,7 +3,6 @@ import type { GetDiariesResponse } from '@/generated/api-client';
 import { getDiaries } from '@/services/diary/diary-service';
 import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
-import { PencilSquareIcon } from '@heroicons/vue/24/outline';
 
 /**
  * 日記の一覧を保持するオブジェクトです。
@@ -27,7 +26,7 @@ const goToDiaryDetail = (id: number) => {
  */
 const goToCreateDiary = () => {
   router.push({ name: 'create' });
-}
+};
 
 onMounted(async () => {
   diariesResponse.value = await getDiaries();
@@ -35,16 +34,13 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="m-5">
-    <button class="fixed z-10 px-4 py-4 bottom-10 right-10 rounded-full bg-gray-800 text-white hover:bg-gray-500"
-      @click="goToCreateDiary">
-      <PencilSquareIcon class="block w-8 h-8 stroke-white" />
-    </button>
-    <div class="border rounded-lg mb-4 relative border-gray-200 hover:border-gray-400 hover:shadow-lg"
-      v-for="diary in diariesResponse.diaries" :key="diary.id" @click="goToDiaryDetail(diary.id)">
-      <h2 class="rounded p-2 font-bold text-2xl">{{ diary.title }}</h2>
-      <p class="rounded p-2">{{ diary.content }}</p>
-      <p class="rounded p-2 text-gray-400">{{ diary.date }}</p>
-    </div>
-  </div>
+  <v-container>
+    <v-card class="ma-4" v-for="diary in diariesResponse.diaries" :key="diary.id" @click="goToDiaryDetail(diary.id)">
+      <v-card-title class="bg-blue-grey-lighten-5">{{ diary.title }}</v-card-title>
+      <v-card-text>{{ diary.content }}</v-card-text>
+      <v-card-subtitle>{{ diary.date }}</v-card-subtitle>
+    </v-card>
+  </v-container>
+  <v-btn icon="$plus" class="position-fixed bottom-0 right-0 ma-4" fab color="blue-grey" @click="goToCreateDiary">
+  </v-btn>
 </template>
