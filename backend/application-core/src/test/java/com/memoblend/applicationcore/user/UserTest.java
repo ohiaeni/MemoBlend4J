@@ -102,6 +102,26 @@ public class UserTest {
     assertEquals("{0}は1～15文字の範囲で入力してください", bindingResult.getFieldError().getDefaultMessage());
   }
 
+  @Test
+  public void testIsDeletedIsFalse_正常系_isDeletedがfalse() {
+    // Arrange
+    user.setDeleted(false);
+    // Act
+    validator.validate(user, bindingResult);
+    // Assert
+    assertTrue(!bindingResult.hasErrors());
+  }
+
+  @Test
+  public void testIsDeletedIsTrue_正常系_isDeletedがtrue() {
+    // Arrange
+    user.setDeleted(true);
+    // Act
+    validator.validate(user, bindingResult);
+    // Assert
+    assertTrue(!bindingResult.hasErrors());
+  }
+
   private void setUpValidator() {
     LocalValidatorFactoryBean factory = new LocalValidatorFactoryBean();
     factory.afterPropertiesSet();
