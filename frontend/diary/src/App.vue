@@ -15,5 +15,10 @@
     <v-main>
       <RouterView />
     </v-main>
+    <v-footer class="bg-grey-lighten-1 ">
+      <v-row justify="center" no-gutters>
+        <v-col class="text-center mt-6" cols="12">&copy MemoBlend - 2025</v-col>
+      </v-row>
+    </v-footer>
   </v-app>
 </template>
