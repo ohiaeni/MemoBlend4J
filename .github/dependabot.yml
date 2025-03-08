@@ -7,7 +7,7 @@ updates:
       interval: "weekly"
     labels:
       - "npm"
-      - "frontend"
+      - "フロントエンドアプリケーション"
 
   # gradle (Java) の依存関係
   - package-ecosystem: "gradle"
@@ -16,7 +16,7 @@ updates:
       interval: "weekly"
     labels:
       - "gradle"
-      - "backend"
+      - "バックエンドアプリケーション"
 
   # GitHub Actions の依存関係
   - package-ecosystem: "github-actions"
@@ -25,4 +25,4 @@ updates:
       interval: "weekly"
     labels:
       - "github-actions"
-      - "ci"
+      - "CI/CD"
