@@ -4,6 +4,9 @@ import { createDiary } from '@/services/diary/diary-service';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { format } from 'date-fns';
+import { useCustomErrorHandler } from '@/shared/error-handler/use-custom-error-handler';
+
+const customErrorHandler = useCustomErrorHandler();
 /**
  * 日記を作成リクエストを保持するオブジェクトです。
  */
@@ -29,7 +32,13 @@ const createDiaryAsync = async () => {
   if (selectedDate.value) {
     diary.value.date = format(selectedDate.value, 'yyyy-MM-dd');
   }
-  await createDiary(diary.value);
+  try {
+    await createDiary(diary.value);
+  } catch (error) {
+    customErrorHandler.handle(error, () => {
+      router.push({ name: 'error' });
+    });
+  }
   router.push({ name: 'diaries' });
 }
 </script>

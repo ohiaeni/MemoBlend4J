@@ -37,7 +37,13 @@ const router = useRouter();
  * 削除した後に日記の一覧画面に遷移します。
  */
 const deleteDiaryAsync = async () => {
-  await deleteDiary(id);
+  try {
+    await deleteDiary(id);
+  } catch (error) {
+    customErrorHandler.handle(error, () => {
+      router.push({ name: 'error' });
+    });
+  }
   router.push({ name: 'diaries' });
 }
 
