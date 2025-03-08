@@ -9,11 +9,10 @@ import { router } from './router'
 import { VDateInput } from 'vuetify/labs/VDateInput';
 import { globalErrorHandler } from './shared/error-handler/global-error-handler';
 import { createCustomErrorHandler } from './shared/error-handler/custom-error-handler';
-
 const app = createApp(App)
 const vuetify = createVuetify({
   components: {
-    VDateInput,
+    VDateInput
   },
 });
 

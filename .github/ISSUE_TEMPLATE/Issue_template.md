@@ -2,8 +2,9 @@
 name: Issueテンプレート
 about: Issueを作成する際にはこちらのテンプレートを使用してください。
 title: ''
-labels: ''
+labels: not triaged
 assignees: ''
+
 ---
 
 ## 概要
