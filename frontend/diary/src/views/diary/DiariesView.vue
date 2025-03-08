@@ -6,7 +6,9 @@ import { useCustomErrorHandler } from '@/shared/error-handler/use-custom-error-h
 import { useRouter } from 'vue-router';
 import { Calendar } from '@/components/organisms/Calendar';
 import type { CalendarEvent } from '@/types';
+import { LoadingSpinnerOverlay } from '@/components/organisms/LoadingSpinnerOverlay';
 
+const showLoading = ref(true);
 const customErrorHandler = useCustomErrorHandler();
 const diariesResponse = ref<GetDiariesResponse>({
   diaries: [],
@@ -25,6 +27,7 @@ const goToCreateDiary = () => {
 const events = ref<CalendarEvent[]>([]);
 
 onMounted(async () => {
+  showLoading.value = true;
   try {
     diariesResponse.value = await getDiaries();
   }
@@ -32,7 +35,10 @@ onMounted(async () => {
     customErrorHandler.handle(error, () => {
       router.push({ name: 'error' });
     });
+  } finally {
+    showLoading.value = false;
   }
+
   const eventsList: CalendarEvent[] = [];
   if (diariesResponse.value.diaries) {
     for (const diary of diariesResponse.value.diaries) {
@@ -51,7 +57,10 @@ onMounted(async () => {
 </script>
 
 <template>
-  <Calendar :diaryData="events" :onEventClick="goToDiaryDetail" />
+  <LoadingSpinnerOverlay :isLoading="showLoading" />
+  <div v-if="!showLoading">
+    <Calendar :diaryData="events" :onEventClick="goToDiaryDetail" />
+  </div>
   <v-btn style="z-index: 2;" icon="$plus" class="position-fixed bottom-0 right-0 ma-4" fab color="blue-grey"
     @click="goToCreateDiary"></v-btn>
 </template>

@@ -9,7 +9,7 @@ import { useCustomErrorHandler } from '@/shared/error-handler/use-custom-error-h
 const customErrorHandler = useCustomErrorHandler();
 const route = useRoute();
 const id = Number(route.params.id);
-
+const showLoading = ref(true);
 /**
  * 日記の更新リクエストを保持するオブジェクトです。
  */
@@ -41,6 +41,7 @@ const updateDiaryAsync = async () => {
 };
 
 onMounted(async () => {
+  showLoading.value = true;
   try {
     const response = await getDiary(id);
     selectedDate.value = response.date ? new Date(response.date) : null;
@@ -50,12 +51,15 @@ onMounted(async () => {
     customErrorHandler.handle(error, () => {
       router.push({ name: 'error' });
     });
+  } finally {
+    showLoading.value = false;
   }
 });
 </script>
 
 <template>
-  <v-sheet class="mx-auto" width="500">
+  <LoadingSpinnerOverlay :isLoading="showLoading" />
+  <v-sheet v-if="!showLoading" class="mx-auto" width="500">
     <v-form @submit.prevent>
       <v-container>
         <v-text-field v-model="diary.title" label="タイトル" required></v-text-field>
