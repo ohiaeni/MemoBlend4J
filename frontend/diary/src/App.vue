@@ -30,6 +30,11 @@ const menuAction = () => {
             <RouterLink to="/" class="text-decoration-none text-black">HOME</RouterLink>
           </v-list-item-title>
         </v-list-item>
+        <v-list-item>
+          <v-list-item-title>
+            <RouterLink to="#" class="text-decoration-none text-black">ANALYSIS</RouterLink>
+          </v-list-item-title>
+        </v-list-item>
       </v-list>
     </v-navigation-drawer>
     <v-main>
