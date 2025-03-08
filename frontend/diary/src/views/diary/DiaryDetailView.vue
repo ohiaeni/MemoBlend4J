@@ -1,8 +1,11 @@
 <script setup lang="ts">
 import type { GetDiaryResponse } from '@/generated/api-client';
 import { deleteDiary, getDiary } from '@/services/diary/diary-service';
+import { useCustomErrorHandler } from '@/shared/error-handler/use-custom-error-handler';
 import { onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+
+const customErrorHandler = useCustomErrorHandler();
 
 const route = useRoute();
 const id = Number(route.params.id);
@@ -34,7 +37,13 @@ const router = useRouter();
  * 削除した後に日記の一覧画面に遷移します。
  */
 const deleteDiaryAsync = async () => {
-  await deleteDiary(id);
+  try {
+    await deleteDiary(id);
+  } catch (error) {
+    customErrorHandler.handle(error, () => {
+      router.push({ name: 'error' });
+    });
+  }
   router.push({ name: 'diaries' });
 }
 
@@ -46,7 +55,13 @@ const goToEditDiary = () => {
 }
 
 onMounted(async () => {
-  diary.value = await getDiary(id);
+  try {
+    diary.value = await getDiary(id);
+  } catch (error) {
+    customErrorHandler.handle(error, () => {
+      router.push({ name: 'error' });
+    });
+  }
 });
 </script>
 

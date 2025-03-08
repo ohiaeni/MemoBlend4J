@@ -2,10 +2,12 @@
 import { ref, onMounted } from 'vue'
 import type { GetDiariesResponse } from '@/generated/api-client';
 import { getDiaries } from '@/services/diary/diary-service';
+import { useCustomErrorHandler } from '@/shared/error-handler/use-custom-error-handler';
 import { useRouter } from 'vue-router';
 import { Calendar } from '@/components/organisms/Calendar';
 import type { CalendarEvent } from '@/types';
 
+const customErrorHandler = useCustomErrorHandler();
 const diariesResponse = ref<GetDiariesResponse>({
   diaries: [],
 });
@@ -23,7 +25,14 @@ const goToCreateDiary = () => {
 const events = ref<CalendarEvent[]>([]);
 
 onMounted(async () => {
-  diariesResponse.value = await getDiaries();
+  try {
+    diariesResponse.value = await getDiaries();
+  }
+  catch (error) {
+    customErrorHandler.handle(error, () => {
+      router.push({ name: 'error' });
+    });
+  }
   const eventsList: CalendarEvent[] = [];
   if (diariesResponse.value.diaries) {
     for (const diary of diariesResponse.value.diaries) {

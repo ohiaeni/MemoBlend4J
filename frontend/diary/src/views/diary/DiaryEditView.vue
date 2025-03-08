@@ -4,7 +4,9 @@ import { getDiary, updateDiary } from '@/services/diary/diary-service';
 import { onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { format } from 'date-fns';
+import { useCustomErrorHandler } from '@/shared/error-handler/use-custom-error-handler';
 
+const customErrorHandler = useCustomErrorHandler();
 const route = useRoute();
 const id = Number(route.params.id);
 
@@ -39,9 +41,16 @@ const updateDiaryAsync = async () => {
 };
 
 onMounted(async () => {
-  const response = await getDiary(id);
-  selectedDate.value = response.date ? new Date(response.date) : null;
-  diary.value = response;
+  try {
+    const response = await getDiary(id);
+    selectedDate.value = response.date ? new Date(response.date) : null;
+    diary.value = response;
+  }
+  catch (error) {
+    customErrorHandler.handle(error, () => {
+      router.push({ name: 'error' });
+    });
+  }
 });
 </script>
 
