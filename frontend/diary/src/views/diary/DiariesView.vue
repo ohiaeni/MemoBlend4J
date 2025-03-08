@@ -1,8 +1,11 @@
 <script setup lang="ts">
 import type { GetDiariesResponse } from '@/generated/api-client';
 import { getDiaries } from '@/services/diary/diary-service';
+import { useCustomErrorHandler } from '@/shared/error-handler/use-custom-error-handler';
 import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
+
+const customErrorHandler = useCustomErrorHandler();
 
 /**
  * 日記の一覧を保持するオブジェクトです。
@@ -29,7 +32,14 @@ const goToCreateDiary = () => {
 };
 
 onMounted(async () => {
-  diariesResponse.value = await getDiaries();
+  try {
+    diariesResponse.value = await getDiaries();
+  }
+  catch (error) {
+    customErrorHandler.handle(error, () => {
+      router.push({ name: 'error' });
+    });
+  }
 });
 </script>
 
