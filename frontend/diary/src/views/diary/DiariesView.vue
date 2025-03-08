@@ -4,11 +4,10 @@ import type { GetDiariesResponse } from '@/generated/api-client';
 import { getDiaries } from '@/services/diary/diary-service';
 import { useCustomErrorHandler } from '@/shared/error-handler/use-custom-error-handler';
 import { useRouter } from 'vue-router';
-
-const customErrorHandler = useCustomErrorHandler();
 import { Calendar } from '@/components/organisms/Calendar';
 import type { CalendarEvent } from '@/types';
 
+const customErrorHandler = useCustomErrorHandler();
 const diariesResponse = ref<GetDiariesResponse>({
   diaries: [],
 });
