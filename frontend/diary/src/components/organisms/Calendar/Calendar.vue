@@ -1,14 +1,15 @@
 <script setup lang="ts">
 import { EventList } from '@/components/molecules/EventList';
 import type { CalendarEvent } from '@/types';
-import { ref, computed } from 'vue'
-import { useRouter } from 'vue-router'
-
+import { ref, computed } from 'vue';
 /**
  * コンポーネントのプロパティ
  * @type {{ diaryData: CalendarEvent[] }}
  */
-const props = defineProps<{ diaryData: CalendarEvent[] }>()
+const props = defineProps<{
+  diaryData: CalendarEvent[],
+  onEventClick: (id: number) => void
+}>()
 
 /**
  * カレンダーに表示する現在の日付
@@ -18,19 +19,6 @@ const currentDate = ref(new Date())
  * 本日の日付
  */
 const today = ref(new Date())
-
-/**
- * vue-routerのルーターインスタンス
- */
-const router = useRouter()
-
-/**
- * 指定したIDの詳細ページへ遷移する
- * @param {number} id - 日記エントリのID
- */
-const goToDiaryDetail = (id: number) => {
-  router.push({ name: 'detail', params: { id: id } });
-}
 
 /**
  * 現在表示している年
@@ -201,7 +189,7 @@ const weeks = computed(() => {
           <template v-if="cell !== undefined">
             <span>{{ cell }}</span>
             <EventList v-if="typeof cell === 'number' && hasDiaryEntry(cell)" :event-list="getDiaryEvents(cell)"
-              :onEventClick="goToDiaryDetail" />
+              :onEventClick="onEventClick" />
           </template>
         </v-col>
       </v-row>
