@@ -41,6 +41,7 @@ onMounted(async () => {
       <v-card-subtitle>{{ diary.date }}</v-card-subtitle>
     </v-card>
   </v-container>
-  <v-btn icon="$plus" class="position-fixed bottom-0 right-0 ma-4" fab color="blue-grey" @click="goToCreateDiary">
+  <v-btn style="z-index: 2;" icon="$plus" class="position-fixed bottom-0 right-0 ma-4" fab color="blue-grey"
+    @click="goToCreateDiary">
   </v-btn>
 </template>
