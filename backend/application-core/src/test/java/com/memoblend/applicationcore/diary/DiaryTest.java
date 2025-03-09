@@ -168,6 +168,26 @@ public class DiaryTest {
     assertEquals("{0}は必須です", bindingResult.getFieldError().getDefaultMessage());
   }
 
+  @Test
+  public void testIsDeletedIsFalse_正常系_isDeletedがfalse() {
+    // Arrange
+    diary.setDeleted(false);
+    // Act
+    validator.validate(diary, bindingResult);
+    // Assert
+    assertTrue(!bindingResult.hasErrors());
+  }
+
+  @Test
+  public void testIsDeletedIsTrue_正常系_isDeletedがtrue() {
+    // Arrange
+    diary.setDeleted(true);
+    // Act
+    validator.validate(diary, bindingResult);
+    // Assert
+    assertTrue(!bindingResult.hasErrors());
+  }
+
   private void setUpValidator() {
     LocalValidatorFactoryBean factory = new LocalValidatorFactoryBean();
     factory.afterPropertiesSet();
