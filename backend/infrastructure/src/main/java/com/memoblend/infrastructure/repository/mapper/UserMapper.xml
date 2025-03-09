@@ -4,10 +4,13 @@
 
 	<select id="findAll" resultType="com.memoblend.applicationcore.user.User">
 		SELECT * FROM users
+		WHERE is_deleted = false
 	</select>
 
 	<select id="findById" resultType="com.memoblend.applicationcore.user.User">
-		SELECT * FROM users WHERE id = #{id}
+		SELECT * FROM users 
+		WHERE id = #{id}
+		AND is_deleted = false
 	</select>
 	
 	<insert id="add" parameterType="com.memoblend.applicationcore.user.User" useGeneratedKeys="true" keyProperty="id">
