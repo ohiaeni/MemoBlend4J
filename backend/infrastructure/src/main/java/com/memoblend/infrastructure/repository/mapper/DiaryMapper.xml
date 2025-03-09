@@ -8,7 +8,8 @@
 	</select>
 
 	<select id="findById" resultType="com.memoblend.applicationcore.diary.Diary">
-		SELECT * FROM diaries WHERE id = #{id}
+		SELECT * FROM diaries
+		WHERE id = #{id}
 		AND is_deleted = false
 	</select>
 	
