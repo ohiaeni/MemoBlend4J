@@ -25,7 +25,7 @@ public class DiaryTest {
 
   @BeforeEach
   void setUp() {
-    this.diary = new Diary(1L, 1L, "testTitle", "testContent", LocalDate.of(2025, 1, 1));
+    this.diary = new Diary(1L, 1L, "testTitle", "testContent", LocalDate.of(2025, 1, 1), false);
     this.bindingResult = new BindException(diary, "Diary");
     setUpValidator();
   }

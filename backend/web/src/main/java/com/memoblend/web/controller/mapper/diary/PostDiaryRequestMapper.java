@@ -20,7 +20,8 @@ public class PostDiaryRequestMapper {
         request.getUserId(),
         request.getTitle(),
         request.getContent(),
-        request.getDate());
+        request.getDate(),
+        false);
     return diary;
   }
 }

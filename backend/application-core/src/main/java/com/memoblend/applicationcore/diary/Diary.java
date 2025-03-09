@@ -33,4 +33,6 @@ public class Diary {
 
   @NotNull(message = "{0}は必須です")
   private LocalDate date;
+
+  private boolean isDeleted;
 }

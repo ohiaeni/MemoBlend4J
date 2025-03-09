@@ -303,7 +303,7 @@ public class DiaryApplicationServiceTest {
     long userId = 1;
     String title = "testTitle";
     String content = "testContent";
-    Diary diary = new Diary(id, userId, title, content, date);
+    Diary diary = new Diary(id, userId, title, content, date, false);
     return diary;
   }
 }

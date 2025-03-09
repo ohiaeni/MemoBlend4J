@@ -20,7 +20,8 @@ public class PutDiaryRequestMapper {
         request.getUserId(),
         request.getTitle(),
         request.getContent(),
-        request.getDate());
+        request.getDate(),
+        false);
     return diary;
   }
 }
