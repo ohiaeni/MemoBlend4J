@@ -4,10 +4,12 @@
 
 	<select id="findAll" resultType="com.memoblend.applicationcore.diary.Diary">
 		SELECT * FROM diaries
+		WHERE is_deleted = false
 	</select>
 
 	<select id="findById" resultType="com.memoblend.applicationcore.diary.Diary">
 		SELECT * FROM diaries WHERE id = #{id}
+		AND is_deleted = false
 	</select>
 	
 	<insert id="add" parameterType="com.memoblend.applicationcore.diary.Diary" useGeneratedKeys="true" keyProperty="id">
