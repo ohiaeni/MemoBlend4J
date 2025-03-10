@@ -1,6 +1,7 @@
 from fastapi import FastAPI, HTTPException
 import httpx
 import xml.etree.ElementTree as ET
+import uvicorn
 
 def load_diary_api_url(file_path="config.xml"):
     """
@@ -14,7 +15,6 @@ def load_diary_api_url(file_path="config.xml"):
     
     except Exception as e:
         raise RuntimeError(f"XMLの読み込みに失敗しました: {e}")
-    
 
 def foo(diary, text="Pythonから追記しました。"):
     """
@@ -24,8 +24,6 @@ def foo(diary, text="Pythonから追記しました。"):
         diary["content"] += text
         
     return diary
-
-
 
 app = FastAPI()
 
@@ -58,3 +56,7 @@ async def get_diary(id: int):
     diary = foo(diary)
 
     return diary
+
+if __name__ == "__main__":
+    # uvicornでFastAPIアプリを起動
+    uvicorn.run(app, host="127.0.0.1", port=8000)
