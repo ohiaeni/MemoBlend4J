@@ -35,7 +35,7 @@ jobs:
 
       - id: run-build-and-tests
         name: ビルド（コンパイル, 静的テスト, JUnit）実行
-        run: ./gradlew build > build-result.txt
+        run: ./gradlew clean build > build-result.txt
         working-directory: ./backend
         continue-on-error: true
 
