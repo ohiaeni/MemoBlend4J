@@ -11,6 +11,7 @@ import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
+import com.memoblend.applicationcore.constant.ExceptionIdConstants;
 
 /**
  * ユーザーのドメインモデルのテストクラスです。
@@ -55,7 +56,7 @@ public class UserTest {
     validator.validate(user, bindingResult);
     // Assert
     assertEquals("id", bindingResult.getFieldError().getField());
-    assertEquals("{0}は0以上の値にしてください", bindingResult.getFieldError().getDefaultMessage());
+    assertEquals(ExceptionIdConstants.E_USER_ID_IS_NEGATIVE, bindingResult.getFieldError().getDefaultMessage());
   }
 
   @Test
@@ -66,7 +67,7 @@ public class UserTest {
     validator.validate(user, bindingResult);
     // Assert
     assertEquals("name", bindingResult.getFieldError().getField());
-    assertEquals("{0}は1～15文字の範囲で入力してください", bindingResult.getFieldError().getDefaultMessage());
+    assertEquals(ExceptionIdConstants.E_USER_NAME_IS_BLANK, bindingResult.getFieldError().getDefaultMessage());
   }
   
   @Test
@@ -77,7 +78,7 @@ public class UserTest {
     validator.validate(user, bindingResult);
     // Assert
     assertEquals("name", bindingResult.getFieldError().getField());
-    assertEquals("{0}は1～15文字の範囲で入力してください", bindingResult.getFieldError().getDefaultMessage());
+    assertEquals(ExceptionIdConstants.E_USER_NAME_IS_BLANK, bindingResult.getFieldError().getDefaultMessage());
   }
 
   @Test
@@ -88,7 +89,7 @@ public class UserTest {
     validator.validate(user, bindingResult);
     // Assert
     assertEquals("name", bindingResult.getFieldError().getField());
-    assertEquals("{0}は1～15文字の範囲で入力してください", bindingResult.getFieldError().getDefaultMessage());
+    assertEquals(ExceptionIdConstants.E_USER_NAME_IS_BLANK, bindingResult.getFieldError().getDefaultMessage());
   }
   
   @Test
@@ -99,7 +100,8 @@ public class UserTest {
     validator.validate(user, bindingResult);
     // Assert
     assertEquals("name", bindingResult.getFieldError().getField());
-    assertEquals("{0}は1～15文字の範囲で入力してください", bindingResult.getFieldError().getDefaultMessage());
+    assertEquals(ExceptionIdConstants.E_USER_NAME_LENGTH_IS_OUT_OF_RANGE, 
+        bindingResult.getFieldError().getDefaultMessage());
   }
 
   @Test

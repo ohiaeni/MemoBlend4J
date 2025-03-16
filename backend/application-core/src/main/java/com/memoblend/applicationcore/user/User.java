@@ -1,5 +1,6 @@
 package com.memoblend.applicationcore.user;
 
+import com.memoblend.applicationcore.constant.ExceptionIdConstants;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
@@ -14,12 +15,12 @@ import lombok.Data;
 @AllArgsConstructor
 public class User {
 
-  @NotNull(message = "{0}は必須です")
-  @PositiveOrZero(message = "{0}は0以上の値にしてください")
+  @NotNull(message = ExceptionIdConstants.E_USER_ID_IS_NULL)
+  @PositiveOrZero(message = ExceptionIdConstants.E_USER_ID_IS_NEGATIVE)
   private long id;
   
-  @NotBlank(message = "{0}は1～15文字の範囲で入力してください")
-  @Size(min = 1, max = 15, message = "{0}は1～15文字の範囲で入力してください")
+  @NotBlank(message = ExceptionIdConstants.E_USER_NAME_IS_BLANK)
+  @Size(min = 1, max = 15, message = ExceptionIdConstants.E_USER_NAME_LENGTH_IS_OUT_OF_RANGE)
   private String name;
 
   private boolean isDeleted;
