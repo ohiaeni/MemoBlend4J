@@ -19,8 +19,8 @@ public class User {
   @PositiveOrZero(message = ExceptionIdConstants.E_USER_ID_IS_NEGATIVE)
   private long id;
   
-  @NotBlank(message = ExceptionIdConstants.E_USER_NAME_IS_BRANK)
-  @Size(min = 1, max = 15, message = ExceptionIdConstants.E_USER_NAME_IS_ERROR)
+  @NotBlank(message = ExceptionIdConstants.E_USER_NAME_IS_BLANK)
+  @Size(min = 1, max = 15, message = ExceptionIdConstants.E_USER_NAME_LENGTH_IS_OUT_OF_RANGE)
   private String name;
 
   private boolean isDeleted;

@@ -67,7 +67,7 @@ public class UserTest {
     validator.validate(user, bindingResult);
     // Assert
     assertEquals("name", bindingResult.getFieldError().getField());
-    assertEquals(ExceptionIdConstants.E_USER_NAME_IS_BRANK, bindingResult.getFieldError().getDefaultMessage());
+    assertEquals(ExceptionIdConstants.E_USER_NAME_IS_BLANK, bindingResult.getFieldError().getDefaultMessage());
   }
   
   @Test
@@ -78,7 +78,7 @@ public class UserTest {
     validator.validate(user, bindingResult);
     // Assert
     assertEquals("name", bindingResult.getFieldError().getField());
-    assertEquals(ExceptionIdConstants.E_USER_NAME_IS_BRANK, bindingResult.getFieldError().getDefaultMessage());
+    assertEquals(ExceptionIdConstants.E_USER_NAME_IS_BLANK, bindingResult.getFieldError().getDefaultMessage());
   }
 
   @Test
@@ -89,7 +89,7 @@ public class UserTest {
     validator.validate(user, bindingResult);
     // Assert
     assertEquals("name", bindingResult.getFieldError().getField());
-    assertEquals(ExceptionIdConstants.E_USER_NAME_IS_BRANK, bindingResult.getFieldError().getDefaultMessage());
+    assertEquals(ExceptionIdConstants.E_USER_NAME_IS_BLANK, bindingResult.getFieldError().getDefaultMessage());
   }
   
   @Test
@@ -100,7 +100,8 @@ public class UserTest {
     validator.validate(user, bindingResult);
     // Assert
     assertEquals("name", bindingResult.getFieldError().getField());
-    assertEquals(ExceptionIdConstants.E_USER_NAME_IS_ERROR, bindingResult.getFieldError().getDefaultMessage());
+    assertEquals(ExceptionIdConstants.E_USER_NAME_LENGTH_IS_OUT_OF_RANGE, 
+        bindingResult.getFieldError().getDefaultMessage());
   }
 
   @Test
