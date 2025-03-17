@@ -16,8 +16,8 @@ public class GetUserReponseMapper {
    */
   public static GetUserResponse convert(User user) {
     GetUserResponse response = new GetUserResponse(
-        user.getId(),
-        user.getName());
+        user.getId().getValue(),
+        user.getName().getValue());
     return response;
   }
 }

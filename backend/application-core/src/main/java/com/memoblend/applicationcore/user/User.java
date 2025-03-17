@@ -1,10 +1,8 @@
 package com.memoblend.applicationcore.user;
 
-import com.memoblend.applicationcore.constant.ExceptionIdConstants;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.PositiveOrZero;
-import jakarta.validation.constraints.Size;
+import com.memoblend.applicationcore.user.valueobject.Id;
+import com.memoblend.applicationcore.user.valueobject.IsDeleted;
+import com.memoblend.applicationcore.user.valueobject.Name;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -15,13 +13,9 @@ import lombok.Data;
 @AllArgsConstructor
 public class User {
 
-  @NotNull(message = ExceptionIdConstants.E_USER_ID_IS_NULL)
-  @PositiveOrZero(message = ExceptionIdConstants.E_USER_ID_IS_NEGATIVE)
-  private long id;
+  private Id id;
   
-  @NotBlank(message = ExceptionIdConstants.E_USER_NAME_IS_BLANK)
-  @Size(min = 1, max = 15, message = ExceptionIdConstants.E_USER_NAME_LENGTH_IS_OUT_OF_RANGE)
-  private String name;
+  private Name name;
 
-  private boolean isDeleted;
+  private IsDeleted isDeleted;
 }

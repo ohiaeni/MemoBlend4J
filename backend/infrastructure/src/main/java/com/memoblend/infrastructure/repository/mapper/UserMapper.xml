@@ -2,32 +2,56 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.memoblend.infrastructure.repository.mapper.UserMapper">
 
-	<select id="findAll" resultType="com.memoblend.applicationcore.user.User">
-		SELECT * FROM users
+	<resultMap id="UserMap" type="com.memoblend.applicationcore.user.User">
+	    <id column="id" property="id.value" />
+	    <result column="name" property="name.value"/>
+	    <result column="is_deleted" property="isDeleted.value" />
+	</resultMap>
+
+	<!-- <resultMap id="UserMap" type="com.memoblend.applicationcore.user.User">
+      <association property="id" javaType="com.memoblend.applicationcore.user.valueobject.Id">
+        <constructor>
+          <arg name="value" column="id"/>
+        </constructor>
+      </association>
+      <association property="name" javaType="com.memoblend.applicationcore.user.valueobject.Name">
+        <constructor>
+          <arg name="value" column="name"/>
+        </constructor>
+      </association>
+      <association property="isDeleted" javaType="com.memoblend.applicationcore.user.valueobject.IsDeleted">
+        <constructor>
+          <arg name="value" column="is_deleted"/>
+        </constructor>
+      </association>
+  </resultMap> -->
+
+	<select id="findAll" resultMap="UserMap">
+		SELECT id, name, is_deleted FROM users
 		WHERE is_deleted = false
 	</select>
 
-	<select id="findById" resultType="com.memoblend.applicationcore.user.User">
-		SELECT * FROM users 
+	<select id="findById" resultMap="UserMap">
+		SELECT id, name, is_deleted FROM users 
 		WHERE id = #{id}
 		AND is_deleted = false
 	</select>
 	
-	<insert id="add" parameterType="com.memoblend.applicationcore.user.User" useGeneratedKeys="true" keyProperty="id">
-		INSERT INTO users (name)
-		VALUES (#{name})
+	<insert id="add" parameterType="com.memoblend.applicationcore.user.User" useGeneratedKeys="true" keyProperty="id.value">
+		INSERT INTO users (name, is_deleted)
+		VALUES (#{name.value}, false)
 	</insert>
 	
-	<delete id="delete" parameterType="long">
+	<update id="delete" parameterType="long">
 		UPDATE users
 		SET is_deleted = true
 		WHERE id = #{id}
-	</delete>
+	</update>
 
 	<update id="update" parameterType="com.memoblend.applicationcore.user.User">
 		UPDATE users
-		SET name = #{name}
-		WHERE id = #{id}
+		SET name = #{name.value}
+		WHERE id = #{id.value}
 	</update>
 	
 </mapper>
