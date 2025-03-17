@@ -3,6 +3,7 @@ package com.memoblend.applicationcore.user.valueobject;
 import com.memoblend.applicationcore.constant.ExceptionIdConstants;
 import lombok.Data;
 
+
 /**
  * ID を表す値オブジェクト。
  */
@@ -10,10 +11,11 @@ import lombok.Data;
 public class Id {
 
   private long value;
-  
+
   /**
    * ID の値オブジェクトを生成します。
-   * @param value ユーザーの名前
+   * @param value ユーザーの ID（0以上）
+   * @throws IllegalArgumentException ID が負の値の場合
    */
   public Id(long value) {
     if (value < 0) {
@@ -21,5 +23,4 @@ public class Id {
     }
     this.value = value;
   }
-  
 }

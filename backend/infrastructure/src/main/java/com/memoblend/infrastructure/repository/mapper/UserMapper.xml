@@ -3,28 +3,10 @@
 <mapper namespace="com.memoblend.infrastructure.repository.mapper.UserMapper">
 
 	<resultMap id="UserMap" type="com.memoblend.applicationcore.user.User">
-	    <id column="id" property="id.value" />
-	    <result column="name" property="name.value"/>
-	    <result column="is_deleted" property="isDeleted.value" />
+		<id column="id" property="id.value" />
+		<result column="name" property="name.value"/>
+		<result column="is_deleted" property="isDeleted.value" />
 	</resultMap>
-
-	<!-- <resultMap id="UserMap" type="com.memoblend.applicationcore.user.User">
-      <association property="id" javaType="com.memoblend.applicationcore.user.valueobject.Id">
-        <constructor>
-          <arg name="value" column="id"/>
-        </constructor>
-      </association>
-      <association property="name" javaType="com.memoblend.applicationcore.user.valueobject.Name">
-        <constructor>
-          <arg name="value" column="name"/>
-        </constructor>
-      </association>
-      <association property="isDeleted" javaType="com.memoblend.applicationcore.user.valueobject.IsDeleted">
-        <constructor>
-          <arg name="value" column="is_deleted"/>
-        </constructor>
-      </association>
-  </resultMap> -->
 
 	<select id="findAll" resultMap="UserMap">
 		SELECT id, name, is_deleted FROM users
