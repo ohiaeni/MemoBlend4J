@@ -8,13 +8,14 @@ import lombok.Data;
  */
 @Data
 public class Name {
-    
+
   private String value;
 
   /**
    * 名前の値オブジェクトを生成します。
-   * @param value ユーザーの名前
-   * @throws IllegalArgumentException 
+   * 
+   * @param value ユーザーの名前。
+   * @throws IllegalArgumentException 名前が不正な場合。
    */
   public Name(String value) {
     if (value == null) {

@@ -2,26 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.memoblend.infrastructure.repository.mapper.UserMapper">
 
-	<resultMap id="UserMap" type="com.memoblend.applicationcore.user.User">
-		<id column="id" property="id.value" />
-		<result column="name" property="name.value"/>
-		<result column="is_deleted" property="isDeleted.value" />
-	</resultMap>
-
-	<select id="findAll" resultMap="UserMap">
-		SELECT id, name, is_deleted FROM users
+	<select id="findAll" resultType="com.memoblend.infrastructure.repository.entity.UserEntity">
+		SELECT * FROM users
 		WHERE is_deleted = false
 	</select>
 
-	<select id="findById" resultMap="UserMap">
-		SELECT id, name, is_deleted FROM users 
+	<select id="findById" resultType="com.memoblend.infrastructure.repository.entity.UserEntity">
+		SELECT * FROM users 
 		WHERE id = #{id}
 		AND is_deleted = false
 	</select>
 	
-	<insert id="add" parameterType="com.memoblend.applicationcore.user.User" useGeneratedKeys="true" keyProperty="id.value">
+	<insert id="add" parameterType="com.memoblend.infrastructure.repository.entity.UserEntity" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO users (name, is_deleted)
-		VALUES (#{name.value}, false)
+		VALUES (#{name}, #{isDeleted})
 	</insert>
 	
 	<update id="delete" parameterType="long">
@@ -30,10 +24,10 @@
 		WHERE id = #{id}
 	</update>
 
-	<update id="update" parameterType="com.memoblend.applicationcore.user.User">
+	<update id="update" parameterType="com.memoblend.infrastructure.repository.entity.UserEntity">
 		UPDATE users
-		SET name = #{name.value}
-		WHERE id = #{id.value}
+		SET name = #{name}
+		WHERE id = #{id}
 	</update>
 	
 </mapper>
