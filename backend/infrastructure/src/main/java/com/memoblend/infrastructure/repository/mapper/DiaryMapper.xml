@@ -14,8 +14,8 @@
 	</select>
 	
 	<insert id="add" parameterType="com.memoblend.applicationcore.diary.Diary" useGeneratedKeys="true" keyProperty="id">
-		INSERT INTO diaries (user_id, title, content, date)
-		VALUES (#{userId}, #{title}, #{content}, #{date})
+		INSERT INTO diaries (user_id, title, content, created_date)
+		VALUES (#{userId}, #{title}, #{content}, #{createdDate})
 	</insert>
 
 	<delete id="delete" parameterType="long">
@@ -26,7 +26,7 @@
 
 	<update id="update" parameterType="com.memoblend.applicationcore.diary.Diary">
 		UPDATE diaries
-		SET title = #{title}, content = #{content}, date = #{date}
+		SET title = #{title}, content = #{content}, created_date = #{createdDate}
 		WHERE id = #{id}
 		AND user_id = #{userId}
 	</update>

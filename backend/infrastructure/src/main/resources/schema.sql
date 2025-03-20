@@ -14,6 +14,6 @@ CREATE TABLE diaries
   user_id BIGSERIAL NOT NULL,
   title VARCHAR(64) NOT NULL,
   content VARCHAR NOT NULL,
-  date TIMESTAMP NOT NULL,
+  created_date TIMESTAMP NOT NULL,
   is_deleted BOOLEAN NOT NULL DEFAULT FALSE
 );

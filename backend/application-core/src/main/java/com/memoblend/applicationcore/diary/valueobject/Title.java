@@ -18,7 +18,7 @@ public class Title {
    * @throws IllegalArgumentException タイトルの値が null か指定の文字数範囲外の場合。
    */
   public Title(String value) {
-    if (value == null || value.isEmpty()) {
+    if (value == null || value.isEmpty() || value.isBlank()) {
       throw new IllegalArgumentException("{0} は {1} 文字以上入力してください");
     }
     if (value.length() < 1 || value.length() > 30) {

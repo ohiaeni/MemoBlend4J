@@ -1,196 +1,109 @@
 package com.memoblend.applicationcore.diary;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 import java.time.LocalDate;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.validation.BindException;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.Validator;
-import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 /**
- * 日記のドメインモデルのテストクラスです。
+ * Diary クラスのテストクラスです。
  */
-@ExtendWith(SpringExtension.class)
 public class DiaryTest {
 
-  private Diary diary;
-  private BindingResult bindingResult;
-  private Validator validator;
-
-  @BeforeEach
-  void setUp() {
-    this.diary = new Diary(1L, 1L, "testTitle", "testContent", LocalDate.of(2025, 1, 1), false);
-    this.bindingResult = new BindException(diary, "Diary");
-    setUpValidator();
-  }
-
   @Test
-  public void testNoError_正常系_日記を作成できた場合はtrueを返す() {
-    // Act
-    validator.validate(diary, bindingResult);
-    // Assert
-    assertTrue(!bindingResult.hasErrors());
+  public void testNoError_正常系_日記を作成できる() {
+    assertDoesNotThrow(() -> new Diary(1L, 1L, "testTitle", "testContent", LocalDate.of(2025, 1, 1), false));
   }
 
   @Test
   public void testIdSetZero_正常系_idが0() {
-    // Arrange
-    diary.setId(0L);
-    // Act
-    validator.validate(diary, bindingResult);
-    // Assert
-    assertTrue(!bindingResult.hasErrors());
+    assertDoesNotThrow(() -> new Diary(0L, 1L, "testTitle", "testContent", LocalDate.of(2025, 1, 1), false));
   }
 
   @Test
   public void testIdIsNegative_異常系_IDが負の数() {
-    // Arrange
-    diary.setId(-1L);
-    // Act
-    validator.validate(diary, bindingResult);
-    // Assert
-    assertEquals("id", bindingResult.getFieldError().getField());
-    assertEquals("{0} は {1} 以上の値にしてください", bindingResult.getFieldError().getDefaultMessage());
+    IllegalArgumentException e = assertThrows(IllegalArgumentException.class,
+        () -> new Diary(-1L, 1L, "testTitle", "testContent", LocalDate.of(2025, 1, 1), false));
+    assertEquals("{0} は {1} 以上の値にしてください", e.getMessage());
   }
 
   @Test
   public void testUserIdSetZero_正常系_userIdが0() {
-    // Arrange
-    diary.setUserId(0L);
-    // Act
-    validator.validate(diary, bindingResult);
-    // Assert
-    assertTrue(!bindingResult.hasErrors());
+    assertDoesNotThrow(() -> new Diary(1L, 0L, "testTitle", "testContent", LocalDate.of(2025, 1, 1), false));
   }
 
   @Test
-  public void testUserIdIsNull_異常系_userIdが負の数() {
-    // Arrange
-    diary.setUserId(-1L);
-    // Act
-    validator.validate(diary, bindingResult);
-    // Asert
-    assertEquals("userId", bindingResult.getFieldError().getField());
-    assertEquals("{0} は {1} 以上の値にしてください", bindingResult.getFieldError().getDefaultMessage());
+  public void testUserIdIsNegative_異常系_userIdが負の数() {
+    IllegalArgumentException e = assertThrows(IllegalArgumentException.class,
+        () -> new Diary(1L, -1L, "testTitle", "testContent", LocalDate.of(2025, 1, 1), false));
+    assertEquals("{0} は {1} 以上の値にしてください", e.getMessage());
   }
 
   @Test
   public void testTitleIsNull_異常系_titleがnull() {
-    // Arrange
-    diary.setTitle(null);
-    // Act
-    validator.validate(diary, bindingResult);
-    // Assert
-    assertEquals("title", bindingResult.getFieldError().getField());
-    assertEquals("{0}は {1} ～ {2} 文字の範囲で入力してください", bindingResult.getFieldError().getDefaultMessage());
+    IllegalArgumentException e = assertThrows(IllegalArgumentException.class,
+        () -> new Diary(1L, 1L, null, "testContent", LocalDate.of(2025, 1, 1), false));
+    assertEquals("{0} は {1} 文字以上入力してください", e.getMessage());
   }
 
   @Test
   public void testTitleIsBlank_異常系_titleが空白() {
-    // Arrange
-    diary.setTitle(" ");
-    // Act
-    validator.validate(diary, bindingResult);
-    // Assert
-    assertEquals("title", bindingResult.getFieldError().getField());
-    assertEquals("{0} は {1} ～ {2} 文字の範囲で入力してください", bindingResult.getFieldError().getDefaultMessage());
+    IllegalArgumentException e = assertThrows(IllegalArgumentException.class,
+        () -> new Diary(1L, 1L, " ", "testContent", LocalDate.of(2025, 1, 1), false));
+    assertEquals("{0} は {1} 文字以上入力してください", e.getMessage());
   }
 
   @Test
   public void testTitleIsTooShort_異常系_titleが0文字() {
-    // Arrange
-    diary.setTitle("");
-    // Act
-    validator.validate(diary, bindingResult);
-    // Assert
-    assertEquals("title", bindingResult.getFieldError().getField());
-    assertEquals("{0} は {1} ～ {2} 文字の範囲で入力してください", bindingResult.getFieldError().getDefaultMessage());
+    IllegalArgumentException e = assertThrows(IllegalArgumentException.class,
+        () -> new Diary(1L, 1L, "", "testContent", LocalDate.of(2025, 1, 1), false));
+    assertEquals("{0} は {1} 文字以上入力してください", e.getMessage());
   }
 
   @Test
   public void testTitleIsTooLong_異常系_titleの文字数オーバー() {
-    // Arrange
-    diary.setTitle("a".repeat(999));
-    // Act
-    validator.validate(diary, bindingResult);
-    // Assert
-    assertEquals("title", bindingResult.getFieldError().getField());
-    assertEquals("{0} は {1} ～ {2} 文字の範囲で入力してください", bindingResult.getFieldError().getDefaultMessage());
+    IllegalArgumentException e = assertThrows(IllegalArgumentException.class,
+        () -> new Diary(1L, 1L, "a".repeat(101), "testContent", LocalDate.of(2025, 1, 1), false));
+    assertEquals("{0} は {1} ～ {2} 文字の範囲で入力してください", e.getMessage());
   }
 
   @Test
   public void testContentIsNull_異常系_contentがnull() {
-    // Arrange
-    diary.setContent(null);
-    // Act
-    validator.validate(diary, bindingResult);
-    // Assert
-    assertEquals("content", bindingResult.getFieldError().getField());
-    assertEquals("{0} は {1} 文字以上入力してください", bindingResult.getFieldError().getDefaultMessage());
+    IllegalArgumentException e = assertThrows(IllegalArgumentException.class,
+        () -> new Diary(1L, 1L, "testTitle", null, LocalDate.of(2025, 1, 1), false));
+    assertEquals("{0} は {1} 文字以上入力してください", e.getMessage());
   }
 
   @Test
   public void testContentIsBlank_異常系_contentが空白() {
-    // Arrange
-    diary.setContent(" ");
-    // Act
-    validator.validate(diary, bindingResult);
-    // Assert
-    assertEquals("content", bindingResult.getFieldError().getField());
-    assertEquals("{0} は {1} 文字以上入力してください", bindingResult.getFieldError().getDefaultMessage());
+    IllegalArgumentException e = assertThrows(IllegalArgumentException.class,
+        () -> new Diary(1L, 1L, "testTitle", " ", LocalDate.of(2025, 1, 1), false));
+    assertEquals("{0} は {1} 文字以上入力してください", e.getMessage());
   }
 
   @Test
   public void testContentIsTooShort_異常系_contentが0文字() {
-    // Arrange
-    diary.setContent("");
-    // Act
-    validator.validate(diary, bindingResult);
-    // Assert
-    assertEquals("content", bindingResult.getFieldError().getField());
-    assertEquals("{0} は {1} 文字以上入力してください", bindingResult.getFieldError().getDefaultMessage());
+    IllegalArgumentException e = assertThrows(IllegalArgumentException.class,
+        () -> new Diary(1L, 1L, "testTitle", "", LocalDate.of(2025, 1, 1), false));
+    assertEquals("{0} は {1} 文字以上入力してください", e.getMessage());
   }
 
   @Test
   public void testDateIsNull_異常系_日付がnull() {
-    // Arrange
-    diary.setCreatedDate(null);
-    // Act
-    validator.validate(diary, bindingResult);
-    // Assert
-    assertEquals("date", bindingResult.getFieldError().getField());
-    assertEquals("{0} は必須です", bindingResult.getFieldError().getDefaultMessage());
+    IllegalArgumentException e = assertThrows(IllegalArgumentException.class,
+        () -> new Diary(1L, 1L, "testTitle", "testContent", null, false));
+    assertEquals("{0} は必須です", e.getMessage());
   }
 
   @Test
   public void testIsDeletedIsFalse_正常系_isDeletedがfalse() {
-    // Arrange
-    diary.setIsDeleted(false);
-    // Act
-    validator.validate(diary, bindingResult);
-    // Assert
-    assertTrue(!bindingResult.hasErrors());
+    assertDoesNotThrow(() -> new Diary(1L, 1L, "testTitle", "testContent", LocalDate.of(2025, 1, 1), false));
   }
 
   @Test
   public void testIsDeletedIsTrue_正常系_isDeletedがtrue() {
-    // Arrange
-    diary.setIsDeleted(true);
-    // Act
-    validator.validate(diary, bindingResult);
-    // Assert
-    assertTrue(!bindingResult.hasErrors());
-  }
-
-  private void setUpValidator() {
-    LocalValidatorFactoryBean factory = new LocalValidatorFactoryBean();
-    factory.afterPropertiesSet();
-    this.validator = factory;
+    assertDoesNotThrow(() -> new Diary(1L, 1L, "testTitle", "testContent", LocalDate.of(2025, 1, 1), true));
   }
 }

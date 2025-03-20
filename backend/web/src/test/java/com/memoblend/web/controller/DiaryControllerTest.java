@@ -74,7 +74,7 @@ public class DiaryControllerTest {
         + "\"userId\": 1, "
         + "\"title\": \"Test title\", "
         + "\"content\": \"Test content\", "
-        + "\"date\": \"2025-01-01\""
+        + "\"createdDate\": \"2025-01-01\""
         + "}";
     this.mockMvc.perform(post("/api/diary")
         .contentType(MediaType.APPLICATION_JSON)
@@ -89,7 +89,7 @@ public class DiaryControllerTest {
         + "\"userId\": 1, "
         + "\"title\": \"Test title\", "
         + "\"content\": \"Test content\", "
-        + "\"date\": \"2025-01-01\""
+        + "\"createdDate\": \"2025-01-01\""
         + "}";
     this.mockMvc.perform(post("/api/diary")
         .contentType(MediaType.APPLICATION_JSON)
@@ -128,7 +128,7 @@ public class DiaryControllerTest {
         + "\"userId\": 1, "
         + "\"title\": \"Test title\", "
         + "\"content\": \"Test content\", "
-        + "\"date\": \"2025-01-01\""
+        + "\"createdDate\": \"2025-01-01\""
         + "}";
     this.mockMvc.perform(put("/api/diary")
         .contentType(MediaType.APPLICATION_JSON)
@@ -144,7 +144,7 @@ public class DiaryControllerTest {
         + "\"userId\": 1, "
         + "\"title\": \"Test title\", "
         + "\"content\": \"Test content\", "
-        + "\"date\": \"2025-01-01\""
+        + "\"createdDate\": \"2025-01-01\""
         + "}";
     this.mockMvc.perform(put("/api/diary")
         .contentType(MediaType.APPLICATION_JSON)
@@ -159,7 +159,7 @@ public class DiaryControllerTest {
         + "\"userId\": 1, "
         + "\"title\": \"Test title\", "
         + "\"content\": \"Test content\", "
-        + "\"date\": \"2025-01-01\""
+        + "\"createdDate\": \"2025-01-01\""
         + "}";
     this.mockMvc.perform(put("/api/diary")
         .contentType(MediaType.APPLICATION_JSON)

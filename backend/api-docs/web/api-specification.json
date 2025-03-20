@@ -341,38 +341,27 @@
         "type": "object",
         "properties": {
           "content": {
-            "type": "string",
-            "maxLength": 2147483647,
-            "minLength": 1
+            "type": "string"
           },
-          "date": {
+          "createdDate": {
             "type": "string",
             "format": "date"
-          },
-          "deleted": {
-            "type": "boolean"
           },
           "id": {
             "type": "integer",
             "format": "int64"
           },
+          "isDeleted": {
+            "type": "boolean"
+          },
           "title": {
-            "type": "string",
-            "maxLength": 30,
-            "minLength": 1
+            "type": "string"
           },
           "userId": {
             "type": "integer",
             "format": "int64"
           }
-        },
-        "required": [
-          "content",
-          "date",
-          "id",
-          "title",
-          "userId"
-        ]
+        }
       },
       "GetDiariesResponse": {
         "type": "object",
@@ -391,7 +380,7 @@
           "content": {
             "type": "string"
           },
-          "date": {
+          "createdDate": {
             "type": "string",
             "format": "date"
           },
@@ -414,7 +403,7 @@
           "content": {
             "type": "string"
           },
-          "date": {
+          "createdDate": {
             "type": "string",
             "format": "date"
           },
@@ -441,7 +430,7 @@
           "content": {
             "type": "string"
           },
-          "date": {
+          "createdDate": {
             "type": "string",
             "format": "date"
           },

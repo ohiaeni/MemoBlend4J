@@ -79,9 +79,10 @@ public class DiaryApplicationService {
    * @throws PermissionDeniedException 認可が拒否された場合。
    */
   public Diary addDiary(Diary diary) throws PermissionDeniedException {
-    final LocalDate date = diary.getCreatedDate();
+    final LocalDate createdDate = diary.getCreatedDate();
     apLog.info(messages.getMessage(MessageIdConstants.D_DIARY_ADD_DIARY,
-        new Object[] { date.getYear(), date.getMonthValue(), date.getDayOfMonth() }, Locale.getDefault()));
+        new Object[] { createdDate.getYear(), createdDate.getMonthValue(), createdDate.getDayOfMonth() },
+        Locale.getDefault()));
     if (!userStore.isInRole(UserRoleConstants.USER)) {
       throw new PermissionDeniedException("addDiary");
     }

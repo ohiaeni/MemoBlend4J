@@ -29,8 +29,8 @@ public class DiaryDomainServiceTest {
   @Test
   void testIsExistDiary_正常系_日記が存在する場合はtrueを返す() {
     // Arrange
-    LocalDate date = LocalDate.of(2025, 1, 1);
-    Diary diary = createDiary(date);
+    LocalDate createdDate = LocalDate.of(2025, 1, 1);
+    Diary diary = createDiary(createdDate);
     long id = diary.getId();
     when(diaryRepository.findById(id)).thenReturn(diary);
     // Act
@@ -50,12 +50,12 @@ public class DiaryDomainServiceTest {
     assertTrue(!actual);
   }
 
-  private Diary createDiary(LocalDate date) {
+  private Diary createDiary(LocalDate createdDate) {
     long id = 1;
     long userId = 1;
     String title = "testTitle";
     String content = "testContent";
-    Diary diary = new Diary(id, userId, title, content, date, false);
+    Diary diary = new Diary(id, userId, title, content, createdDate, false);
     return diary;
   }
 }

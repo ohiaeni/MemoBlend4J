@@ -8,16 +8,24 @@ import com.memoblend.applicationcore.diary.valueobject.IsDeleted;
 import com.memoblend.applicationcore.diary.valueobject.Title;
 import com.memoblend.applicationcore.diary.valueobject.UserId;
 
+import io.micrometer.common.lang.NonNull;
+
 /**
  * 日記のドメインモデルです。
  */
 public class Diary {
 
+  @NonNull
   private Id id;
+  @NonNull
   private UserId userId;
+  @NonNull
   private Title title;
+  @NonNull
   private Content content;
+  @NonNull
   private CreatedDate createdDate;
+  @NonNull
   private IsDeleted isDeleted;
 
   /**
