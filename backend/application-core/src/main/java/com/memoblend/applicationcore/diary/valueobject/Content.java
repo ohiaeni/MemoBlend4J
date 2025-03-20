@@ -18,7 +18,7 @@ public class Content {
    * @throws IllegalArgumentException コンテンツの値が null か指定の文字数範囲外の場合。
    */
   public Content(String value) {
-    if (value == null || value.isEmpty()) {
+    if (value == null || value.isEmpty() || value.isBlank()) {
       throw new IllegalArgumentException("{0} は {1} 文字以上入力してください");
     }
     if (value.length() < 1 || value.length() > 1000) {
