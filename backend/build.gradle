@@ -9,9 +9,6 @@ buildscript {
 }
 
 plugins {
-  id 'java' 
-  id 'jacoco' 
-  id 'checkstyle'
   id 'com.github.spotbugs' version "$spotbugsVersion" apply false
 }
 

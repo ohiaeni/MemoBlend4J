@@ -44,5 +44,8 @@ ext {
         lombok : "org.projectlombok:lombok",
         slf4j : "org.slf4j:slf4j-simple",
         mybatisGenerator : "org.mybatis.generator:mybatis-generator-core:$mybatisGeneratorVersion",
+        jacoco : "org.jacoco:org.jacoco.core:$jacocoToolVersion",
+        checkstyle : "com.puppycrawl.tools:checkstyle:$checkstyleToolVersion",
+        spotbugs : "com.github.spotbugs:spotbugs:$spotbugsToolVersion"
     ]
 }
