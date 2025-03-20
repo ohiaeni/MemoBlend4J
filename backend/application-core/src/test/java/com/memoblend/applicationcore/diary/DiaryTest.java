@@ -56,7 +56,7 @@ public class DiaryTest {
     validator.validate(diary, bindingResult);
     // Assert
     assertEquals("id", bindingResult.getFieldError().getField());
-    assertEquals("{0}は0以上の値にしてください", bindingResult.getFieldError().getDefaultMessage());
+    assertEquals("{0} は {1} 以上の値にしてください", bindingResult.getFieldError().getDefaultMessage());
   }
 
   @Test
@@ -77,7 +77,7 @@ public class DiaryTest {
     validator.validate(diary, bindingResult);
     // Asert
     assertEquals("userId", bindingResult.getFieldError().getField());
-    assertEquals("{0}は0以上の値にしてください", bindingResult.getFieldError().getDefaultMessage());
+    assertEquals("{0} は {1} 以上の値にしてください", bindingResult.getFieldError().getDefaultMessage());
   }
 
   @Test
@@ -88,7 +88,7 @@ public class DiaryTest {
     validator.validate(diary, bindingResult);
     // Assert
     assertEquals("title", bindingResult.getFieldError().getField());
-    assertEquals("{0}は1～30文字の範囲で入力してください", bindingResult.getFieldError().getDefaultMessage());
+    assertEquals("{0}は {1} ～ {2} 文字の範囲で入力してください", bindingResult.getFieldError().getDefaultMessage());
   }
 
   @Test
@@ -99,7 +99,7 @@ public class DiaryTest {
     validator.validate(diary, bindingResult);
     // Assert
     assertEquals("title", bindingResult.getFieldError().getField());
-    assertEquals("{0}は1～30文字の範囲で入力してください", bindingResult.getFieldError().getDefaultMessage());
+    assertEquals("{0} は {1} ～ {2} 文字の範囲で入力してください", bindingResult.getFieldError().getDefaultMessage());
   }
 
   @Test
@@ -110,7 +110,7 @@ public class DiaryTest {
     validator.validate(diary, bindingResult);
     // Assert
     assertEquals("title", bindingResult.getFieldError().getField());
-    assertEquals("{0}は1～30文字の範囲で入力してください", bindingResult.getFieldError().getDefaultMessage());
+    assertEquals("{0} は {1} ～ {2} 文字の範囲で入力してください", bindingResult.getFieldError().getDefaultMessage());
   }
 
   @Test
@@ -121,7 +121,7 @@ public class DiaryTest {
     validator.validate(diary, bindingResult);
     // Assert
     assertEquals("title", bindingResult.getFieldError().getField());
-    assertEquals("{0}は1～30文字の範囲で入力してください", bindingResult.getFieldError().getDefaultMessage());
+    assertEquals("{0} は {1} ～ {2} 文字の範囲で入力してください", bindingResult.getFieldError().getDefaultMessage());
   }
 
   @Test
@@ -132,7 +132,7 @@ public class DiaryTest {
     validator.validate(diary, bindingResult);
     // Assert
     assertEquals("content", bindingResult.getFieldError().getField());
-    assertEquals("{0}は1文字以上入力してください", bindingResult.getFieldError().getDefaultMessage());
+    assertEquals("{0} は {1} 文字以上入力してください", bindingResult.getFieldError().getDefaultMessage());
   }
 
   @Test
@@ -143,7 +143,7 @@ public class DiaryTest {
     validator.validate(diary, bindingResult);
     // Assert
     assertEquals("content", bindingResult.getFieldError().getField());
-    assertEquals("{0}は1文字以上入力してください", bindingResult.getFieldError().getDefaultMessage());
+    assertEquals("{0} は {1} 文字以上入力してください", bindingResult.getFieldError().getDefaultMessage());
   }
 
   @Test
@@ -154,24 +154,24 @@ public class DiaryTest {
     validator.validate(diary, bindingResult);
     // Assert
     assertEquals("content", bindingResult.getFieldError().getField());
-    assertEquals("{0}は1文字以上入力してください", bindingResult.getFieldError().getDefaultMessage());
+    assertEquals("{0} は {1} 文字以上入力してください", bindingResult.getFieldError().getDefaultMessage());
   }
 
   @Test
   public void testDateIsNull_異常系_日付がnull() {
     // Arrange
-    diary.setDate(null);
+    diary.setCreatedDate(null);
     // Act
     validator.validate(diary, bindingResult);
     // Assert
     assertEquals("date", bindingResult.getFieldError().getField());
-    assertEquals("{0}は必須です", bindingResult.getFieldError().getDefaultMessage());
+    assertEquals("{0} は必須です", bindingResult.getFieldError().getDefaultMessage());
   }
 
   @Test
   public void testIsDeletedIsFalse_正常系_isDeletedがfalse() {
     // Arrange
-    diary.setDeleted(false);
+    diary.setIsDeleted(false);
     // Act
     validator.validate(diary, bindingResult);
     // Assert
@@ -181,7 +181,7 @@ public class DiaryTest {
   @Test
   public void testIsDeletedIsTrue_正常系_isDeletedがtrue() {
     // Arrange
-    diary.setDeleted(true);
+    diary.setIsDeleted(true);
     // Act
     validator.validate(diary, bindingResult);
     // Assert

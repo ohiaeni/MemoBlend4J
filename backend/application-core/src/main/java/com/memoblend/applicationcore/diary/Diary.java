@@ -1,7 +1,6 @@
 package com.memoblend.applicationcore.diary;
 
 import java.time.LocalDate;
-
 import com.memoblend.applicationcore.diary.valueobject.Content;
 import com.memoblend.applicationcore.diary.valueobject.CreatedDate;
 import com.memoblend.applicationcore.diary.valueobject.Id;
