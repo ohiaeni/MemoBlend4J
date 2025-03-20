@@ -1,14 +1,13 @@
 package com.memoblend.applicationcore.diary;
 
 import java.time.LocalDate;
+import org.springframework.lang.NonNull;
 import com.memoblend.applicationcore.diary.valueobject.Content;
 import com.memoblend.applicationcore.diary.valueobject.CreatedDate;
 import com.memoblend.applicationcore.diary.valueobject.Id;
 import com.memoblend.applicationcore.diary.valueobject.IsDeleted;
 import com.memoblend.applicationcore.diary.valueobject.Title;
 import com.memoblend.applicationcore.diary.valueobject.UserId;
-
-import io.micrometer.common.lang.NonNull;
 
 /**
  * 日記のドメインモデルです。

@@ -361,7 +361,15 @@
             "type": "integer",
             "format": "int64"
           }
-        }
+        },
+        "required": [
+          "content",
+          "createdDate",
+          "id",
+          "isDeleted",
+          "title",
+          "userId"
+        ]
       },
       "GetDiariesResponse": {
         "type": "object",
