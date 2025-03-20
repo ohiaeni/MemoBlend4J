@@ -21,7 +21,7 @@ INSERT INTO users (name, is_deleted) VALUES
 ('岡田 大輔', false),
 ('柴田 陽菜', false);
 
-INSERT INTO diaries (user_id, title, content, date, is_deleted) VALUES
+INSERT INTO diaries (user_id, title, content, created_date, is_deleted) VALUES
 (7, '朝の散歩', '今日は近くの公園を散歩しました。空気が澄んでいて気持ちよかったです。', '2025-01-09', false),
 (13, '仕事の進捗', 'プロジェクトの第一フェーズが無事完了しました。次のステップに向けて準備中。', '2025-02-09', false),
 (8, '買い物リスト', '今日はスーパーでりんご、バナナ、オレンジを購入しました。', '2025-01-19', false),

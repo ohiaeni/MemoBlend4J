@@ -20,7 +20,7 @@ public class GetDiaryReponseMapper {
         diary.getUserId(),
         diary.getTitle(),
         diary.getContent(),
-        diary.getDate());
+        diary.getCreatedDate());
     return response;
   }
 }
