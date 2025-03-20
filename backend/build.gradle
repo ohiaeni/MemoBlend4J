@@ -16,10 +16,10 @@ plugins {
 }
 
 subprojects {
-  apply plugin: 'java' 
-  apply plugin: 'jacoco' 
-  apply plugin: 'checkstyle' 
-  apply plugin: 'com.github.spotbugs' 
+  apply plugin: 'java'
+  apply plugin: 'jacoco'
+  apply plugin: 'checkstyle'
+  apply plugin: 'com.github.spotbugs'
 
   compileJava.options.encoding = 'UTF-8'
   compileTestJava.options.encoding = 'UTF-8'
