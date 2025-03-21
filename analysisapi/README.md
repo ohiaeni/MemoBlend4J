@@ -28,11 +28,7 @@
    cd analysisapi
    ```
 
-2. main.pyを実行
+2. analysisapiプロジェクトを起動
     ```
-    python main.py
-    ```
-    または、下記コマンドでサーバー起動
-    ```
-    uvicorn main:app --reload
+    python -m analysisapi
     ```
