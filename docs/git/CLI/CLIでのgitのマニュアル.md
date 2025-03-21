@@ -3,7 +3,7 @@
 下図の**ローカルリポジトリ**と**リモートリポジトリ**の関係を意識して資料を読み進めていただきたい。
 
 <div align="center">
-<img src="images/gitのフローチャート.png" width="80%">
+<img src="images/gitのフローチャート.png" alt="gitのフローチャート" width="80%">
 </div>
 
 ## 対象
@@ -18,14 +18,14 @@
 本章では、GitHub上にすでに作成されているリポジトリを、新たに作成したローカルリポジトリにコピーするまでの手順を説明する。
 
 <div align="center">
-<img src="images/フローチャート_clone.png" width="70%">
+<img src="images/フローチャート_clone.png" alt="gitのフローチャート(clone)" width="70%">
 </div>
 
 GitHubに存在するリモートリポジトリと、ローカルPC上に存在するローカルリポジトリを連携させるためには、まずはローカルPC上の特定のフォルダをgitの管理下にする必要がある。
 
 1. 管理下におきたいリポジトリでVSCodeを開く。本資料では、下図のリポジトリで作業を行う。
 
-    ![alt text](images/VSCode起動画面.png)
+    ![VSCode起動画面](images/VSCode起動画面.png)
 
     また、VSCodeの起動をCLIで行いたい場合は、下記コマンドを実行する。
 
@@ -40,7 +40,7 @@ GitHubに存在するリモートリポジトリと、ローカルPC上に存在
     ```
     実行すると、下図のように".git"フォルダが作成される。この".git"フォルダがローカルリポジトリの管理人の居場所である。
 
-    ![alt text](images/gitの管理ファイルの生成結果.png)
+    ![gitの管理ファイルの生成結果](images/gitの管理ファイルの生成結果.png)
 
 3. 下記のコマンドで、GitHub上のMemoBlendのリポジトリ(リモートリポジトリ)をローカルリポジトリにコピーする。これを"クローン"と呼ぶ。
     ```cmd
@@ -49,17 +49,17 @@ GitHubに存在するリモートリポジトリと、ローカルPC上に存在
     なお、`git@github.com:ohiaeni/MemoBlend4J.git`については、下図に示す箇所から確認できる。
     
     "Code" -> "SSH" 
-    ![alt text](images/clone用URL.png)
+    ![clone用URL](images/clone用URL.png)
 
     クローンが正常に実行できた場合、下図のように表示される。
 
-    <img src="images/clone結果.png" width="50%">
+    <img src="images/clone結果.png" alt="clone結果" width="50%">
 
 ## ローカルリポジトリの変更をリモートリポジトリに反映させる
 ローカルリポジトリで作業を行うとファイルの変更が生じる。しかし、リモートリポジトリにはファイルの変更は自動で反映されない。本章では、その変更をリモートリポジトリに反映させるための手順を紹介する。
 
 <div align="center">
-<img src="images/フローチャート_create_push.png" width="70%">
+<img src="images/フローチャート_create_push.png" alt="gitのフローチャート(create push)" width="70%">
 </div>
 
 1. 前章の"ローカルリポジトリの管理下設定" でcloneしたMemoBlendフォルダに移動し、VSCodeで開きなおす。
@@ -75,7 +75,7 @@ GitHubに存在するリモートリポジトリと、ローカルPC上に存在
     すると、下図のように表示される。
     上記のコマンドは、ローカルリポジトリ内に作成しているすべてのブランチを表示するコマンドである。下図では、mainブランチのみが表示されている。コードの修正を行う場合は、mainブランチでは修正を行わずに、別のブランチを作成して修正を行う。
 
-    <img src="images/branchの確認.png" width="70%">
+    <img src="images/branchの確認.png" alt="branchの確認" width="70%">
 
     下記のコマンドで、ブランチの作成を行う。
     ```
@@ -108,7 +108,7 @@ GitHubに存在するリモートリポジトリと、ローカルPC上に存在
 
     先ほどのコマンドでブランチが作成できているか確認する。
 
-    <img src="images/作成したブランチの確認.png" width="70%">
+    <img src="images/作成したブランチの確認.png" alt="作成したブランチの確認" width="70%">
 
     なお、色が変化しているのは、現在滞在しているブランチを表している。
 
@@ -128,17 +128,17 @@ GitHubに存在するリモートリポジトリと、ローカルPC上に存在
     ```
     下図のような結果となり、切り替わっていることが確認できる。
 
-    <img src="images/ブランチの切り替え結果.png" width="80%">
+    <img src="images/ブランチの切り替え結果.png" alt="ブランチの切り替え結果" width="80%">
     
     また、VSCodeの場合は、左下箇所でも確認できる。
 
-    <img src="images/VSCodeでのブランチの切り替え結果.png" width="70%">
+    <img src="images/VSCodeでのブランチの切り替え結果.png" alt="VSCodeでのブランチの切り替え結果" width="70%">
     
 
 4. ローカルリポジトリ内のファイルの変更を行い、リモートリポジトリに反映させる。
 まずは、下図のように、git管理下のフォルダ内(ローカルリポジトリ内)で適当なファイル(例としてhello.txt)を作成する。すると、赤枠で囲った箇所が変化する。
 
-    <img src="images/変更結果.png" width="90%">
+    <img src="images/変更結果.png" alt="変更結果" width="90%">
 
 
 5. 上記は、ローカルリポジトリのみの変更であり、リモートリポジトリには変更が反映されていない。厳密に言うと、変更したのはフォルダのみであり、ローカルリポジトリでの変更を行えていない。例えると、ローカルリポジトリを管理している管理人に変更を伝えていないようなものである。
@@ -182,7 +182,7 @@ GitHubに存在するリモートリポジトリと、ローカルPC上に存在
 前章では、ローカルリポジトリの変更をリモートリポジトリに反映させる手順を述べた。本章では、その逆のリモートリポジトリの変更をローカルリポジトリに反映させる手順を述べる。
 
 <div align="center">
-<img src="images/フローチャート_pull.png" width="70%">
+<img src="images/フローチャート_pull.png" alt="gitのフローチャート(pull)" width="70%">
 </div>
 
 1. ローカルリポジトリのブランチをmainブランチに切り替える。
@@ -203,7 +203,7 @@ GitHubに存在するリモートリポジトリと、ローカルPC上に存在
 下図に、本資料の冒頭で紹介したフローチャートを再掲する。
 
 <div align="center">
-<img src="images/gitのフローチャート.png" width="80%">
+<img src="images/gitのフローチャート.png" alt="gitのフローチャート" width="80%">
 </div>
 
 ### 手順
