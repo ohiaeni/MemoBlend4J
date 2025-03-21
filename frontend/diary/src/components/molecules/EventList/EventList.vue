@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { defineProps } from 'vue';
 import { Event } from '@/components/atoms/Event';
 import type { CalendarEvent } from '@/types';
 

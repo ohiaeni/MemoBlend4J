@@ -14,5 +14,5 @@ public class PutDiaryRequest {
   private long userId;
   private String title;
   private String content;
-  private LocalDate date;
+  private LocalDate createdDate;
 }
