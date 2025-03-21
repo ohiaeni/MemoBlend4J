@@ -23,7 +23,7 @@ public class Name {
     if (value == null) {
       throw new IllegalArgumentException(ExceptionIdConstants.E_USER_NAME_IS_NULL);
     }
-    if (value.contains(" ")) {
+    if (value.isBlank()) {
       throw new IllegalArgumentException(ExceptionIdConstants.E_USER_NAME_IS_BLANK);
     }
     if (value.length() < 1 || value.length() > 15) {
