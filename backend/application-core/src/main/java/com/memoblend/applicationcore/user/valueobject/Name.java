@@ -1,15 +1,17 @@
 package com.memoblend.applicationcore.user.valueobject;
 
 import com.memoblend.applicationcore.constant.ExceptionIdConstants;
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 
 /**
  * ユーザーの名前を表す値オブジェクト。
  */
-@Data
+@Getter
+@EqualsAndHashCode
 public class Name {
 
-  private String value;
+  private final String value;
 
   /**
    * 名前の値オブジェクトを生成します。

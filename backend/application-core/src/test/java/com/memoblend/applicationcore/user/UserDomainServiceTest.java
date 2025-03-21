@@ -8,9 +8,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import com.memoblend.applicationcore.user.valueobject.Id;
-import com.memoblend.applicationcore.user.valueobject.Name;
-import com.memoblend.applicationcore.user.valueobject.IsDeleted;
 
 /**
  * ユーザーのドメインサービスのテストクラスです。
@@ -33,7 +30,7 @@ public class UserDomainServiceTest {
     // Arrange
     String name = "testName";
     User user = createUser(name);
-    long id = user.getId().getValue();
+    long id = user.getId();
     when(userRepository.findById(id)).thenReturn(user);
     // Act
     boolean actual = userDomainService.isExistUser(id);
@@ -53,10 +50,7 @@ public class UserDomainServiceTest {
   }
 
   private User createUser(String nameValue) {
-    Id id = new Id(1L);
-    Name name = new Name(nameValue);
-    IsDeleted isDeleted = new IsDeleted(false);
-    User user = new User(id, name, isDeleted);
+    User user = new User(1L, nameValue, false);
     return user;
   }
 }

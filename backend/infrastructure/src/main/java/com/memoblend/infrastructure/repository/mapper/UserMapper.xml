@@ -2,18 +2,18 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.memoblend.infrastructure.repository.mapper.UserMapper">
 
-	<select id="findAll" resultType="com.memoblend.infrastructure.repository.entity.UserEntity">
+	<select id="findAll" resultType="com.memoblend.applicationcore.user.User">
 		SELECT * FROM users
 		WHERE is_deleted = false
 	</select>
 
-	<select id="findById" resultType="com.memoblend.infrastructure.repository.entity.UserEntity">
+	<select id="findById" resultType="com.memoblend.applicationcore.user.User">
 		SELECT * FROM users 
 		WHERE id = #{id}
 		AND is_deleted = false
 	</select>
 	
-	<insert id="add" parameterType="com.memoblend.infrastructure.repository.entity.UserEntity" useGeneratedKeys="true" keyProperty="id">
+	<insert id="add" parameterType="com.memoblend.applicationcore.user.User" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO users (name, is_deleted)
 		VALUES (#{name}, #{isDeleted})
 	</insert>
@@ -24,7 +24,7 @@
 		WHERE id = #{id}
 	</update>
 
-	<update id="update" parameterType="com.memoblend.infrastructure.repository.entity.UserEntity">
+	<update id="update" parameterType="com.memoblend.applicationcore.user.User">
 		UPDATE users
 		SET name = #{name}
 		WHERE id = #{id}

@@ -1,14 +1,16 @@
 package com.memoblend.applicationcore.user.valueobject;
 
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 
 /**
  * 削除フラグを表す値オブジェクト。
  */
-@Data
+@Getter
+@EqualsAndHashCode
 public class IsDeleted {
     
-  private boolean value;
+  private final boolean value;
 
   /**
    * 削除フラグの値オブジェクトを生成します。

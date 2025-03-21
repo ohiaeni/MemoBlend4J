@@ -12,9 +12,6 @@
 // import org.springframework.validation.Validator;
 // import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 // import com.memoblend.applicationcore.constant.ExceptionIdConstants;
-// import com.memoblend.applicationcore.user.valueobject.Id;
-// import com.memoblend.applicationcore.user.valueobject.IsDeleted;
-// import com.memoblend.applicationcore.user.valueobject.Name;
 
 // /**
 //  * ユーザーのドメインモデルのテストクラスです。
@@ -23,9 +20,6 @@
 // public class UserTest {
 
 //   private User user;
-//   private Id id;
-//   private Name name;
-//   private IsDeleted isDeleted;
 //   private BindingResult bindingResult;
 //   private Validator validator;
 
@@ -47,7 +41,7 @@
 //   @Test
 //   public void testIdSetZero_正常系_idが0() {
 //     // Arrange
-//     user.getId().setValue(0L);
+//     user.setId(0L);
 //     // Act
 //     validator.validate(user, bindingResult);
 //     // Assert
@@ -57,7 +51,7 @@
 //   @Test
 //   public void testIdIsNegative_異常系_idが負の数() {
 //     // Arrange
-//     user.getId().setValue(-1L);
+//     user.setId(-1L);
 //     // Act
 //     validator.validate(user, bindingResult);
 //     // Assert
@@ -79,7 +73,7 @@
 //   @Test
 //   public void testNameIsBlank_異常系_nameが空白() {
 //     // Arrange
-//     user.getName().setValue(" ");
+//     user.setName(" ");
 //     // Act
 //     validator.validate(user, bindingResult);
 //     // Assert
@@ -90,7 +84,7 @@
 //   @Test
 //   public void testNameIsTooShort_異常系_nameが0文字() {
 //     // Arrange
-//     user.getName().setValue("");
+//     user.setName("");
 //     // Act
 //     validator.validate(user, bindingResult);
 //     // Assert
@@ -101,7 +95,7 @@
 //   @Test
 //   public void testNameIsTooLong_異常系_nameの文字数オーバー() {
 //     // Arrange
-//     user.getName().setValue("a".repeat(999));
+//     user.setName("a".repeat(999));
 //     // Act
 //     validator.validate(user, bindingResult);
 //     // Assert
@@ -113,7 +107,7 @@
 //   @Test
 //   public void testIsDeletedIsFalse_正常系_isDeletedがfalse() {
 //     // Arrange
-//     user.getIsDeleted().setValue(false);
+//     user.setIsDeleted(false);
 //     // Act
 //     validator.validate(user, bindingResult);
 //     // Assert
@@ -123,7 +117,7 @@
 //   @Test
 //   public void testIsDeletedIsTrue_正常系_isDeletedがtrue() {
 //     // Arrange
-//     user.getIsDeleted().setValue(true);
+//     user.setIsDeleted(true);
 //     // Act
 //     validator.validate(user, bindingResult);
 //     // Assert
@@ -131,10 +125,7 @@
 //   }
 
 //   private void setUpUser() {
-//     this.id = new Id(1L);
-//     this.name = new Name("testName");
-//     this.isDeleted = new IsDeleted(false);
-//     this.user = new User(id, name, isDeleted);
+//     this.user = new User(1L, "testName", false);
 //   }
   
 //   private void setUpValidator() {

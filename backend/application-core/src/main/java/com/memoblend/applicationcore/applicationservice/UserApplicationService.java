@@ -65,7 +65,7 @@ public class UserApplicationService {
    */
   public User addUser(User user) {
     User addedUser = userRepository.add(user);
-    long addedId = addedUser.getId().getValue();
+    long addedId = addedUser.getId();
     apLog.info(messages.getMessage(MessageIdConstants.D_USER_ADD_USER,
         new Object[] { addedId }, Locale.getDefault()));
     return addedUser;
@@ -78,7 +78,7 @@ public class UserApplicationService {
    * @throws UserNotFoundException ユーザーが見つからない場合。
    */
   public void updateUser(User user) throws UserNotFoundException {
-    final long id = user.getId().getValue();
+    final long id = user.getId();
     apLog.info(messages.getMessage(MessageIdConstants.D_USER_UPDATE_USER,
         new Object[] { id }, Locale.getDefault()));
     if (!userDomainService.isExistUser(id)) {

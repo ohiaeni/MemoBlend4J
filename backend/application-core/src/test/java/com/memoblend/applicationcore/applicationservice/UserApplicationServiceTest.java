@@ -23,9 +23,6 @@ import com.memoblend.applicationcore.user.User;
 import com.memoblend.applicationcore.user.UserNotFoundException;
 import com.memoblend.applicationcore.user.UserDomainService;
 import com.memoblend.applicationcore.user.UserRepository;
-import com.memoblend.applicationcore.user.valueobject.Id;
-import com.memoblend.applicationcore.user.valueobject.Name;
-import com.memoblend.applicationcore.user.valueobject.IsDeleted;
 
 /**
  * ユーザーのアプリケーションサービスのテストクラスです。
@@ -82,7 +79,7 @@ public class UserApplicationServiceTest {
     // Arrange
     String name = "testName";
     User user = createUser(name);
-    long id = user.getId().getValue();
+    long id = user.getId();
     when(userRepository.findById(id)).thenReturn(user);
     // Act
     userApplicationService.getUser(id);
@@ -95,7 +92,7 @@ public class UserApplicationServiceTest {
     // Arrange
     String name = "testName";
     User user = createUser(name);
-    long id = user.getId().getValue();
+    long id = user.getId();
     when(userRepository.findById(id)).thenReturn(user);
     // Act
     User actual = userApplicationService.getUser(id);
@@ -121,7 +118,7 @@ public class UserApplicationServiceTest {
     // Arrange
     String name = "testName";
     User user = createUser(name);
-    long id = user.getId().getValue();
+    long id = user.getId();
     when(userDomainService.isExistUser(id)).thenReturn(false);
     when(userRepository.add(user)).thenReturn(user);
     // Act
@@ -135,7 +132,7 @@ public class UserApplicationServiceTest {
     // Arrange
     String name = "testName";
     User user = createUser(name);
-    long id = user.getId().getValue();
+    long id = user.getId();
     when(userDomainService.isExistUser(id)).thenReturn(false);
     when(userRepository.add(user)).thenReturn(user);
     // Act
@@ -149,7 +146,7 @@ public class UserApplicationServiceTest {
     // Arrange
     String name = "testName";
     User user = createUser(name);
-    long id = user.getId().getValue();
+    long id = user.getId();
     when(userDomainService.isExistUser(id)).thenReturn(true);
     // Act
     userApplicationService.updateUser(user);
@@ -162,7 +159,7 @@ public class UserApplicationServiceTest {
     // Arrange
     String name = "testName";
     User user = createUser(name);
-    long id = user.getId().getValue();
+    long id = user.getId();
     when(userDomainService.isExistUser(id)).thenReturn(false);
     // Act
     Executable action = () -> {
@@ -205,10 +202,7 @@ public class UserApplicationServiceTest {
   }
 
   private User createUser(String nameValue) {
-    Id id = new Id(1L);
-    Name name = new Name(nameValue);
-    IsDeleted isDeleted = new IsDeleted(false);
-    User user = new User(id, name, isDeleted);
+    User user = new User(1L, nameValue, false);
     return user;
   }
 

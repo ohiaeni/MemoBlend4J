@@ -5,10 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import com.memoblend.applicationcore.user.User;
 import com.memoblend.applicationcore.user.UserRepository;
-import com.memoblend.infrastructure.repository.entity.UserEntity;
 import com.memoblend.infrastructure.repository.mapper.UserMapper;
-import com.memoblend.infrastructure.repository.translator.EntityTranslator;
-
 import lombok.AllArgsConstructor;
 
 /**
@@ -23,25 +20,18 @@ public class MyBatisUserRepository implements UserRepository {
 
   @Override
   public List<User> findAll() {
-    List<UserEntity> entities = userMapper.findAll();
-    List<User> users = entities.stream().map(entity -> {
-      return EntityTranslator.translate(entity);
-    }).toList();
-    return users;
+    return userMapper.findAll();
   }
 
   @Override
   public User findById(long id) {
-    UserEntity entity = userMapper.findById(id);
-    User user = EntityTranslator.translate(entity);
-    return user;
+    return userMapper.findById(id);
   }
 
   @Override
   public User add(User user) {
-    UserEntity entity = EntityTranslator.translate(user);
-    userMapper.add(entity);
-    User addedUser = EntityTranslator.translate(entity);
+    userMapper.add(user);
+    User addedUser = user;
     return addedUser;
   }
 
@@ -52,7 +42,6 @@ public class MyBatisUserRepository implements UserRepository {
 
   @Override
   public long update(User user) {
-    UserEntity entity = EntityTranslator.translate(user);
-    return userMapper.update(entity);
+    return userMapper.update(user);
   }
 }
