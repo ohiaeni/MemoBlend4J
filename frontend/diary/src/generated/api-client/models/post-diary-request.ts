@@ -31,7 +31,7 @@ export interface PostDiaryRequest {
      * @type {string}
      * @memberof PostDiaryRequest
      */
-    'date'?: string;
+    'createdDate'?: string;
     /**
      * 
      * @type {string}

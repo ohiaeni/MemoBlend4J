@@ -31,13 +31,19 @@ export interface Diary {
      * @type {string}
      * @memberof Diary
      */
-    'date': string;
+    'createdDate': string;
     /**
      * 
      * @type {number}
      * @memberof Diary
      */
     'id': number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof Diary
+     */
+    'isDeleted': boolean;
     /**
      * 
      * @type {string}
