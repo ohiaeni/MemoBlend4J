@@ -201,8 +201,8 @@ public class UserApplicationServiceTest {
     return users;
   }
 
-  private User createUser(String nameValue) {
-    User user = new User(1L, nameValue, false);
+  private User createUser(String name) {
+    User user = new User(1L, name, false);
     return user;
   }
 
