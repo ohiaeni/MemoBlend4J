@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+import { useTheme } from 'vuetify';
 
 const showMenu = ref(false);
 
@@ -9,6 +10,13 @@ const menuAction = () => {
   } else {
     showMenu.value = true;
   }
+}
+
+const darkTheme = ref(true)
+const theme = useTheme()
+
+const changeTheme = () => {
+  theme.global.name.value = darkTheme.value ? 'dark' : 'light';
 }
 </script>
 
@@ -21,6 +29,8 @@ const menuAction = () => {
       <v-app-bar-title bold>
         <RouterLink to="/" class="font-weight-bold text-decoration-none text-black">MemoBlend</RouterLink>
       </v-app-bar-title>
+      <v-switch v-model="darkTheme" @update:model-value="changeTheme"
+        :prepend-icon="darkTheme ? 'mdi-weather-night' : 'mdi-weather-sunny'" hide-details inset class="mr-auto" />
     </v-app-bar>
 
     <v-navigation-drawer v-model="showMenu">
