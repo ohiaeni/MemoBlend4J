@@ -18,7 +18,7 @@ public class ExceptionIdConstants {
   public static final String E_USER_NOT_FOUND = "userNotFound";
 
   /** ユーザーの{0}は必須です。 */
-  public static final String E_USER_NAME_IS_REQUIRED = "userNameIsRequired";
+  public static final String E_USER_FIELD_IS_REQUIRED = "userFieldIsRequired";
 
   /** ユーザーの{0}は{1}~{2}の範囲で入力してください。 */
   public static final String E_USER_VALUE_IS_OUT_OF_RANGE = "userValueIsOutOfRange";
