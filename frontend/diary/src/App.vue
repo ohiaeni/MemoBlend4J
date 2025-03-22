@@ -27,7 +27,9 @@ const changeTheme = () => {
         <v-app-bar-nav-icon @click="menuAction"></v-app-bar-nav-icon>
       </template>
       <v-app-bar-title bold>
-        <RouterLink to="/" class="font-weight-bold text-decoration-none text-black">MemoBlend</RouterLink>
+        <RouterLink to="/" class="font-weight-bold text-decoration-none"
+          :class="darkTheme ? 'text-white' : 'text-black'">
+          MemoBlend</RouterLink>
       </v-app-bar-title>
       <v-switch v-model="darkTheme" @update:model-value="changeTheme"
         :prepend-icon="darkTheme ? 'mdi-weather-night' : 'mdi-weather-sunny'" hide-details inset class="mr-auto" />
@@ -37,12 +39,14 @@ const changeTheme = () => {
       <v-list nav>
         <v-list-item>
           <v-list-item-title>
-            <RouterLink to="/" class="text-decoration-none text-black">HOME</RouterLink>
+            <RouterLink to="/" class="text-decoration-none" :class="darkTheme ? 'text-white' : 'text-black'">HOME
+            </RouterLink>
           </v-list-item-title>
         </v-list-item>
         <v-list-item>
           <v-list-item-title>
-            <RouterLink to="#" class="text-decoration-none text-black">ANALYSIS</RouterLink>
+            <RouterLink to="#" class="text-decoration-none" :class="darkTheme ? 'text-white' : 'text-black'">ANALYSIS
+            </RouterLink>
           </v-list-item-title>
         </v-list-item>
       </v-list>
