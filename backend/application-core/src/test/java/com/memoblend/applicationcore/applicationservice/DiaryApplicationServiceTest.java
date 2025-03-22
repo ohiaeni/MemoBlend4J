@@ -27,6 +27,7 @@ import com.memoblend.applicationcore.diary.Diary;
 import com.memoblend.applicationcore.diary.DiaryDomainService;
 import com.memoblend.applicationcore.diary.DiaryNotFoundException;
 import com.memoblend.applicationcore.diary.DiaryRepository;
+import com.memoblend.applicationcore.diary.DiaryValidationException;
 
 /**
  * 日記のアプリケーションサービスのテストクラスです。
@@ -56,7 +57,7 @@ public class DiaryApplicationServiceTest {
   }
 
   @Test
-  void testGetDiaries_正常系_リポジトリのfindAllを1回呼び出す() throws PermissionDeniedException {
+  void testGetDiaries_正常系_リポジトリのfindAllを1回呼び出す() throws PermissionDeniedException, DiaryValidationException {
     // Arrange
     List<LocalDate> dates = new ArrayList<>();
     dates.add(LocalDate.of(2025, 1, 1));
@@ -70,7 +71,7 @@ public class DiaryApplicationServiceTest {
   }
 
   @Test
-  void testGetDiaries_正常系_日記のリストを返す() throws PermissionDeniedException {
+  void testGetDiaries_正常系_日記のリストを返す() throws PermissionDeniedException, DiaryValidationException {
     // Arrange
     List<LocalDate> dates = new ArrayList<>();
     dates.add(LocalDate.of(2025, 1, 1));
@@ -84,7 +85,7 @@ public class DiaryApplicationServiceTest {
   }
 
   @Test
-  void testGetDiaries_異常系_権限がない場合にPermissionDeniedExceptionが発生する() {
+  void testGetDiaries_異常系_権限がない場合にPermissionDeniedExceptionが発生する() throws DiaryValidationException {
     // Arrange
     List<LocalDate> dates = new ArrayList<>();
     dates.add(LocalDate.of(2025, 1, 1));
@@ -100,7 +101,8 @@ public class DiaryApplicationServiceTest {
   }
 
   @Test
-  void testGetDiary_正常系_リポジトリのfindByIdを1回呼び出す() throws DiaryNotFoundException, PermissionDeniedException {
+  void testGetDiary_正常系_リポジトリのfindByIdを1回呼び出す()
+      throws DiaryNotFoundException, PermissionDeniedException, DiaryValidationException {
     // Arrange
     LocalDate createdDate = LocalDate.of(2025, 1, 1);
     Diary diary = createDiary(createdDate);
@@ -114,7 +116,8 @@ public class DiaryApplicationServiceTest {
   }
 
   @Test
-  void testGetDiary_正常系_指定した日付の日記を返す() throws DiaryNotFoundException, PermissionDeniedException {
+  void testGetDiary_正常系_指定した作成日時の日記を返す()
+      throws DiaryNotFoundException, PermissionDeniedException, DiaryValidationException {
     // Arrange
     LocalDate createdDate = LocalDate.of(2025, 1, 1);
     Diary diary = createDiary(createdDate);
@@ -142,7 +145,7 @@ public class DiaryApplicationServiceTest {
   }
 
   @Test
-  void testGetDiary_異常系_権限がない場合にPermnissionDeniedExceptionが発生する() {
+  void testGetDiary_異常系_権限がない場合にPermnissionDeniedExceptionが発生する() throws DiaryValidationException {
     // Arrange
     LocalDate createdDate = LocalDate.of(2025, 1, 1);
     Diary diary = createDiary(createdDate);
@@ -158,7 +161,7 @@ public class DiaryApplicationServiceTest {
   }
 
   @Test
-  void testAddDiary_正常系_リポジトリのaddを1回呼び出す() throws PermissionDeniedException {
+  void testAddDiary_正常系_リポジトリのaddを1回呼び出す() throws PermissionDeniedException, DiaryValidationException {
     // Arrange
     LocalDate createdDate = LocalDate.of(2025, 1, 1);
     Diary diary = createDiary(createdDate);
@@ -173,7 +176,7 @@ public class DiaryApplicationServiceTest {
   }
 
   @Test
-  void testAddDiary_正常系_追加された日記を返す() throws PermissionDeniedException {
+  void testAddDiary_正常系_追加された日記を返す() throws PermissionDeniedException, DiaryValidationException {
     // Arrange
     LocalDate createdDate = LocalDate.of(2025, 1, 1);
     Diary diary = createDiary(createdDate);
@@ -188,7 +191,7 @@ public class DiaryApplicationServiceTest {
   }
 
   @Test
-  void testAddDiary_異常系_権限がない場合にPermissionDeniedExceptionが発生する() {
+  void testAddDiary_異常系_権限がない場合にPermissionDeniedExceptionが発生する() throws DiaryValidationException {
     // Arrange
     LocalDate createdDate = LocalDate.of(2025, 1, 1);
     Diary diary = createDiary(createdDate);
@@ -205,7 +208,8 @@ public class DiaryApplicationServiceTest {
   }
 
   @Test
-  void testUpdateDiary_正常系_リポジトリのupdateを1回呼び出す() throws DiaryNotFoundException, PermissionDeniedException {
+  void testUpdateDiary_正常系_リポジトリのupdateを1回呼び出す()
+      throws DiaryNotFoundException, PermissionDeniedException, DiaryValidationException {
     // Arrange
     LocalDate createdDate = LocalDate.of(2025, 1, 1);
     Diary diary = createDiary(createdDate);
@@ -219,7 +223,7 @@ public class DiaryApplicationServiceTest {
   }
 
   @Test
-  void testUpdateDiary_異常系_更新しようとした日記が存在しない場合DiaryNotFoundExceptionがスローされる() {
+  void testUpdateDiary_異常系_更新しようとした日記が存在しない場合DiaryNotFoundExceptionがスローされる() throws DiaryValidationException {
     // Arrange
     LocalDate createdDate = LocalDate.of(2025, 1, 1);
     Diary diary = createDiary(createdDate);
@@ -235,7 +239,7 @@ public class DiaryApplicationServiceTest {
   }
 
   @Test
-  void testUpdateDiary_異常系_権限がない場合にPermissionDeniedExceptionが発生する() {
+  void testUpdateDiary_異常系_権限がない場合にPermissionDeniedExceptionが発生する() throws DiaryValidationException {
     // Arrange
     LocalDate createdDate = LocalDate.of(2025, 1, 1);
     Diary diary = createDiary(createdDate);
@@ -290,7 +294,7 @@ public class DiaryApplicationServiceTest {
     assertThrows(PermissionDeniedException.class, action);
   }
 
-  private List<Diary> createDiaries(List<LocalDate> dates) {
+  private List<Diary> createDiaries(List<LocalDate> dates) throws DiaryValidationException {
     List<Diary> diaries = new ArrayList<>();
     for (LocalDate createdDate : dates) {
       diaries.add(createDiary(createdDate));
@@ -298,7 +302,7 @@ public class DiaryApplicationServiceTest {
     return diaries;
   }
 
-  private Diary createDiary(LocalDate createdDate) {
+  private Diary createDiary(LocalDate createdDate) throws DiaryValidationException {
     long id = 1;
     long userId = 1;
     String title = "testTitle";

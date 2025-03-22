@@ -26,7 +26,7 @@ public class UserDomainServiceTest {
   }
 
   @Test
-  void testIsExistUser_正常系_ユーザーが存在する場合はtrueを返す() {
+  void testIsExistUser_正常系_ユーザーが存在する場合はtrueを返す() throws UserValidationException {
     // Arrange
     String name = "testName";
     User user = createUser(name);
@@ -49,7 +49,7 @@ public class UserDomainServiceTest {
     assertTrue(!actual);
   }
 
-  private User createUser(String name) {
+  private User createUser(String name) throws UserValidationException {
     User user = new User(1L, name, false);
     return user;
   }

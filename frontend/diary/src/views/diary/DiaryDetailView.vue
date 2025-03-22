@@ -7,7 +7,6 @@ import { onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
 const customErrorHandler = useCustomErrorHandler();
-
 const route = useRoute();
 const id = Number(route.params.id);
 const showLoading = ref(true);
@@ -17,7 +16,7 @@ const showLoading = ref(true);
  */
 const diary = ref<GetDiaryResponse>({
   content: '',
-  date: '',
+  createdDate: '',
   id: id,
   title: '',
   userId: 0,
@@ -74,7 +73,7 @@ onMounted(async () => {
   <LoadingSpinnerOverlay :isLoading="showLoading" />
   <v-container v-if="!showLoading">
     <h1>{{ diary.title }}</h1>
-    <p>{{ diary.date }}</p>
+    <p>{{ diary.createdDate }}</p>
     <p>{{ diary.content }}</p>
     <div class="mt-4">
       <v-btn class="mr-4" @click="goToEditDiary">編集</v-btn>

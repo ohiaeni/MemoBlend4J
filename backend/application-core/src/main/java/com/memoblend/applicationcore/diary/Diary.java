@@ -33,11 +33,13 @@ public class Diary {
    * @param id          ID。
    * @param userId      ユーザー ID。
    * @param title       タイトル。
-   * @param content     内容。
+   * @param content     コンテンツ。
    * @param createdDate 作成日時。
    * @param isDeleted   削除フラグ。
+   * @throws DiaryValidationException 日記が不正な場合。
    */
-  public Diary(long id, long userId, String title, String content, LocalDate createdDate, boolean isDeleted) {
+  public Diary(long id, long userId, String title, String content, LocalDate createdDate, boolean isDeleted)
+      throws DiaryValidationException {
     this.id = new Id(id);
     this.userId = new UserId(userId);
     this.title = new Title(title);
@@ -74,9 +76,9 @@ public class Diary {
   }
 
   /**
-   * 内容を取得します。
+   * コンテンツを取得します。
    * 
-   * @return 内容。
+   * @return コンテンツ。
    */
   public String getContent() {
     return this.content.getValue();
@@ -122,17 +124,19 @@ public class Diary {
    * タイトルを設定します。
    * 
    * @param title タイトル。
+   * @throws DiaryValidationException タイトルが不正な場合。
    */
-  public void setTitle(String title) {
+  public void setTitle(String title) throws DiaryValidationException {
     this.title = new Title(title);
   }
 
   /**
-   * 内容を設定します。
+   * コンテンツを設定します。
    * 
-   * @param content 内容。
+   * @param content コンテンツ。
+   * @throws DiaryValidationException コンテンツが不正な場合。
    */
-  public void setContent(String content) {
+  public void setContent(String content) throws DiaryValidationException {
     this.content = new Content(content);
   }
 
@@ -140,8 +144,9 @@ public class Diary {
    * 作成日時を設定します。
    * 
    * @param createdDate 作成日時。
+   * @throws DiaryValidationException 作成日時が不正な場合。
    */
-  public void setCreatedDate(LocalDate createdDate) {
+  public void setCreatedDate(LocalDate createdDate) throws DiaryValidationException {
     this.createdDate = new CreatedDate(createdDate);
   }
 

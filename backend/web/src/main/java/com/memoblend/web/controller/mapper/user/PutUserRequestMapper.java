@@ -1,6 +1,7 @@
 package com.memoblend.web.controller.mapper.user;
 
 import com.memoblend.applicationcore.user.User;
+import com.memoblend.applicationcore.user.UserValidationException;
 import com.memoblend.web.controller.dto.user.PutUserRequest;
 
 /**
@@ -13,8 +14,9 @@ public class PutUserRequestMapper {
    * 
    * @param request ユーザーの更新リクエスト。
    * @return ユーザー。
+   * @throws UserValidationException ユーザーが不正な場合。
    */
-  public static User convert(PutUserRequest request) {
+  public static User convert(PutUserRequest request) throws UserValidationException {
     User user = new User(
         request.getId(),
         request.getName(),

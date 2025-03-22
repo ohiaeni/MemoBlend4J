@@ -5,6 +5,7 @@ import { onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { format } from 'date-fns';
 import { useCustomErrorHandler } from '@/shared/error-handler/use-custom-error-handler';
+import { LoadingSpinnerOverlay } from '@/components/organisms/LoadingSpinnerOverlay';
 
 const customErrorHandler = useCustomErrorHandler();
 const route = useRoute();
@@ -15,7 +16,7 @@ const showLoading = ref(true);
  */
 const diary = ref<PutDiaryRequest>({
   content: '',
-  date: '',
+  createdDate: '',
   id: id,
   title: '',
   userId: 0,
@@ -34,7 +35,7 @@ const router = useRouter();
  */
 const updateDiaryAsync = async () => {
   if (selectedDate.value) {
-    diary.value.date = format(selectedDate.value, 'yyyy-MM-dd');
+    diary.value.createdDate = format(selectedDate.value, 'yyyy-MM-dd');
   }
   await updateDiary(diary.value);
   router.push({ name: 'diaries' });
@@ -44,7 +45,7 @@ onMounted(async () => {
   showLoading.value = true;
   try {
     const response = await getDiary(id);
-    selectedDate.value = response.date ? new Date(response.date) : null;
+    selectedDate.value = response.createdDate ? new Date(response.createdDate) : null;
     diary.value = response;
   }
   catch (error) {

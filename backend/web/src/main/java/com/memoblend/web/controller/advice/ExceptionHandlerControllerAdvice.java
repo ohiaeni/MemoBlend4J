@@ -16,6 +16,7 @@ import com.memoblend.systemcommon.constant.CommonExceptionIdConstants;
 import com.memoblend.systemcommon.constant.SystemPropertyConstants;
 import com.memoblend.systemcommon.exception.LogicException;
 import com.memoblend.systemcommon.exception.SystemException;
+import com.memoblend.systemcommon.exception.ValidationException;
 import com.memoblend.web.controller.util.ProblemDetailsFactory;
 import com.memoblend.web.log.ErrorMessageBuilder;
 import jakarta.servlet.http.HttpServletRequest;
@@ -32,6 +33,25 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
   private ProblemDetailsFactory problemDetailsFactory;
 
   /**
+   * バリデーションエラーをステータスコード 400 で返却します。
+   * 
+   * @param e バリデーションエラー。
+   * @return ステータスコード 400 のレスポンス。
+   */
+  @ExceptionHandler(ValidationException.class)
+  public ResponseEntity<ProblemDetail> handleValidationException(ValidationException e) {
+    apLog.info(e.getMessage());
+    apLog.debug(ExceptionUtils.getStackTrace(e));
+    ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(
+        e, e.getExceptionId(), e.getFrontMessageValue(), e.getLogMessageValue());
+    ProblemDetail problemDetail = problemDetailsFactory.createProblemDetail(errorBuilder,
+        CommonExceptionIdConstants.E_BUSINESS, HttpStatus.BAD_REQUEST);
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+        .contentType(MediaType.APPLICATION_PROBLEM_JSON)
+        .body(problemDetail);
+  }
+
+  /**
    * 権限エラーをステータスコード 404 で返却します。
    * 
    * @param e 権限エラー。
@@ -41,8 +61,8 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
   public ResponseEntity<ProblemDetail> handlePermissionDeniedException(PermissionDeniedException e) {
     apLog.info(e.getMessage());
     apLog.debug(ExceptionUtils.getStackTrace(e));
-    ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e, e.getExceptionId(),
-        e.getLogMessageValue(), e.getFrontMessageValue());
+    ErrorMessageBuilder errorBuilder = new ErrorMessageBuilder(e, e.getExceptionId(), e.getFrontMessageValue(),
+        e.getLogMessageValue());
     ProblemDetail problemDetail = problemDetailsFactory.createProblemDetail(errorBuilder,
         CommonExceptionIdConstants.E_BUSINESS, HttpStatus.NOT_FOUND);
     return ResponseEntity.status(HttpStatus.NOT_FOUND)

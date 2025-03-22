@@ -1,6 +1,7 @@
 package com.memoblend.applicationcore.user.valueobject;
 
 import com.memoblend.applicationcore.constant.ExceptionIdConstants;
+import com.memoblend.applicationcore.user.UserValidationException;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
@@ -14,20 +15,23 @@ public class Name {
   private final String value;
 
   /**
-   * 名前の値オブジェクトを生成します。
+   * {@link Name} クラスの新しいインスタンスを初期化します。
    * 
-   * @param value ユーザーの名前。
-   * @throws IllegalArgumentException 名前が null 、空文字、空白文字、文字数範囲外の場合。
+   * @param value ユーザー名。
+   * @throws UserValidationException ユーザー名が不正な場合。
    */
-  public Name(String value) {
-    if (value == null) {
-      throw new IllegalArgumentException(ExceptionIdConstants.E_USER_NAME_IS_NULL);
+  public Name(String value) throws UserValidationException {
+    if (value == null || value.isEmpty() || value.isBlank()) {
+      throw new UserValidationException(
+          ExceptionIdConstants.E_USER_FIELD_IS_REQUIRED,
+          new String[] { String.valueOf("ユーザー名") },
+          new String[] { String.valueOf("ユーザー名") });
     }
-    if (value.isBlank()) {
-      throw new IllegalArgumentException(ExceptionIdConstants.E_USER_NAME_IS_BLANK);
-    }
-    if (value.length() < 1 || value.length() > 15) {
-      throw new IllegalArgumentException(ExceptionIdConstants.E_USER_NAME_LENGTH_IS_OUT_OF_RANGE);
+    if (value.length() <= 1 || value.length() >= 15) {
+      throw new UserValidationException(
+          ExceptionIdConstants.E_USER_VALUE_IS_OUT_OF_RANGE,
+          new String[] { String.valueOf("ユーザー名"), "1", "15" },
+          new String[] { String.valueOf("ユーザー名"), "1", "15" });
     }
     this.value = value;
   }

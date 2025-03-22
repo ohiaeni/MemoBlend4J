@@ -23,6 +23,7 @@ import com.memoblend.applicationcore.user.User;
 import com.memoblend.applicationcore.user.UserNotFoundException;
 import com.memoblend.applicationcore.user.UserDomainService;
 import com.memoblend.applicationcore.user.UserRepository;
+import com.memoblend.applicationcore.user.UserValidationException;
 
 /**
  * ユーザーのアプリケーションサービスのテストクラスです。
@@ -49,7 +50,7 @@ public class UserApplicationServiceTest {
   }
 
   @Test
-  void testGetUsers_正常系_リポジトリのfindAllを1回呼び出す() {
+  void testGetUsers_正常系_リポジトリのfindAllを1回呼び出す() throws UserValidationException {
     // Arrange
     List<String> names = new ArrayList<>();
     names.add("testName");
@@ -62,7 +63,7 @@ public class UserApplicationServiceTest {
   }
 
   @Test
-  void testGetUsers_正常系_ユーザーのリストを返す() {
+  void testGetUsers_正常系_ユーザーのリストを返す() throws UserValidationException {
     // Arrange
     List<String> names = new ArrayList<>();
     names.add("testName");
@@ -75,7 +76,7 @@ public class UserApplicationServiceTest {
   }
 
   @Test
-  void testGetUser_正常系_リポジトリのfindByIdを1回呼び出す() throws UserNotFoundException {
+  void testGetUser_正常系_リポジトリのfindByIdを1回呼び出す() throws UserNotFoundException, UserValidationException {
     // Arrange
     String name = "testName";
     User user = createUser(name);
@@ -88,7 +89,7 @@ public class UserApplicationServiceTest {
   }
 
   @Test
-  void testGetUser_正常系_指定したidのユーザーを返す() throws UserNotFoundException {
+  void testGetUser_正常系_指定したidのユーザーを返す() throws UserNotFoundException, UserValidationException {
     // Arrange
     String name = "testName";
     User user = createUser(name);
@@ -114,7 +115,7 @@ public class UserApplicationServiceTest {
   }
 
   @Test
-  void testAddUser_正常系_リポジトリのaddを1回呼び出す() {
+  void testAddUser_正常系_リポジトリのaddを1回呼び出す() throws UserValidationException {
     // Arrange
     String name = "testName";
     User user = createUser(name);
@@ -128,7 +129,7 @@ public class UserApplicationServiceTest {
   }
 
   @Test
-  void testAddUser_正常系_追加されたユーザーを返す() {
+  void testAddUser_正常系_追加されたユーザーを返す() throws UserValidationException {
     // Arrange
     String name = "testName";
     User user = createUser(name);
@@ -142,7 +143,7 @@ public class UserApplicationServiceTest {
   }
 
   @Test
-  void testUpdateUser_正常系_リポジトリのupdateを1回呼び出す() throws UserNotFoundException {
+  void testUpdateUser_正常系_リポジトリのupdateを1回呼び出す() throws UserNotFoundException, UserValidationException {
     // Arrange
     String name = "testName";
     User user = createUser(name);
@@ -155,7 +156,7 @@ public class UserApplicationServiceTest {
   }
 
   @Test
-  void testUpdateUser_異常系_更新しようとしたユーザーが存在しない場合UserNotFoundExceptionがスローされる() {
+  void testUpdateUser_異常系_更新しようとしたユーザーが存在しない場合UserNotFoundExceptionがスローされる() throws UserValidationException {
     // Arrange
     String name = "testName";
     User user = createUser(name);
@@ -193,7 +194,7 @@ public class UserApplicationServiceTest {
     assertThrows(UserNotFoundException.class, action);
   }
 
-  private List<User> createUsers(List<String> names) {
+  private List<User> createUsers(List<String> names) throws UserValidationException {
     List<User> users = new ArrayList<>();
     for (String name : names) {
       users.add(createUser(name));
@@ -201,7 +202,7 @@ public class UserApplicationServiceTest {
     return users;
   }
 
-  private User createUser(String name) {
+  private User createUser(String name) throws UserValidationException {
     User user = new User(1L, name, false);
     return user;
   }

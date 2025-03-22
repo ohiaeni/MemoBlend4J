@@ -13,7 +13,7 @@ public class IsDeleted {
   private final boolean value;
 
   /**
-   * 削除フラグの値オブジェクトを生成します。
+   * {@link IsDeleted} クラスの新しいインスタンスを初期化します。
    * 
    * @param value 削除フラグ。
    */
