@@ -31,7 +31,7 @@ export interface GetDiaryResponse {
      * @type {string}
      * @memberof GetDiaryResponse
      */
-    'date'?: string;
+    'createdDate'?: string;
     /**
      * 
      * @type {number}

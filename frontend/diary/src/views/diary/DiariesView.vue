@@ -45,7 +45,7 @@ onMounted(async () => {
       const event = {
         id: diary.id,
         title: diary.title,
-        date: new Date(diary.date),
+        date: new Date(diary.createdDate),
         color: 'red',
         allDay: false
       }

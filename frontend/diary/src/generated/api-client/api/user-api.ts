@@ -100,36 +100,6 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
             };
         },
         /**
-         * ユーザーを全件取得します。
-         * @summary ユーザーを全件取得します。
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getUsers: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/api/user`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
          * ユーザー情報を登録します。
          * @summary ユーザー情報を登録します。
          * @param {PostUserRequest} postUserRequest 
@@ -238,18 +208,6 @@ export const UserApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * ユーザーを全件取得します。
-         * @summary ユーザーを全件取得します。
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async getUsers(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getUsers(options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['UserApi.getUsers']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
          * ユーザー情報を登録します。
          * @summary ユーザー情報を登録します。
          * @param {PostUserRequest} postUserRequest 
@@ -306,15 +264,6 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
             return localVarFp.getUser(id, options).then((request) => request(axios, basePath));
         },
         /**
-         * ユーザーを全件取得します。
-         * @summary ユーザーを全件取得します。
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getUsers(options?: RawAxiosRequestConfig): AxiosPromise<void> {
-            return localVarFp.getUsers(options).then((request) => request(axios, basePath));
-        },
-        /**
          * ユーザー情報を登録します。
          * @summary ユーザー情報を登録します。
          * @param {PostUserRequest} postUserRequest 
@@ -366,17 +315,6 @@ export class UserApi extends BaseAPI {
      */
     public getUser(id: number, options?: RawAxiosRequestConfig) {
         return UserApiFp(this.configuration).getUser(id, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * ユーザーを全件取得します。
-     * @summary ユーザーを全件取得します。
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof UserApi
-     */
-    public getUsers(options?: RawAxiosRequestConfig) {
-        return UserApiFp(this.configuration).getUsers(options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
