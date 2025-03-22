@@ -5,7 +5,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 /**
- * 作成日時を表す値オブジェクト。
+ * 作成日時を表す値オブジェクトです。
  */
 @Getter
 @EqualsAndHashCode

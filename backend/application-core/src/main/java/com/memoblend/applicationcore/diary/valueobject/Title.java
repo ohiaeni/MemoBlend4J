@@ -4,7 +4,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 /**
- * タイトルを表す値オブジェクト。
+ * タイトルを表す値オブジェクトです。
  */
 @Getter
 @EqualsAndHashCode

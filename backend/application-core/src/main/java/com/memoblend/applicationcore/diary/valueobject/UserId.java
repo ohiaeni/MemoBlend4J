@@ -4,7 +4,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 /**
- * ユーザー ID を表す値オブジェクト。
+ * ユーザー ID を表す値オブジェクトです。
  */
 @Getter
 @EqualsAndHashCode

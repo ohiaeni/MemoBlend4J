@@ -37,7 +37,7 @@ public class DiaryApplicationService {
   private final Logger apLog = Logger.getLogger(SystemPropertyConstants.APPLICATION_LOGGER);
 
   /**
-   * 全ての日記を取得します。
+   * 全ての日記をリストで取得します。
    * 
    * @return 全ての日記のリスト。
    * @throws PermissionDeniedException 認可が拒否された場合。
@@ -51,7 +51,7 @@ public class DiaryApplicationService {
   }
 
   /**
-   * ID を指定して、{@link Diary} を取得します。
+   * ID を指定して、日記を取得します。
    * 
    * @param id 日記の ID 。
    * @return 条件に合う日記。

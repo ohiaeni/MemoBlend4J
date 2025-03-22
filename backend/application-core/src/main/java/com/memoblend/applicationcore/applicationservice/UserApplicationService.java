@@ -31,7 +31,7 @@ public class UserApplicationService {
   private final Logger apLog = Logger.getLogger(SystemPropertyConstants.APPLICATION_LOGGER);
 
   /**
-   * 全てのユーザーを取得します。
+   * 全てのユーザーをリストで取得します。
    * 
    * @return 全てのユーザーのリスト。
    */
@@ -41,7 +41,7 @@ public class UserApplicationService {
   }
 
   /**
-   * ID を指定して、{@link User} を取得します。
+   * ID を指定して、ユーザーを取得します。
    * 
    * @param id ユーザーの ID 。
    * @return 条件に合うユーザー。
