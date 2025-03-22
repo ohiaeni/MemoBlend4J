@@ -18,6 +18,9 @@ public class ExceptionIdConstants {
   public static final String E_USER_ID_IS_NEGATIVE = "userIdIsNegative";
 
   /** ユーザー名：{0}は必須です。 */
+  public static final String E_USER_NAME_IS_NULL = "userNameIsNull";
+
+  /** ユーザー名：{0}は必須です。 */
   public static final String E_USER_NAME_IS_BLANK = "userNameIsBlank";
 
   /** ユーザー名：{0}は1～15文字の範囲で入力してください。*/

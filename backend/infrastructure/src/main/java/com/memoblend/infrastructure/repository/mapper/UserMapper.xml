@@ -14,15 +14,15 @@
 	</select>
 	
 	<insert id="add" parameterType="com.memoblend.applicationcore.user.User" useGeneratedKeys="true" keyProperty="id">
-		INSERT INTO users (name)
-		VALUES (#{name})
+		INSERT INTO users (name, is_deleted)
+		VALUES (#{name}, #{isDeleted})
 	</insert>
 	
-	<delete id="delete" parameterType="long">
+	<update id="delete" parameterType="long">
 		UPDATE users
 		SET is_deleted = true
 		WHERE id = #{id}
-	</delete>
+	</update>
 
 	<update id="update" parameterType="com.memoblend.applicationcore.user.User">
 		UPDATE users
