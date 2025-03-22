@@ -5,7 +5,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 /**
- * ユーザーの名前を表す値オブジェクト。
+ * ユーザーの名前を表す値オブジェクトです。
  */
 @Getter
 @EqualsAndHashCode
@@ -17,7 +17,7 @@ public class Name {
    * 名前の値オブジェクトを生成します。
    * 
    * @param value ユーザーの名前。
-   * @throws IllegalArgumentException 名前が不正な場合。
+   * @throws IllegalArgumentException 名前が null 、空文字、空白文字、文字数範囲外の場合。
    */
   public Name(String value) {
     if (value == null) {

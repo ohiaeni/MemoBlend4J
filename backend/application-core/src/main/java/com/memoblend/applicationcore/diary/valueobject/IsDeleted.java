@@ -4,7 +4,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 /**
- * 削除フラグを表す値オブジェクト。
+ * 削除フラグを表す値オブジェクトです。
  */
 @Getter
 @EqualsAndHashCode

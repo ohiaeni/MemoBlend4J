@@ -18,7 +18,7 @@ public interface UserMapper {
   public List<User> findAll();
 
   /**
-   * ID を指定して、{@link User} を取得します。
+   * ID を指定して、ユーザーを取得します。
    * 
    * @param id ユーザーの ID 。
    * @return 条件に合うユーザー。
@@ -34,14 +34,14 @@ public interface UserMapper {
   public long add(User user);
 
   /**
-   * ID を指定して、 {@link User} を削除します。
+   * ID を指定して、ユーザーを削除します。
    * 
    * @param id 削除するユーザーの ID 。
    */
   public long delete(long id);
 
   /**
-   * {@link User} を更新します。
+   * ユーザーを更新します。
    * 
    * @param user 更新するユーザー。
    */

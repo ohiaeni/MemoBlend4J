@@ -20,6 +20,6 @@ app.use(createPinia())
 app.use(router)
 app.use(vuetify)
 app.use(globalErrorHandler)
-app.use(createCustomErrorHandler)
+app.use(createCustomErrorHandler())
 
 app.mount('#app')

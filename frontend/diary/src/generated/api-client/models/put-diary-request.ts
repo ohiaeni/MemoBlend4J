@@ -31,7 +31,7 @@ export interface PutDiaryRequest {
      * @type {string}
      * @memberof PutDiaryRequest
      */
-    'date'?: string;
+    'createdDate'?: string;
     /**
      * 
      * @type {number}
