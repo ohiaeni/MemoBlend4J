@@ -12,7 +12,7 @@ const customErrorHandler = useCustomErrorHandler();
  */
 const diary = ref<PostDiaryRequest>({
   content: '',
-  date: '',
+  createdDate: '',
   title: '',
   userId: 0,
 })
@@ -30,7 +30,7 @@ const router = useRouter();
  */
 const createDiaryAsync = async () => {
   if (selectedDate.value) {
-    diary.value.date = format(selectedDate.value, 'yyyy-MM-dd');
+    diary.value.createdDate = format(selectedDate.value, 'yyyy-MM-dd');
   }
   try {
     await createDiary(diary.value);
