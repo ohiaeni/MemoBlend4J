@@ -1,31 +1,13 @@
 from fastapi import FastAPI, HTTPException
 import httpx
-import xml.etree.ElementTree as ET
 import uvicorn
+from analysisapi.ai_processor.foo import DiaryAnalyzer
+from analysisapi.loader.config_loader import ConfigLoader
 
-def load_diary_api_url(file_path="config.xml"):
-    """
-    XMLファイルからAPIのURLを取得する
-    """
-    try:
-        tree = ET.parse(file_path)
-        root = tree.getroot()
-        url = root.find("diary_api_url").text
-        return url
-    
-    except Exception as e:
-        raise RuntimeError(f"XMLの読み込みに失敗しました: {e}")
-
-def foo(diary, text="Pythonから追記しました。"):
-    """
-    この箇所でAI解析を行う。一時的にfoo関数で代用。
-    """
-    if "content" in diary:
-        diary["content"] += text
-        
-    return diary
-
+# インスタンスの生成
 app = FastAPI()
+diary_analyzer = DiaryAnalyzer()
+config_loader = ConfigLoader()
 
 @app.get("/diary/{id}")
 async def get_diary(id: int):
@@ -34,7 +16,7 @@ async def get_diary(id: int):
   """
 
   # xmlから取得した日記apiへのurlを設定
-  DIARY_API_URL = load_diary_api_url()
+  DIARY_API_URL = config_loader.load_diary_api_url()
 
   # urlを組み立てる
   url = f"{DIARY_API_URL}/{id}"
@@ -52,8 +34,8 @@ async def get_diary(id: int):
   if not diary:
     raise HTTPException(status_code=404, detail="指定した日付の日記が見つかりません")
 
-  # この箇所でAI解析を行う
-  diary = foo(diary)
+  # DiaryAnalyzer クラスでAI解析を行う
+  diary = diary_analyzer.analyze(diary)
 
   return diary
 
