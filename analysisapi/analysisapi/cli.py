@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException
 import httpx
 import uvicorn
-from analysisapi.ai_processor.foo import DiaryAnalyzer
+from analysisapi.ai_processor.diary_analyzer import DiaryAnalyzer
 from analysisapi.loader.config_loader import ConfigLoader
 
 # インスタンスの生成
