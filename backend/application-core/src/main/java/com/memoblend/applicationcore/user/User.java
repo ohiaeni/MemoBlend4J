@@ -12,19 +12,17 @@ public class User {
 
   @NonNull
   private Id id;
-  
   @NonNull
   private Name name;
-  
   @NonNull
   private IsDeleted isDeleted;
 
   /**
    * ユーザーオブジェクトを生成します。
    *
-   * @param id        ユーザーのID
-   * @param name      ユーザーの名前
-   * @param isDeleted ユーザーの削除状態（true: 削除済み, false: 有効）
+   * @param id        ユーザーの ID 。
+   * @param name      ユーザーの名前。
+   * @param isDeleted 削除済みの場合 true 、 未削除の場合 false 。
    */
   public User(long id, String name, boolean isDeleted) {
     this.id = new Id(id);
@@ -35,7 +33,7 @@ public class User {
   /**
    * ユーザーのIDを取得します。
    *
-   * @return ユーザーのID
+   * @return ユーザーの ID 。
    */
   public long getId() {
     return this.id.getValue();
@@ -44,7 +42,7 @@ public class User {
   /**
    * ユーザーの名前を取得します。
    *
-   * @return ユーザーの名前
+   * @return ユーザーの名前。
    */
   public String getName() {
     return this.name.getValue();
@@ -53,7 +51,7 @@ public class User {
   /**
    * ユーザーの削除状態を取得します。
    *
-   * @return 削除状態（true: 削除済み, false: 有効）
+   * @return 削除済みの場合 true 、 未削除の場合 false 。
    */
   public boolean getIsDeleted() {
     return this.isDeleted.isValue();
@@ -62,7 +60,7 @@ public class User {
   /**
    * ユーザーのIDを設定します。
    *
-   * @param id 新しいユーザーID
+   * @param id 新しいユーザー ID 。
    */
   public void setId(long id) {
     this.id = new Id(id);
@@ -71,7 +69,7 @@ public class User {
   /**
    * ユーザーの名前を設定します。
    *
-   * @param name 新しいユーザー名
+   * @param name 新しいユーザー名。
    */
   public void setName(String name) {
     this.name = new Name(name);
@@ -80,7 +78,7 @@ public class User {
   /**
    * ユーザーの削除状態を設定します。
    *
-   * @param isDeleted 新しい削除状態（true: 削除済み, false: 有効）
+   * @param isDeleted 削除済みの場合 true 、 未削除の場合 false 。
    */
   public void setIsDeleted(boolean isDeleted) {
     this.isDeleted = new IsDeleted(isDeleted);
