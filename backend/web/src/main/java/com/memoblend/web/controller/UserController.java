@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.memoblend.applicationcore.applicationservice.UserApplicationService;
 import com.memoblend.applicationcore.user.UserNotFoundException;
+import com.memoblend.applicationcore.user.UserValidationException;
 import com.memoblend.applicationcore.user.User;
 import com.memoblend.systemcommon.constant.CommonExceptionIdConstants;
 import com.memoblend.systemcommon.constant.SystemPropertyConstants;
@@ -89,6 +90,7 @@ public class UserController {
    * 
    * @param request ユーザー情報。
    * @return 登録結果。
+   * @throws UserValidationException ユーザーが不正な場合。
    */
   @Operation(summary = "ユーザー情報を登録します。", description = "ユーザー情報を登録します。")
   @ApiResponses(value = {
@@ -97,7 +99,7 @@ public class UserController {
       @ApiResponse(responseCode = "500", description = "サーバーエラー。", content = @Content)
   })
   @PostMapping
-  public ResponseEntity<?> postUser(@RequestBody PostUserRequest request) {
+  public ResponseEntity<?> postUser(@RequestBody PostUserRequest request) throws UserValidationException {
     User user = PostUserRequestMapper.convert(request);
     User addedUser = userApplicationService.addUser(user);
     return ResponseEntity.created(URI.create("/api/user/" + addedUser.getId())).build();
@@ -139,6 +141,7 @@ public class UserController {
    * 
    * @param request ユーザー情報。
    * @return 更新結果。
+   * @throws UserValidationException ユーザーが不正な場合。
    */
   @Operation(summary = "ユーザー情報を更新します。", description = "ユーザー情報を更新します。")
   @ApiResponses(value = {
@@ -148,7 +151,7 @@ public class UserController {
       @ApiResponse(responseCode = "500", description = "サーバーエラー。", content = @Content),
   })
   @PutMapping
-  public ResponseEntity<?> putUser(@RequestBody PutUserRequest request) {
+  public ResponseEntity<?> putUser(@RequestBody PutUserRequest request) throws UserValidationException {
     User user = PutUserRequestMapper.convert(request);
     try {
       userApplicationService.updateUser(user);

@@ -23,8 +23,9 @@ public class User {
    * @param id        ユーザーの ID 。
    * @param name      ユーザーの名前。
    * @param isDeleted 削除済みの場合 true 、 未削除の場合 false 。
+   * @throws UserValidationException ユーザーが不正な場合。
    */
-  public User(long id, String name, boolean isDeleted) {
+  public User(long id, String name, boolean isDeleted) throws UserValidationException {
     this.id = new Id(id);
     this.name = new Name(name);
     this.isDeleted = new IsDeleted(isDeleted);
@@ -70,8 +71,9 @@ public class User {
    * ユーザーの名前を設定します。
    *
    * @param name 新しいユーザー名。
+   * @throws UserValidationException ユーザー名が不正な場合。
    */
-  public void setName(String name) {
+  public void setName(String name) throws UserValidationException {
     this.name = new Name(name);
   }
 
