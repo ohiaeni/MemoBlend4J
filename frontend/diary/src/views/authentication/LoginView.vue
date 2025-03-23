@@ -1,11 +1,22 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { loginFormSchema } from '@/validation';
+import { useForm } from 'vee-validate';
 
-const email = ref('');
-const password = ref('');
+const { errors, values, meta, defineField } = useForm({
+  validationSchema: loginFormSchema,
+});
+
 const login = () => {
-  console.log('Logging in with', email.value, password.value);
+  console.log('Logging in with', values.email, values.password);
 };
+
+const [email] = defineField('email');
+const [password] = defineField('password');
+
+const isInValid = () => {
+  return !meta.value.valid;
+}
+
 </script>
 <template>
   <v-card class="mx-auto my-8" max-width="400">
@@ -21,11 +32,9 @@ const login = () => {
 
     <v-card-text>
       <v-form>
-        <v-text-field v-model="email" label="メールアドレス" outlined dense required></v-text-field>
-
-        <v-text-field v-model="password" label="パスワード" outlined dense required type="password"></v-text-field>
-
-        <v-btn block color="primary" class="mt-4" @click="login">
+        <v-text-field v-model="email" label="メールアドレス" :error-messages="errors.email"></v-text-field>
+        <v-text-field v-model="password" label="パスワード" type="password" :error-messages="errors.password"></v-text-field>
+        <v-btn block color="primary" @click="login" :disabled="isInValid()">
           ログイン
         </v-btn>
       </v-form>
