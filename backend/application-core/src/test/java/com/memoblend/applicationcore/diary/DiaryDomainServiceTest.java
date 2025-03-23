@@ -27,7 +27,7 @@ public class DiaryDomainServiceTest {
   }
 
   @Test
-  void testIsExistDiary_正常系_日記が存在する場合はtrueを返す() {
+  void testIsExistDiary_正常系_日記が存在する場合はtrueを返す() throws DiaryValidationException {
     // Arrange
     LocalDate createdDate = LocalDate.of(2025, 1, 1);
     Diary diary = createDiary(createdDate);
@@ -50,7 +50,7 @@ public class DiaryDomainServiceTest {
     assertTrue(!actual);
   }
 
-  private Diary createDiary(LocalDate createdDate) {
+  private Diary createDiary(LocalDate createdDate) throws DiaryValidationException {
     long id = 1;
     long userId = 1;
     String title = "testTitle";

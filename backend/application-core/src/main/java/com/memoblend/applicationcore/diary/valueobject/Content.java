@@ -1,5 +1,7 @@
 package com.memoblend.applicationcore.diary.valueobject;
 
+import com.memoblend.applicationcore.constant.ExceptionIdConstants;
+import com.memoblend.applicationcore.diary.DiaryValidationException;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
@@ -15,14 +17,20 @@ public class Content {
    * {@link Content} クラスの新しいインスタンスを初期化します。
    * 
    * @param value コンテンツの値。
-   * @throws IllegalArgumentException コンテンツの値が null か指定の文字数範囲外の場合。
+   * @throws DiaryValidationException コンテンツが不正な場合。
    */
-  public Content(String value) {
+  public Content(String value) throws DiaryValidationException {
     if (value == null || value.isEmpty() || value.isBlank()) {
-      throw new IllegalArgumentException("{0} は {1} 文字以上入力してください");
+      throw new DiaryValidationException(
+          ExceptionIdConstants.E_DIARY_FIELD_IS_REQUIRED,
+          new String[] { String.valueOf("コンテンツ") },
+          new String[] { String.valueOf("コンテンツ") });
     }
-    if (value.length() < 1 || value.length() > 1000) {
-      throw new IllegalArgumentException("{0} は {1} ～ {2} 文字の範囲で入力してください");
+    if (value.length() <= 1 || value.length() >= 1000) {
+      throw new DiaryValidationException(
+          ExceptionIdConstants.E_DIARY_VALUE_IS_OUT_OF_RANGE,
+          new String[] { String.valueOf("コンテンツ"), "1", "1000" },
+          new String[] { String.valueOf("コンテンツ"), "1", "1000" });
     }
     this.value = value;
   }
