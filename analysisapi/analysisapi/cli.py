@@ -12,7 +12,7 @@ config_loader = ConfigLoader()
 @app.get("/diary/{id}")
 async def get_diary(id: int):
   """
-  Spring BootのAPIから指定idの日記を取得し、文末に文章を追加
+  Spring BootのAPIから指定idの日記を取得し、AI解析を行う。
   """
 
   # xmlから取得した日記apiへのurlを設定
@@ -32,9 +32,11 @@ async def get_diary(id: int):
   response_json = response.json()
 
   # DiaryAnalyzer クラスでAI解析を行う
-  diary = diary_analyzer.analyze(response_json)
+  response = diary_analyzer.analyze(response_json)
 
-  return diary
+  print("合計使用トークン数：", response.usage.total_tokens)
+
+  return response.choices[0].message.content
 
 def main():
   # uvicornでFastAPIアプリを起動
