@@ -31,7 +31,8 @@ const changeTheme = () => {
           :class="darkTheme ? 'text-white' : 'text-black'">
           MemoBlend</RouterLink>
       </v-app-bar-title>
-      <RouterLink to="/login" class="text-decoration-none text-black mr-4">ログイン</RouterLink>
+      <RouterLink to="/login" class="text-decoration-none mr-4" :class="darkTheme ? 'text-white' : 'text-black'">ログイン
+      </RouterLink>
       <v-switch v-model="darkTheme" @update:model-value="changeTheme"
         :prepend-icon="darkTheme ? 'mdi-weather-night' : 'mdi-weather-sunny'" hide-details inset class="mr-auto" />
     </v-app-bar>
