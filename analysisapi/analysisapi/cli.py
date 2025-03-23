@@ -29,13 +29,10 @@ async def get_diary(id: int):
   if response.status_code != 200:
     raise HTTPException(status_code=response.status_code, detail="Spring Boot APIエラー")
 
-  diary = response.json()
-
-  if not diary:
-    raise HTTPException(status_code=404, detail="指定した日付の日記が見つかりません")
+  response_json = response.json()
 
   # DiaryAnalyzer クラスでAI解析を行う
-  diary = diary_analyzer.analyze(diary)
+  diary = diary_analyzer.analyze(response_json)
 
   return diary
 
