@@ -21,6 +21,7 @@ const menuAction = () => {
       <v-app-bar-title bold>
         <RouterLink to="/" class="font-weight-bold text-decoration-none text-black">MemoBlend</RouterLink>
       </v-app-bar-title>
+      <RouterLink to="/login" class="text-decoration-none text-black mr-4">ログイン</RouterLink>
     </v-app-bar>
 
     <v-navigation-drawer v-model="showMenu">
