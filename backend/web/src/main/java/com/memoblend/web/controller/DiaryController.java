@@ -5,6 +5,7 @@ import com.memoblend.applicationcore.applicationservice.DiaryApplicationService;
 import com.memoblend.applicationcore.auth.PermissionDeniedException;
 import com.memoblend.applicationcore.diary.Diary;
 import com.memoblend.applicationcore.diary.DiaryNotFoundException;
+import com.memoblend.applicationcore.diary.DiaryValidationException;
 import com.memoblend.systemcommon.constant.CommonExceptionIdConstants;
 import com.memoblend.systemcommon.constant.SystemPropertyConstants;
 import com.memoblend.web.controller.dto.diary.GetDiariesResponse;
@@ -117,6 +118,7 @@ public class DiaryController {
    * @param request 日記情報。
    * @return 登録結果。
    * @throws PermissionDeniedException 権限エラーが起きた場合。
+   * @throws DiaryValidationException  日記が不正な場合。
    */
   @Operation(summary = "日記情報を登録します。", description = "日記情報を登録します。")
   @ApiResponses(value = {
@@ -127,7 +129,8 @@ public class DiaryController {
       @ApiResponse(responseCode = "500", description = "サーバーエラー。", content = @Content)
   })
   @PostMapping
-  public ResponseEntity<?> postDiary(@RequestBody PostDiaryRequest request) throws PermissionDeniedException {
+  public ResponseEntity<?> postDiary(@RequestBody PostDiaryRequest request)
+      throws PermissionDeniedException, DiaryValidationException {
     Diary diary = PostDiaryRequestMapper.convert(request);
     Diary addedDiary = diaryApplicationService.addDiary(diary);
     return ResponseEntity.created(URI.create("/api/diary/" + addedDiary.getId())).build();
@@ -172,6 +175,7 @@ public class DiaryController {
    * @param request 日記情報。
    * @return 更新結果。
    * @throws PermissionDeniedException 権限エラーが起きた場合。
+   * @throws DiaryValidationException  日記が不正な場合。
    */
   @Operation(summary = "日記情報を更新します。", description = "日記情報を更新します。")
   @ApiResponses(value = {
@@ -182,7 +186,8 @@ public class DiaryController {
       @ApiResponse(responseCode = "500", description = "サーバーエラー。", content = @Content),
   })
   @PutMapping
-  public ResponseEntity<?> putDiary(@RequestBody PutDiaryRequest request) throws PermissionDeniedException {
+  public ResponseEntity<?> putDiary(@RequestBody PutDiaryRequest request)
+      throws PermissionDeniedException, DiaryValidationException {
     Diary diary = PutDiaryRequestMapper.convert(request);
     try {
       diaryApplicationService.updateDiary(diary);

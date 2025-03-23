@@ -1,6 +1,7 @@
 package com.memoblend.web.controller.mapper.user;
 
 import com.memoblend.applicationcore.user.User;
+import com.memoblend.applicationcore.user.UserValidationException;
 import com.memoblend.web.controller.dto.user.PostUserRequest;
 
 /**
@@ -13,8 +14,9 @@ public class PostUserRequestMapper {
    * 
    * @param request リクエスト。
    * @return ユーザー。
+   * @throws UserValidationException ユーザーが不正な場合。
    */
-  public static User convert(PostUserRequest request) {
+  public static User convert(PostUserRequest request) throws UserValidationException {
     User user = new User(
         0,
         request.getName(),

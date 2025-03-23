@@ -21,8 +21,8 @@ public class ErrorMessageBuilder {
 
   private Exception ex;
   private String exceptionId;
-  private String[] logMessageValue;
   private String[] frontMessageValue;
+  private String[] logMessageValue;
 
   /**
    * ProblemDetails の detail 情報に格納するスタックトレースを作成します。
