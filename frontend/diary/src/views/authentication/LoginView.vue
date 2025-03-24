@@ -4,15 +4,13 @@ import { loginFormSchema } from '@/validation';
 import { useForm } from 'vee-validate';
 import { useRouter } from 'vue-router';
 
-
-
 const router = useRouter();
 const { errors, values, meta, defineField } = useForm({
   validationSchema: loginFormSchema,
 });
 
-const login = () => {
-  signInAsync();
+const login = async () => {
+  await signInAsync();
   router.push({ name: 'diaries' });
 };
 

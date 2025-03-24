@@ -2,10 +2,10 @@ import { useAuthenticationStore } from "@/stores/authentication";
 
 export async function signInAsync() {
   const authenticationStore = useAuthenticationStore();
-  authenticationStore.signInAsync();
+  await authenticationStore.signInAsync();
 }
 
 export async function signOutAsync() {
   const authenticationStore = useAuthenticationStore();
-  authenticationStore.signOutAsync();
+  await authenticationStore.signOutAsync();
 }
