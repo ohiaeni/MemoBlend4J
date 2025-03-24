@@ -1,13 +1,19 @@
 <script setup lang="ts">
+import { signInAsync } from '@/services/authentication/authentication-sevice';
 import { loginFormSchema } from '@/validation';
 import { useForm } from 'vee-validate';
+import { useRouter } from 'vue-router';
 
+
+
+const router = useRouter();
 const { errors, values, meta, defineField } = useForm({
   validationSchema: loginFormSchema,
 });
 
 const login = () => {
-  console.log('Logging in with', values.email, values.password);
+  signInAsync();
+  router.push({ name: 'diaries' });
 };
 
 const [email] = defineField('email');

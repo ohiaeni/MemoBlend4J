@@ -1,8 +1,13 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useTheme } from 'vuetify';
+import { useAuthenticationStore } from './stores/authentication';
+import { storeToRefs } from 'pinia';
+import { signOutAsync } from './services/authentication/authentication-sevice';
 
 const showMenu = ref(false);
+const authenticationStore = useAuthenticationStore();
+const { name, isAuthenticated } = storeToRefs(authenticationStore);
 
 const menuAction = () => {
   if (showMenu.value) {
@@ -18,6 +23,10 @@ const theme = useTheme()
 const changeTheme = () => {
   theme.global.name.value = darkTheme.value ? 'dark' : 'light';
 }
+
+const signOut = () => {
+  signOutAsync();
+}
 </script>
 
 <template>
@@ -31,7 +40,15 @@ const changeTheme = () => {
           :class="darkTheme ? 'text-white' : 'text-black'">
           MemoBlend</RouterLink>
       </v-app-bar-title>
-      <RouterLink to="/login" class="text-decoration-none mr-4" :class="darkTheme ? 'text-white' : 'text-black'">ログイン
+      <RouterLink v-if="!isAuthenticated" to="/login" class="text-decoration-none mr-4"
+        :class="darkTheme ? 'text-white' : 'text-black'">ログイン
+      </RouterLink>
+      <div v-if="isAuthenticated">
+        <span class="me-3" :class="darkTheme ? 'text-white' : 'text-black'">{{ name }}</span>
+      </div>
+      <RouterLink v-if="isAuthenticated" to="/login" @click="signOut" class="text-decoration-none mr-4"
+        :class="darkTheme ? 'text-white' : 'text-black'">
+        ログアウト
       </RouterLink>
       <v-switch v-model="darkTheme" @update:model-value="changeTheme"
         :prepend-icon="darkTheme ? 'mdi-weather-night' : 'mdi-weather-sunny'" hide-details inset class="mr-auto" />
