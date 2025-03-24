@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useTheme } from 'vuetify';
-import { useAuthenticationStore } from './stores/authentication';
 import { storeToRefs } from 'pinia';
+import { useAuthenticationStore } from './stores/authentication';
 import { signOutAsync } from './services/authentication/authentication-sevice';
 
 const showMenu = ref(false);
@@ -10,15 +10,11 @@ const authenticationStore = useAuthenticationStore();
 const { name, isAuthenticated } = storeToRefs(authenticationStore);
 
 const menuAction = () => {
-  if (showMenu.value) {
-    showMenu.value = false;
-  } else {
-    showMenu.value = true;
-  }
+  showMenu.value = !showMenu.value;
 }
 
-const darkTheme = ref(true)
-const theme = useTheme()
+const darkTheme = ref(true);
+const theme = useTheme();
 
 const changeTheme = () => {
   theme.global.name.value = darkTheme.value ? 'dark' : 'light';
