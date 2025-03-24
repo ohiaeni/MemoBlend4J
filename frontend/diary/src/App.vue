@@ -24,8 +24,8 @@ const changeTheme = () => {
   theme.global.name.value = darkTheme.value ? 'dark' : 'light';
 }
 
-const signOut = () => {
-  signOutAsync();
+const signOut = async () => {
+  await signOutAsync();
 }
 </script>
 
