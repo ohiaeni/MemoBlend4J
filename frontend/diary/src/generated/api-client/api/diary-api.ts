@@ -28,6 +28,8 @@ import type { GetDiaryResponse } from '../models';
 // @ts-ignore
 import type { PostDiaryRequest } from '../models';
 // @ts-ignore
+import type { ProblemDetail } from '../models';
+// @ts-ignore
 import type { PutDiaryRequest } from '../models';
 /**
  * DiaryApi - axios parameter creator
