@@ -14,7 +14,7 @@ class DiaryAnalyzer:
   def analyze(self, json_data: dict):
     if "diaries" in json_data:
       text = "\n".join(diary["content"] for diary in json_data["diaries"])
-      print("inpu text: ", text)
+      print("input text: ", text)
       response = self.client.chat.completions.create(
         model="gpt-4o-mini-2024-07-18",
         messages=[
