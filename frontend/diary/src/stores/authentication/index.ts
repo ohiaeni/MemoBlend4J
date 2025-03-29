@@ -10,7 +10,7 @@ export const useAuthenticationStore = defineStore(
     state: () => ({
       authenticationState:
         JSON.parse(sessionStorage.getItem('isAuthenticated') || 'false',) as boolean,
-      name:
+      nameState:
         JSON.parse(sessionStorage.getItem('name') || '""') as string,
     }),
     actions: {
@@ -20,23 +20,31 @@ export const useAuthenticationStore = defineStore(
        */
       async signInAsync() {
         const response = await userApi.getUser(1);
-        const { name } = response.data;
+        this.nameState = response.data.name ?? '';
         this.authenticationState = true;
         sessionStorage.setItem('isAuthenticated', JSON.stringify(this.authenticationState));
-        sessionStorage.setItem('name', JSON.stringify(name));
+        sessionStorage.setItem('name', JSON.stringify(this.nameState));
       },
       /**
        * アプリケーションからログアウトします。
        * セッションストレージから認証状態を削除します。
        */
       async signOutAsync() {
-        this.name = '';
+        this.nameState = '';
         this.authenticationState = false;
         sessionStorage.removeItem('isAuthenticated');
         sessionStorage.removeItem('name');
       },
     },
     getters: {
+      /**
+       * ユーザー名を取得します。
+       * @param state 状態。
+       * @returns ユーザー名。
+       */
+      name(state) {
+        return state.nameState;
+      },
       /**
        * ユーザーが認証済みかどうかを取得します。
        * @param state 状態。
