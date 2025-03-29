@@ -3,7 +3,7 @@ import { ref } from 'vue';
 import { useTheme } from 'vuetify';
 import { storeToRefs } from 'pinia';
 import { useAuthenticationStore } from './stores/authentication';
-import { signOutAsync } from './services/authentication/authentication-sevice';
+import { signOutAsync } from './services/authentication/authentication-service';
 
 const showMenu = ref(false);
 const authenticationStore = useAuthenticationStore();
