@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { signInAsync } from '@/services/authentication/authentication-sevice';
+import { signInAsync } from '@/services/authentication/authentication-service';
 import { loginFormSchema } from '@/validation';
 import { useForm } from 'vee-validate';
 import { useRouter } from 'vue-router';
