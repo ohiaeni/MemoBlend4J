@@ -5,8 +5,8 @@ from analysisapi.ai_processor.diary_analyzer import DiaryAnalyzer
 from analysisapi.loader.config_loader import ConfigLoader
 
 # 定数
-INPUT_TOKENS_FEE = 0.0225/500  # inputでの1トークンあたりの料金(円)
-OUTPUT_TOKENS_FEE = 0.0900/500  # outputでの1トークンあたりの料金(円)
+INPUT_TOKENS_FEE = 0.0225/1000  # inputでの1トークンあたりの料金(円)
+OUTPUT_TOKENS_FEE = 0.0900/1000  # outputでの1トークンあたりの料金(円)
 
 # インスタンスの生成
 app = FastAPI()
