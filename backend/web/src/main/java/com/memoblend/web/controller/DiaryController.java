@@ -70,7 +70,7 @@ public class DiaryController {
       @ApiResponse(responseCode = "404", description = "対応した日記が存在しません。", content = @Content(mediaType = MediaType.APPLICATION_PROBLEM_JSON_VALUE, schema = @Schema(implementation = ProblemDetail.class))),
       @ApiResponse(responseCode = "500", description = "サーバーエラー。", content = @Content(mediaType = MediaType.APPLICATION_PROBLEM_JSON_VALUE, schema = @Schema(implementation = ProblemDetail.class)))
   })
-  @GetMapping("")
+  @GetMapping("list")
   public ResponseEntity<GetDiariesResponse> getDiaries() throws PermissionDeniedException {
     List<Diary> diaries = diaryApplicationService.getDiaries();
     GetDiariesResponse response = GetDiariesResponseMapper.convert(diaries);
