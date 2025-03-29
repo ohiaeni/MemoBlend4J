@@ -32,7 +32,12 @@
   pipenv shell
   ```
 
-3. analysisapiプロジェクトを起動
+3. Pipfileを元に仮想環境を再現
+  ```
+  pipenv install
+  ```
+
+4. analysisapiプロジェクトを起動
   ```
   python -m analysisapi
   ```
