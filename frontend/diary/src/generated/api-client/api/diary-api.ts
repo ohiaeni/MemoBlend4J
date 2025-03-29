@@ -78,7 +78,7 @@ export const DiaryApiAxiosParamCreator = function (configuration?: Configuration
          * @throws {RequiredError}
          */
         getDiaries: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/api/diary`;
+            const localVarPath = `/api/diary/list`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
